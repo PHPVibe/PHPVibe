@@ -99,12 +99,8 @@ ob_start();
 //$page = com();
 	$id_pos = null;
 	$router = new Router();
-/* Check if it is installed in a folder */
-	$aFolder  =  parse_url(site_url());
-	echo $aFolder['path'];
-	if(isset($aFolder['path']) && not_empty($aFolder['path']) && ($aFolder['path'] !== '/')) {
-	$router->setBasePath(rtrim($aFolder['path'],'/'));
-	}
+/* Uncomment and edit bellow if installed in a folder */
+// $router->setBasePath('/video-folder'));
 /* End folder check */
 do_action('VibePermalinks');
 $router->map('/', 'home', array('methods' => 'GET', 'filters' => array('id' => '(\d+)')));
