@@ -1,10 +1,10 @@
-<?php  error_reporting(E_ALL); 
+<?php  error_reporting(E_ALL);
 // Degugging?
-$sttime = microtime(true); 
+$sttime = microtime(true);
 // Security
 if( !defined( 'in_phpvibe' ) )
 	define( 'in_phpvibe', true);
-// Root 
+// Root
 if( !defined( 'ABSPATH' ) )
 	define( 'ABSPATH', str_replace( '\\', '/',  dirname( __FILE__ ) )  );
 //Check if installed
@@ -60,14 +60,14 @@ ob_start();
 						$facebookLoginUrl = $helper->getLoginUrl($conf_facebook['redirect_uri'], $permissions);
 						//Send user to login
 						redirect($facebookLoginUrl);
-					}	
+					}
 						break;
 					case 'google':
 						if(get_option('allowg') == 1 ) {
 						//Initialize google login
-						
+
 						require_once(TRDS.'/google/Google/Client.php');
-						
+
 						$client = new Google_Client();
 						$client->setClientId(trim(get_option('GClientID')));
 						$client->setClientSecret(trim(get_option('GClientSecret')));
@@ -75,12 +75,12 @@ ob_start();
 						$client->setScopes(array('https://www.googleapis.com/auth/userinfo.email','https://www.googleapis.com/auth/userinfo.profile'));
 						$authUrl = $client->createAuthUrl();
 
-							if (!empty($authUrl)) {                        
+							if (!empty($authUrl)) {
 								   redirect($authUrl);
 							}
-						} 
+						}
 					break;
-				
+
 					default:
 						//If any login system found, warn user
 						echo _lang('Invalid Login system');
@@ -157,27 +157,27 @@ $route = $router->matchCurrentRequest();
 //end routing
 /* include the theme functions / filters */
 //Global tpl
-if($route) {	
+if($route) {
 			/* Assign page from route */
 			$page = $route->getTarget();
 			}
-		
+
 include_once(TPL.'/tpl.globals.php');
 //If offline
-if(!is_admin() && (get_option('site-offline', 0) == 1 )) { 
-	layout('offline'); 
-exit(); 
+if(!is_admin() && (get_option('site-offline', 0) == 1 )) {
+	layout('offline');
+exit();
 }
 /* Include public resolver */
- if($route) {	 
-	include_once(ABSPATH."/views/_".$route->getTarget().".php");	
+ if($route) {
+	include_once(ABSPATH."/views/_".$route->getTarget().".php");
  } else {
-	include_once(ABSPATH."/views/_404.php");	 
+	include_once(ABSPATH."/views/_404.php");
  }
 
 //end sitewide
 ob_end_flush();
-//Debugging 
+//Debugging
 /*
 if(is_admin()) { */
 //echo "<pre class=\"footerdebug\" style='text-align:center'>Time Elapsed: ".(microtime(true) - $sttime)."s</pre>";
