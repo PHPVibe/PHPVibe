@@ -154,9 +154,9 @@ $route = $router->matchCurrentRequest();
 /* include the theme functions / filters */
 //Global tpl
 if($route) {
-			/* Assign page from route */
-			$page = $route->getTarget();
-			}
+	/* Assign page from route */
+	$page = $route->getTarget();
+}
 
 include_once(TPL.'/tpl.globals.php');
 //If offline
