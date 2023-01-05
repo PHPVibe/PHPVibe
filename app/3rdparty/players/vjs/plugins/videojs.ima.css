@@ -1,0 +1,142 @@
+/**
+ * Copyright 2014 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.ima-ad-container {
+    top: 0px;
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+	font-size:12px;
+}
+/* Move overlay if user fast-clicks play button. */
+.video-js.vjs-playing .bumpable-ima-ad-container {
+    margin-top: -40px;
+}
+/* Move overlay when controls are active. */
+.video-js.vjs-user-inactive.vjs-playing .bumpable-ima-ad-container {
+    margin-top: 0px;
+}
+.video-js.vjs-paused .bumpable-ima-ad-container,
+.video-js.vjs-playing:hover .bumpable-ima-ad-container,
+.video-js.vjs-user-active.vjs-playing .bumpable-ima-ad-container {
+    margin-top: -40px;
+}
+.ima-controls-div {
+    bottom: 0px;
+	padding:0;
+    height: 37px!important;
+    position: absolute;
+    overflow: visible;
+    display: none;
+    opacity: 1;
+    background:transparent;
+}
+.ima-countdown-div {
+	padding:3px 5px;
+    color: #FFFFFF;
+    text-shadow: 0 0 0.2em #000;
+    cursor: default;
+	position:absolute;
+    top:-18px;
+}
+.ima-seek-bar-div {
+    top: 2px;
+    height: 3px;
+    position: absolute;
+    background: #f5f5f5;
+}
+.ima-progress-div {
+    width: 0px;
+    height: 3px;
+    background-color: red;
+}
+.ima-play-pause-div,
+.ima-mute-div,
+.ima-slider-div,
+.ima-fullscreen-div {
+    width: 35px;
+    height: 20px;
+    top: 4px;
+    left: 0px;
+    position: absolute;
+    color: #fff;
+    line-height: 2;
+    text-align: center;
+    cursor: pointer;
+}
+.ima-mute-div {
+    left: auto;
+    right: 85px;
+}
+.ima-slider-div {
+    left: auto;
+    right: 35px;
+    width: 50px;
+	height:100%;
+    padding-top: 13px;
+}
+.ima-slider-level-div {
+    width: 100%;
+    height: 6px;
+    background-color: red;
+}
+.ima-fullscreen-div {
+    left: auto;
+    right: 0px;
+}
+.ima-playing:before ,
+.ima-paused:before ,
+.ima-non-muted:before,
+.ima-muted:before ,
+.ima-non-fullscreen:before,
+.ima-fullscreen:before
+{
+    font-family: 'simple-line-icons';
+    speak: none;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+	font-size: 1.67em;
+    line-height: 1.67;
+}
+.ima-playing:before {    
+    content: "\e072";
+}
+.ima-paused:before {
+	content: "\e071";
+}
+.ima-playing:before,
+.ima-paused:before,
+.ima-non-muted:before,
+.ima-muted:before,
+.ima-non-fullscreen:before,
+.ima-fullscreen:before  {
+    text-shadow: 0 0 0.2em #000;
+}
+.ima-non-muted:before {
+    content: "\e0a0";
+}
+.ima-muted:before {
+    content: "\e0a1";
+}
+.ima-non-fullscreen:before {
+    content: "\e038";
+}
+.ima-fullscreen:before {
+    content: "\e058";
+}

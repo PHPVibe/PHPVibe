@@ -1,0 +1,453 @@
+/* * PHPVibe v6  *  
+* Copyright MediaVibe.ro
+* http://www.phpvibe.com  
+* PHPVibe IS NOT A FREE SOFTWARE  
+* If you have downloaded this CMS from a website other  
+* than www.phpvibe.com, if you have received  
+* this CMS from someone who is not a representative of PHPVibe, you are involved in an illegal activity.  * The phpVibe team takes actions against all unlincensed websites using Google, local authorities and 3rd party agencies.  * Designed and built exclusively for sale at PHPVibe.com  
+*/
+/* RTL rules - Please contribute, mail us your rules for global availability */
+
+html {
+  direction: rtl;
+}
+body {
+  direction: rtl;
+}
+.flip.text-left, .text-left {
+  text-align: right;
+}
+.flip.text-right, .text-right {
+  text-align: left;
+}
+.list-unstyled {
+  padding-right: 0;
+  padding-left: initial;
+}
+.list-inline {
+  padding-right: 0;
+  padding-left: initial;
+  margin-right: -5px;
+  margin-left: 0;
+}
+.pull-right.flip {
+  float: left !important;
+}
+.pull-left.flip {
+  float: right !important;
+}
+
+.video, .video-data  {text-align:right;}
+.text-left {text-align:right;}
+.pull-right {
+    float: left!important;
+}
+.pull-left {
+    float: right!important;
+}
+.video-under {
+	padding-left:25px;
+}
+
+.col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9 {
+    float: right;
+}
+.video-related img, .video-related .thumb,
+.video-player-sidebar img, .video-player-sidebar .thumb {
+	float: right;
+}
+.video-player-sidebar .data {
+    margin-left: auto;
+	 margin-right: 110px;
+}
+.video-related .data {
+    margin-right: 178px;
+	 margin-left: auto;
+}
+.user-box.pull-left, .user-box-txt, .img-owner .btn-group{
+    float: left!important;
+	text-align:left;
+}
+.logo-wrapper{
+    float: right!important;
+	text-align:left;
+}
+.header, .searchWidget .form-control, .aaa > a > i{
+    float: left!important;
+	text-align:left;
+}
+.searchWidget , .sidebar-nav li > a > span, .cats.cats-visible a,
+.nav-tabs>li{
+float:right;	
+}
+.user-quick {
+	float:left
+}
+.user-quick a {
+margin-right:20px!important	
+}
+a#openusr i {
+    margin-right: 3px!important;
+}
+.dropdown-menu>li>a:not(.grcreative) { margin: 0!important; text-align:right}
+.sidebar-nav ul li i {
+	margin: -3px 5px 0 18px;
+}
+.dropdown-menu li .icon:first-child, .dropdown-menu li>a .icon:first-child {
+    margin-left: 1em;
+	margin-right: 0!important;
+}
+.form-material .floating-label {
+	left:auto;
+	right:0;
+}
+.form-material.form-material-file .control-label:after {
+	left:10px;
+	right:auto;
+}
+.profile-hero h1 > .btn-group {
+    float: left;
+}
+.list-group .media .media-left, .list-group .media .pull-left {
+    padding-right: 2px;
+	padding-left: 20px;
+}
+.cats.cats-visible img {margin-left:9px;}
+.my-buzz span, .my-inbox span {left:4px; right:auto}
+.header {left:0!important; right:auto!important;}
+.user-quick, .user-quick > a, .user-media-actions {
+	text-align:left;
+}
+.user-quick a#openusr, a#openusr i {
+    margin-right: 10px;
+}
+.emoj .emoj-button{
+	left: 3px;
+	right: auto;
+}
+.emoj, .emoj .emoj-editor , #sidebar{
+	text-align:right
+}
+#media-info li, #media-description{
+	display:block;
+	width:100%; 
+	padding-top:10px
+}
+.aaa, .aaa > a , .song-icons .song-actions{
+text-align:left	
+}
+li.song > .media {
+    padding: 0 15px 0 4px;
+}
+.nav-tabs-line>li>a>i {
+	margin: 0 0 0 7px;
+}
+.p-dashboard #DashSidebar .nav-tabs-line>li>a, .p-manager #DashSidebar .nav-tabs-line>li>a {
+    padding: 10px 0;
+}
+.item-in-list .segment {
+    display: inline-block;
+    float: right;
+    margin-right: auto;
+	margin-left: 10px;
+	
+}
+.item-in-list .content-title {
+	padding-right:10px
+}
+.item-in-list .segment:last-child:not(:first-child) {
+    float: left;
+}
+
+#SearchResults .video-data, .playlist-order {
+	float:right; 
+	text-align:right;
+	margin-left:10px
+}
+.playlistvibe .list-next {
+    right: auto;
+	left:4px;
+}
+.cute h1 {
+    font-weight: 300!important;
+    padding-right: 10px;
+    padding-left: 25px;
+}
+.comments li .message {
+text-align:right;	
+}
+a.deleteCom {
+    right: auto;
+	left: 5px;
+}
+.comments .theCAvatar {
+	float:right;
+	margin-right:2px;
+	position:absolute; 
+	right:0;
+}
+.comments ul.reply {
+	position:relative; 
+	display:block;
+    margin-right: 6%;
+	margin-left: auto;
+}
+.comments li .message {
+margin-right:54px;
+margin-left:0	
+}
+
+.comments li {
+	position:relative;
+}
+.comments li.addcm .message {
+    margin-right: 55px;
+	margin-left: auto;
+}
+.comments li.addcm img.avatar {
+    float: right;
+	right:0;
+	position:absolute
+}
+.comments ul.reply li .message {
+	margin-left:auto;
+	margin-right:36px
+}
+.jssocials-share:last-child {
+     margin: 0.3em 0.9em 0.3em 0;
+}
+.jssocials-share:first-child {
+     margin-right:0;
+}
+.sidebar-nav ,.sidebar-nav a , .phpvibe-video-list{
+text-align:right	
+}
+.video {
+    float: right;
+    margin: 4px 0 11px 3px;
+    vertical-align: top;
+}
+
+#imagelist-content > h1.loop-heading, #songlist > h1.loop-heading, #videolist-content > h1.loop-heading,
+#imagelist-content >.videod, #songlist > .songd, #videolist-content > .videod {text-align:right}
+
+.owl-carousel{
+    direction:rtl
+}
+.owl-carousel .owl-item{
+    float:right
+}
+.owl-carousel .owl-stage {
+	float:left;
+	display:block
+}
+.p-dashboard #DashSidebar .nav-tabs-vertical .nav-tabs li, 
+.p-manager #DashSidebar .nav-tabs-vertical .nav-tabs li {
+    width: 100%;
+}
+
+ /* Utils inverse*/ 
+ .left10{padding-right:10px !important} 
+ .left20{padding-right:20px !important} 
+ .mleft10{margin-right:10px !important} 
+ .mleft20{margin-right:20px !important} 
+ .right10{padding-left:10px !important} 
+ .right20{padding-left:20px !important} 
+ .mright10{margin-left:10px !important} 
+ .mright20{margin-left:20px !important} 
+.media-left, .media>.pull-left {
+    padding-left: 20px;
+}
+.media-right, .media>.pull-right {
+    padding-right: 20px;
+}
+
+/* devices */
+@media (max-width: 540px) {
+.user-quick {
+    position: absolute;
+    top: 0;
+    right: auto;
+	left:0;
+}
+}
+@media (max-width: 990px) {
+.playlistvibe .list-next, .description-pull {
+    position: absolute;
+    top: 20%;
+    left: 5px;
+	right:auto;
+    bottom: auto;
+}
+}
+
+/* Bootstrap */
+
+.col-xs-offset-12 {
+  margin-right: 100%;
+  margin-left: 0;
+}
+.col-xs-offset-11 {
+  margin-right: 91.66666667%;
+  margin-left: 0;
+}
+.col-xs-offset-10 {
+  margin-right: 83.33333333%;
+  margin-left: 0;
+}
+.col-xs-offset-9 {
+  margin-right: 75%;
+  margin-left: 0;
+}
+.col-xs-offset-8 {
+  margin-right: 66.66666667%;
+  margin-left: 0;
+}
+.col-xs-offset-7 {
+  margin-right: 58.33333333%;
+  margin-left: 0;
+}
+.col-xs-offset-6 {
+  margin-right: 50%;
+  margin-left: 0;
+}
+.col-xs-offset-5 {
+  margin-right: 41.66666667%;
+  margin-left: 0;
+}
+.col-xs-offset-4 {
+  margin-right: 33.33333333%;
+  margin-left: 0;
+}
+.col-xs-offset-3 {
+  margin-right: 25%;
+  margin-left: 0;
+}
+.col-xs-offset-2 {
+  margin-right: 16.66666667%;
+  margin-left: 0;
+}
+.col-xs-offset-1 {
+  margin-right: 8.33333333%;
+  margin-left: 0;
+}
+.col-xs-offset-0 {
+  margin-right: 0%;
+  margin-left: 0;
+}
+@media (min-width: 768px) {
+  .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
+    float: right;
+  }
+  
+  .col-sm-offset-12 {
+    margin-right: 100%;
+    margin-left: 0;
+  }
+  .col-sm-offset-11 {
+    margin-right: 91.66666667%;
+    margin-left: 0;
+  }
+  .col-sm-offset-10 {
+    margin-right: 83.33333333%;
+    margin-left: 0;
+  }
+  .col-sm-offset-9 {
+    margin-right: 75%;
+    margin-left: 0;
+  }
+  .col-sm-offset-8 {
+    margin-right: 66.66666667%;
+    margin-left: 0;
+  }
+  .col-sm-offset-7 {
+    margin-right: 58.33333333%;
+    margin-left: 0;
+  }
+  .col-sm-offset-6 {
+    margin-right: 50%;
+    margin-left: 0;
+  }
+  .col-sm-offset-5 {
+    margin-right: 41.66666667%;
+    margin-left: 0;
+  }
+  .col-sm-offset-4 {
+    margin-right: 33.33333333%;
+    margin-left: 0;
+  }
+  .col-sm-offset-3 {
+    margin-right: 25%;
+    margin-left: 0;
+  }
+  .col-sm-offset-2 {
+    margin-right: 16.66666667%;
+    margin-left: 0;
+  }
+  .col-sm-offset-1 {
+    margin-right: 8.33333333%;
+    margin-left: 0;
+  }
+  .col-sm-offset-0 {
+    margin-right: 0%;
+    margin-left: 0;
+  }
+}
+@media (min-width: 992px) {
+  .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+    float: right;
+  }
+  
+  .col-md-offset-12 {
+    margin-right: 100%;
+    margin-left: 0;
+  }
+  .col-md-offset-11 {
+    margin-right: 91.66666667%;
+    margin-left: 0;
+  }
+  .col-md-offset-10 {
+    margin-right: 83.33333333%;
+    margin-left: 0;
+  }
+  .col-md-offset-9 {
+    margin-right: 75%;
+    margin-left: 0;
+  }
+  .col-md-offset-8 {
+    margin-right: 66.66666667%;
+    margin-left: 0;
+  }
+  .col-md-offset-7 {
+    margin-right: 58.33333333%;
+    margin-left: 0;
+  }
+  .col-md-offset-6 {
+    margin-right: 50%;
+    margin-left: 0;
+  }
+  .col-md-offset-5 {
+    margin-right: 41.66666667%;
+    margin-left: 0;
+  }
+  .col-md-offset-4 {
+    margin-right: 33.33333333%;
+    margin-left: 0;
+  }
+  .col-md-offset-3 {
+    margin-right: 25%;
+    margin-left: 0;
+  }
+  .col-md-offset-2 {
+    margin-right: 16.66666667%;
+    margin-left: 0;
+  }
+  .col-md-offset-1 {
+    margin-right: 8.33333333%;
+    margin-left: 0;
+  }
+  .col-md-offset-0 {
+    margin-right: 0%;
+    margin-left: 0;
+  }
+}

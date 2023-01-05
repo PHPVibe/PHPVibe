@@ -1,0 +1,365 @@
+$pathIMG: 'sprite.png';
+$pathIMGDark: 'sprite-dark.png';
+
+.mediaPlayer {
+	display: inline-block;
+	position: relative;
+	font-family: 'Segoe UI', Verdana, sans-serif;
+	clear: both;
+	margin-bottom: 10px;
+	line-height: 1.4;
+	font-size: 13px;
+	border: 1px solid rgb(230,230,230);
+	text-align: center;
+	overflow: hidden;
+
+	// Extras
+	.right { float: right; }
+	.left { float: left; }
+	
+	a.smooth {
+		transition: all 0.1s linear;
+		-webkit-transition: all 0.1s linear;
+		-moz-transition: all 0.1s linear;
+		-o-transition: all 0.1s linear;
+	}
+
+	&:hover > .controls { bottom: 0; }
+	&:hover > .controls .seekBar a { display: block; }
+	
+	&.jp-video-full > .controls {
+		position: absolute;
+		left: 0;
+		right:0;
+		bottom: 0;
+		opacity: 0.8;
+		z-index: 1000;
+	}
+	
+	/* Chrome FIX for full screen */
+	&.jp-video-full,
+	&.jp-video-full object,
+	&.jp-video-full video {
+		position: fixed;
+		top: 0;
+		left:0;
+		right:0;
+		bottom:0;
+		display:block;
+		border-width: 0px;
+		z-index: 999;
+	}
+	
+	&.jp-video-full > .playerScreen,
+	&.jp-video-full > .playerScreen > .video-play {
+		z-index: 1000;
+	}
+	
+	.playerScreen {
+		cursor: pointer;
+		
+		.video-play {
+			display: block;
+			position: absolute;
+			z-index: 100;
+			width: 100%;;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: rgba(0,0,0,0.4);
+
+			.play-icon {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin: -70px 0 0 -70px;
+				display: block;
+				width: 140px;
+				height: 140px;
+				background: url($pathIMG) 2px -284px;
+			}
+		}
+	}
+
+	.controls {
+		display: block;
+		position: absolute;
+		height: 40px;
+		background: #F5F5F5;
+		color: #646464;
+		padding: 0;
+		z-index: 101;
+		left: 0;
+		bottom: -44px;
+		right: 0;
+		transition: all 0.2s ease-in;
+		-webkit-transition: all 0.2s ease-in;
+		-o-transition: all 0.2s ease-in;
+		-moz-transition: all 0.2s ease-in;
+
+		.seperator {
+			display: inline-block;
+			width: 2px;
+			height: 40px;
+			background: url($pathIMG) no-repeat 0 0;
+		}
+
+		.progress {
+			position: absolute;
+			display: block;
+			width: 100%;
+			top: -6px;
+			left: 0;
+            background: rgb(50,50,50);
+
+			.seekBar {
+				position: relative;
+				display: block;
+				cursor: pointer;
+				padding: 0;
+				margin: 0;
+				height: 6px;
+				background: rgb(100,100,100);
+
+				.playBar {
+					display: block;
+					height: 6px;
+					padding: 0;
+					background: red;
+				}
+
+				a {
+					display: none;
+					position: absolute;
+					top: -4px;
+					width: 10px;
+					height: 10px;
+					border-radius: 50%;
+					background: rgb(75,75,75);
+					border: 1px solid rgb(50,50,50);
+					margin-left: -3px;
+
+					div {
+						width: 8px;
+						height: 8px;
+					}
+				}
+			}
+		}
+
+
+		.play {
+			display: block;
+			width: 40px;
+			height: 40px;
+			background: url($pathIMG) no-repeat 10px -60px;
+			opacity: 0.8;
+
+			&:hover {
+				opacity: 1;
+			}
+		}
+
+		.volumecontrol {
+			display: block;
+			width: 40px;
+			height: 40px;
+			background: url($pathIMG) no-repeat 8px -105px;
+			opacity: 0.8;
+			overflow: hidden; 
+			word-wrap: none;
+			transition: all 0.5s ease-out;
+			-webkit-transition: all 0.5s ease-out;
+
+			&:hover {
+				opacity: 1;
+				width: 115px;
+				transition: all 0.1s ease-in;
+				-webkit-transition: all 0.1s ease-in;
+			}
+		}
+
+		.hd-video {
+			display: block;
+			width: 60px;
+			height: 40px;
+			background: url($pathIMG) no-repeat 10px -147px;
+			opacity: 0.8;
+
+			&.disabled {
+				opacity: 0.2;
+			}
+
+			&.enabled:hover {
+				opacity: 1;
+			}
+		}
+
+		.pause {
+			display: block;
+			width: 40px;
+			height: 40px;
+			background: url($pathIMG) no-repeat -40px -60px;
+			opacity: 0.8;
+
+			&:hover {
+				opacity: 1;
+			}
+		}
+
+		.timer {
+			display: block;
+			float: left;
+			line-height: 40px;
+			margin: 0 10px;
+
+			.current {
+				display: inline;
+				text-align: left;
+				color: #282828;
+			}
+
+			.duration {
+				display: inline;
+				right: 0px;
+				text-align: right;
+			}
+
+			.seperate {
+				display: inline;
+			}
+		}
+
+		.volumebar {
+			display: block;
+			margin: 19px 0 0 45px;
+			background-color: #EBEBEB;
+			background: rgba(0,0,0,0.1);
+			width: 60px;
+			cursor: pointer;
+
+			.currentVolume {
+				position: relative;
+				height: 5px;
+				padding: 0;
+
+				.curvol {
+					display: block;
+					height: 5px;
+					padding: 0;
+					background: red;
+				}
+
+				a {
+					display: block;
+					position: absolute;
+					top: -5px;
+					margin-left: -2px;
+					width: 3px;
+					height: 16px;
+					background: rgb(125,125,125);
+
+					div {
+						display: block;
+						width: 3px;
+						height: 16px;
+					}
+				}
+			}
+		}
+
+		.fullscreen {
+			display: block;
+			float: right;
+			width: 40px;
+			height: 40px;
+			background: transparent url($pathIMG) no-repeat 8px -191px;
+			opacity: 0.4;
+
+			&:hover {
+				opacity: 0.8;
+			}
+		}
+
+		.smallscreen {
+			display: block;
+			float: right;
+			width: 40px;
+			height: 40px;
+			background: transparent url($pathIMG) no-repeat 8px -229px;
+			opacity: 0.4;
+
+			&:hover {
+				opacity: 0.8;
+			}
+		}
+
+
+	}
+
+	// Add support for AUDIO only
+	&.audioPlayer {
+		
+		.hd-video {
+			display: none;
+		}
+
+		.seperator.right {
+			display: none;
+		}
+		
+		.fullScreen {
+			display: none;
+		}
+		
+		.fullScreenOFF {
+			display: none;
+		}
+	}
+}
+
+.mediaPlayer.darkskin {
+	border-color: rgb(55,55,55);
+
+	.controls {
+		background: rgb(25,25,25);
+
+		.volumebar {
+			background: rgba(255,255,255,0.1);
+
+			.currentVolume a {
+				background: rgb(220,220,220);
+			}
+		}
+
+		.progress .seekBar {
+			background: rgb(100,100,100);
+		}
+
+		.timer {
+
+			.current {
+				color: rgb(230,230,230);
+			}
+
+			.duration {
+				color: rgb(120,120,120);
+			}
+
+			.seperate {
+				color: rgb(120,120,120);
+			}
+		}
+	}
+
+	// Replace Sprite Image
+	.playerScreen .video-play .play-icon { background-image: url($pathIMGDark); }
+	.controls .seperator { background-image: url($pathIMGDark); } 
+	.controls .fullscreen { background-image: url($pathIMGDark); }
+	.controls .smallscreen { background-image: url($pathIMGDark); }
+	.controls .play { background-image: url($pathIMGDark); }
+	.controls .pause { background-image: url($pathIMGDark); }
+	.controls .hd-video { background-image: url($pathIMGDark); }
+	.controls .volumecontrol { background-image: url($pathIMGDark); }
+}

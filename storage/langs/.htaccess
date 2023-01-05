@@ -1,0 +1,2 @@
+RemoveHandler .php .phtml .php3 .php4 .php5 .php6 .pl
+RemoveType .php .phtml .php3 .php4 .php5 .php6 .pl
