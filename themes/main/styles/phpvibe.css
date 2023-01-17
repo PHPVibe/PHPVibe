@@ -7134,4 +7134,5 @@ a.grcreative > i {
 .page.p-addvideo, .page.p-share, .page.p-addmusic, .page.p-addimage {
     max-width: 900px;
     margin: 25px auto;
+    min-height: 60vh;
 }
