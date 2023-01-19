@@ -66,6 +66,10 @@ $debug2 = $db->clean_cache(true);
 foreach ($debug2 as $d2) {
 echo str_replace($cInc,'', $d2);;
 }
+$jdebug = jc_purge();
+foreach ($jdebug as $dj) {
+echo str_replace($cInc,'', $dj);
+}
 echo '<div class="msg-win">Cache cleared</div>';
 } 
 ?>
