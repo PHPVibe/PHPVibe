@@ -34,6 +34,10 @@ $debug2 = $db->clean_cache(true);
 foreach ($debug2 as $d2) {
 $tmp[] = str_replace($cInc,'', $d2);;
 }
+$jdebug = jc_purge();
+foreach ($jdebug as $dj) {
+$tmp[] = str_replace($cInc,'', $dj);
+}
 echo '<p>Purged <span class="badge badge-success"> '.count($tmp).' </span> cache files.</p>'; 
 ob_end_flush();
 
