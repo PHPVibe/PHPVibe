@@ -1734,6 +1734,17 @@ if($id){
 return false;
 }	
 // jCache functions
+function jc_purge() {
+$log = array();
+$objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(jcachefold), RecursiveIteratorIterator::SELF_FIRST);
+	foreach($objects as $name => $object){
+		 if(_contains($object,'.json')){
+			  /* echo "$object".PHP_EOL; */
+			   $log[] = remove_file($object); 	   
+			}
+		}
+return $log;		
+}
 function jc_get($filename) {
 	$file = jcachefold.'/'.$filename.'.json';
 	if (file_exists($file)) {
