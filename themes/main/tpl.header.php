@@ -1,4 +1,4 @@
-<?php /* PHPVibe PRO v6's header */
+<?php /* PHPVibe's header */
 if(!is_home()) {
     register_style('jssocials');
 }
