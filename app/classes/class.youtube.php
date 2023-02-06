@@ -274,7 +274,7 @@ class Youtube
         $API_URL = $this->getApi('channels.list');
         $params = array(
             'forUsername' => $username,
-            'part' => 'id,snippet,contentDetails,statistics,invideoPromotion'
+            'part' => 'id,snippet,contentDetails,statistics'
         );
         if($optionalParams){
             $params = array_merge($params, $optionalParams);
@@ -293,7 +293,7 @@ class Youtube
         $API_URL = $this->getApi('channels.list');
         $params = array(
             'id' => $id,
-            'part' => 'id,snippet,contentDetails,statistics,invideoPromotion'
+            'part' => 'id,snippet,contentDetails,statistics'
         );
         if($optionalParams){
             $params = array_merge($params, $optionalParams);
@@ -653,60 +653,64 @@ return $this->vMake($this->getVideoInfo($id));
 /** Helpers */
 function ytExists($id = null){
 /* Alias */
-return has_youtube_duplicate($id);
+	return has_youtube_duplicate($id);
 }
 function has_youtube_duplicate($y_id = null){
-global $db;
-if(!nullval($y_id)) {
-$sub = $db->get_row("Select count(*) as nr from ".DB_PREFIX."videos where source  like '%youtube.com/watch?v=".$y_id."'");
-return (bool)$sub->nr;
-}
-/* Return true if no id to prevent importing */
-return true;
+	global $db;
+	if(!nullval($y_id)) {
+	$sub = $db->get_row("Select count(*) as nr from ".DB_PREFIX."videos where source  like '%youtube.com/watch?v=".$y_id."'");
+	return (bool)$sub->nr;
+	}
+	/* Return true if no id to prevent importing */
+	return true;
 }
 function youtube_import($video=array(), $cat = null, $owner = null) {
-global $db;
-/* Import a Youtube video to PHPVibe */
-if(is_null($owner)) {$owner = user_id();}
-if(!isset($video["state"])) {
-$video["state"] = intval(get_option('videos-initial'));
-if(is_moderator()) {$video["state"] = 1;}
-}
-if(isset($video["videoid"]) && isset($video["title"]) ) {
-$video["path"] = (isset($video["url"])) ? $video["url"] : 'https://www.youtube.com/watch?v='.$video["videoid"];
-if(!isset($video["thumbnail"]) || is_empty($video["thumbnail"])) {
-$video["thumbnail"] = "https://i4.ytimg.com/vi/" . $video['videoid'] . "/hqdefault.jpg";
-if(!validateRemote($video["thumbnail"])){
-$video["thumbnail"] = "https://i4.ytimg.com/vi/" . $video['videoid'] . "/default.jpg";	
-}
-}
-$tags = array_unique(explode('-',nice_tag(removeCommonWords($video["title"]))));
-if(!isset($video["tags"]) || nullval($video["tags"])) {
-$video["tags"] = implode(',',$tags);
-} else {
-$video["tags"] .= ','.implode(',',$tags);	
-}
+	global $db;
+	/* Import a Youtube video to PHPVibe */
+	if(is_null($owner)) {
+		$owner = user_id();
+		}
+	if(!isset($video["state"])) {
+	$video["state"] = intval(get_option('videos-initial'));
+	if(is_moderator()) {
+		$video["state"] = 1;
+		}
+	}
+	if(isset($video["videoid"]) && isset($video["title"]) ) {
+		$video["path"] = (isset($video["url"])) ? $video["url"] : 'https://www.youtube.com/watch?v='.$video["videoid"];
+	if(!isset($video["thumbnail"]) || is_empty($video["thumbnail"])) {
+		$video["thumbnail"] = "https://i4.ytimg.com/vi/" . $video['videoid'] . "/hqdefault.jpg";
+	if(!validateRemote($video["thumbnail"])){
+		$video["thumbnail"] = "https://i4.ytimg.com/vi/" . $video['videoid'] . "/default.jpg";	
+	}
+	}
+	$tags = array_unique(explode('-',nice_tag(removeCommonWords($video["title"]))));
+	if(!isset($video["tags"]) || nullval($video["tags"])) {
+		$video["tags"] = implode(',',$tags);
+		} else {
+		$video["tags"] .= ','.implode(',',$tags);	
+	}
 
-if(!isset($video["featured"])) { $video["featured"] = 0;}
-$token = md5($video["videoid"].time());
-if(is_array($cat)) {
-$cat = implode(',',$cat);	
-}
-$db->query("INSERT INTO ".DB_PREFIX."videos (`token`,`featured`,`pub`,`source`, `user_id`, `date`, `thumb`, `title`, `duration`, `views` , `liked` , `category`,`nsfw`) VALUES 
-('".$token."','".$video["featured"]."','".$video["state"]."','".$video["path"]."', '".$owner."', now() , '".$video["thumbnail"]."', '".toDb($video["title"]) ."', '".intval($video["duration"])."', '0', '0','".toDb($cat)."','0')");	
-//Recover new id
-$theid = getVideobyToken($token);
-if($theid) {
-//Add tags
-foreach (explode(',',$video["tags"]) as $tagul){
-		save_tag($tagul,$theid);
-	}	
-//Add description
-save_description($theid,$video["description"]);	
-}
-//Done
-//var_dump($video);
-} else {
-echo '<p><span class="redText">Missing video id or title </span></p>';
-}
+	if(!isset($video["featured"])) { $video["featured"] = 0;}
+	$token = md5($video["videoid"].time());
+	if(is_array($cat)) {
+	$cat = implode(',',$cat);	
+	}
+	$db->query("INSERT INTO ".DB_PREFIX."videos (`token`,`featured`,`pub`,`source`, `user_id`, `date`, `thumb`, `title`, `duration`, `views` , `liked` , `category`,`nsfw`) VALUES 
+	('".$token."','".$video["featured"]."','".$video["state"]."','".$video["path"]."', '".$owner."', now() , '".$video["thumbnail"]."', '".toDb($video["title"]) ."', '".intval($video["duration"])."', '0', '0','".toDb($cat)."','0')");	
+	//Recover new id
+	$theid = getVideobyToken($token);
+	if($theid) {
+		//Add tags
+			foreach (explode(',',$video["tags"]) as $tagul){
+				save_tag($tagul,$theid);
+			}	
+		//Add description
+			save_description($theid,$video["description"]);	
+	}
+	//Done
+	//var_dump($video);
+	} else {
+			echo '<p><span class="redText">Missing video id or title </span></p>';
+	}
 }
