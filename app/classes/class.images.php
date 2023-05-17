@@ -328,7 +328,7 @@ class ImgTools
     # Notes:
     #
     {
-		if (!$this->testGDInstalled()) { if ($this->debug) { die('The GD Library is not installed.'); }else{ die(); }};
+		if (!$this->testGDInstalled()) { if ($this->debug) { var_dump('The GD Library is not installed.'); }else{ var_dump(); }};
 
 		$this->initialise();
 		
@@ -405,7 +405,7 @@ class ImgTools
 		$option = $this->prepOption($option);
 	
 		// *** Make sure the file passed in is valid
-		if (!$this->image) { if ($this->debug) { die('file ' . $this->getFileName() .' is missing or invalid'); }else{ die(); }};
+		if (!$this->image) { if ($this->debug) { var_dump('file ' . $this->getFileName() .' is missing or invalid'); }else{ var_dump(); }};
 
 		// *** Get optimal width and height - based on $option
 		$dimensionsArray = $this->getDimensions($newWidth, $newHeight, $option);
@@ -455,7 +455,7 @@ class ImgTools
 	{
 
 		// *** Make sure the file passed in is valid
-		if (!$this->image) { if ($this->debug) { die('file ' . $this->getFileName() .' is missing or invalid'); }else{ die(); }};
+		if (!$this->image) { if ($this->debug) { var_dump('file ' . $this->getFileName() .' is missing or invalid'); }else{ var_dump(); }};
 
 		$this->imageResized = $this->image;
 		$this->crop($this->width, $this->height, $newWidth, $newHeight, $cropPos);
@@ -847,7 +847,7 @@ class ImgTools
 		}
 		else 
 		{
-			if ($this->debug) { die('Sharpening required PHP 5.1.0 or greater.'); }				
+			if ($this->debug) { var_dump('Sharpening required PHP 5.1.0 or greater.'); }				
 		}
 	}
 
@@ -893,7 +893,7 @@ class ImgTools
 			if (strtolower($option[0]) == 'crop' && count($option) == 2) {
 				return 'crop';
 			} else {
-				die('Crop resize option array is badly formatted.');
+				var_dump('Crop resize option array is badly formatted.');
 			}
 		} else if (strpos($option, 'crop') !== false) {
 			return 'crop';
@@ -921,9 +921,9 @@ class ImgTools
     #	
 	{	
 		// *** Check all is good - check the EXIF library exists and the file exists, too.
-		if (!$this->testEXIFInstalled()) { if ($this->debug) { die('The EXIF Library is not installed.'); }else{ return array(); }};
-		if (!file_exists($this->fileName)) { if ($this->debug) { die('Image not found.'); }else{ return array(); }};
-		if ($this->fileExtension != '.jpg') { if ($this->debug) { die('Metadata not supported for this image type.'); }else{ return array(); }};
+		if (!$this->testEXIFInstalled()) { if ($this->debug) { var_dump('The EXIF Library is not installed.'); }else{ return array(); }};
+		if (!file_exists($this->fileName)) { if ($this->debug) { var_dump('Image not found.'); }else{ return array(); }};
+		if ($this->fileExtension != '.jpg') { if ($this->debug) { var_dump('Metadata not supported for this image type.'); }else{ return array(); }};
 		$exifData = exif_read_data($this->fileName, 'IFD0');
 		
 		// *** Format the apperture value
@@ -1317,7 +1317,7 @@ class ImgTools
 			if (!file_exists($font)) {
 				
 				// *** If not, return false
-				if ($this->debug) { die('Font not found'); }else{ return false; }						
+				if ($this->debug) { var_dump('Font not found'); }else{ return false; }						
 			}
 		} 	
 		
@@ -1575,7 +1575,7 @@ class ImgTools
     # 
     {
 		
-		if (!file_exists($file) && !$this->checkStringStartsWith('http://', $file)) { if ($this->debug) { die('Image not found.'); }else{ die(); }};
+		if (!file_exists($file) && !$this->checkStringStartsWith('http://', $file)) { if ($this->debug) { var_dump('Image not found.'); }else{ var_dump(); }};
 		
         // *** Get extension
         $extension = strrchr($file, '.');
@@ -1645,10 +1645,14 @@ class ImgTools
     {
 
 		// *** Perform a check or two.
-		if (!is_resource($this->imageResized)) { if ($this->debug) { die('saveImage: This is not a resource.'); }else{ die(); }}			
+		if (!is_resource($this->imageResized)) { if ($this->debug) { 
+			var_dump('saveImage: This is not a resource.'); 
+			}else{ 
+			var_dump(); 
+			}}			
 		$fileInfoArray = pathInfo($savePath);
 		clearstatcache();
-		if (!is_writable($fileInfoArray['dirname'])) {	if ($this->debug) { die('The path is not writable. Please check your permissions.'); }else{ die(); }}	
+		if (!is_writable($fileInfoArray['dirname'])) {	if ($this->debug) { var_dump('The path is not writable. Please check your permissions.'); }else{ var_dump(); }}	
 		
 		// *** Get extension
         $extension = strrchr($savePath, '.');
@@ -1720,7 +1724,7 @@ class ImgTools
     #
 	{
 
-		if (!is_resource($this->imageResized)) { if ($this->debug) { die('saveImage: This is not a resource.'); }else{ die(); }}	
+		if (!is_resource($this->imageResized)) { if ($this->debug) { var_dump('saveImage: This is not a resource.'); }else{ var_dump(); }}	
 
         switch($fileType)
         {

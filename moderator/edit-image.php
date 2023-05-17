@@ -16,7 +16,7 @@ $source  = str_replace(ABSPATH.'/' ,'localimage/',$thumb);
 }
 
 }
-$db->query("UPDATE  ".DB_PREFIX."images SET ispremium='".toDb(_post('ispremium'))."',liked='".toDb(_post('likes'))."',views='".toDb(_post('views'))."',privacy='".toDb(_post('priv'))."',title='".toDb(_post('title'))."', description='".toDb(_post('description') )."', category='".toDb(intval(_post('categ')))."', tags='".toDb(_post('tags') )."', nsfw='".intval(_post('nsfw') )."' WHERE id = '".intval($_POST['edited-image'])."'");
+$db->query("UPDATE  ".DB_PREFIX."images SET ispremium='".toDb(_post('ispremium'))."',liked='".toDb(_post('likes'))."',views='".toDb(_post('views'))."',stayprivate='".toDb(_post('priv'))."',title='".toDb(_post('title'))."', description='".toDb(_post('description') )."', category='".toDb(intval(_post('categ')))."', tags='".toDb(_post('tags') )."', nsfw='".intval(_post('nsfw') )."' WHERE id = '".intval($_POST['edited-image'])."'");
 echo '<div class="msg-info">image: '._post('title').' updated.</div>';
 $db->clean_cache();
 } 
@@ -100,8 +100,8 @@ if($image) {
 	<div class="control-group blc row">
 	<label class="control-label"><?php echo _lang("Visibility"); ?> </label>
 	<div class="controls">
-	<label class="radio inline"><input type="radio" name="priv" class="styled" value="1" <?php if($image->privacy > 0 ) { echo "checked"; } ?>> <?php echo _lang("Followers only");?> </label>
-	<label class="radio inline"><input type="radio" name="priv" class="styled" value="0" <?php if($image->privacy < 1 ) { echo "checked"; } ?>><?php echo _lang("Everybody");?> </label>
+	<label class="radio inline"><input type="radio" name="priv" class="styled" value="1" <?php if($image->stayprivate > 0 ) { echo "checked"; } ?>> <?php echo _lang("Followers only");?> </label>
+	<label class="radio inline"><input type="radio" name="priv" class="styled" value="0" <?php if($image->stayprivate < 1 ) { echo "checked"; } ?>><?php echo _lang("Everybody");?> </label>
 	</div>
 	</div>
 	<div class="form-group form-material">

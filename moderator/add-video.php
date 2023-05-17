@@ -22,14 +22,23 @@ $thumb = empty($thumbz)? 'storage/uploads/noimage.png' : $thumbz ;
 //Insert video
 if(_post('type') < 2) {
 //if it's web link
-$db->query("INSERT INTO ".DB_PREFIX."videos (`privacy`,`pub`,`source`, `user_id`, `date`, `thumb`, `title`, `duration`, `tags` ,  `liked` , `category`, `description`, `nsfw`, `views`, `featured`) VALUES 
-('".intval(_post('priv'))."','".intval(_post('pub'))."','"._post('file')."', '"._post('owner')."', now() , '".$thumb."', '".toDb(_post('title')) ."', '".$sec."', '".toDb(_post('tags'))."', '0','".toDb(_post('categ'))."','".toDb(_post('description'))."','".toDb(_post('nsfw'))."','".intval(_post('views'))."','".intval(_post('featured'))."')");	
+$db->query("INSERT INTO ".DB_PREFIX."videos (`stayprivate`,`pub`,`source`, `user_id`, `date`, `thumb`, `title`, `duration` ,  `liked` , `category`, `nsfw`, `views`, `featured`) VALUES 
+('".intval(_post('priv'))."','".intval(_post('pub'))."','"._post('file')."', '"._post('owner')."', now() , '".$thumb."', '".toDb(_post('title')) ."', '".$sec."',  '0','".toDb(_post('categ'))."','".toDb(_post('nsfw'))."','".intval(_post('views'))."','".intval(_post('featured'))."')");	
 } else {
 //if it's remote file
-$db->query("INSERT INTO ".DB_PREFIX."videos (`privacy`,`pub`,`remote`, `user_id`, `date`, `thumb`, `title`, `duration`, `tags`, `liked` , `category`, `description`, `nsfw`, `views`, `featured`) VALUES 
-('".intval(_post('priv'))."','".intval(_post('pub'))."','"._post('file')."', '"._post('owner')."', now() , '".$thumb."', '".toDb(_post('title')) ."', '".$sec."', '".toDb(_post('tags'))."', '0','".toDb(_post('categ'))."','".toDb(_post('description'))."','".toDb(_post('nsfw'))."','".intval(_post('views'))."','".intval(_post('featured'))."')");	
+$db->query("INSERT INTO ".DB_PREFIX."videos (`stayprivate`,`pub`,`remote`, `user_id`, `date`, `thumb`, `title`, `duration`, `liked` , `category`, `nsfw`, `views`, `featured`) VALUES 
+('".intval(_post('priv'))."','".intval(_post('pub'))."','"._post('file')."', '"._post('owner')."', now() , '".$thumb."', '".toDb(_post('title')) ."', '".$sec."', '0','".toDb(_post('categ'))."','".toDb(_post('nsfw'))."','".intval(_post('views'))."','".intval(_post('featured'))."')");	
 }
 $doit = $db->get_row("SELECT id from ".DB_PREFIX."videos where user_id = '".user_id()."' order by id DESC limit 0,1");
+add_activity('4', $doit->id);
+//add tags
+if(_post('tags')){
+	foreach (explode(',',_post('tags')) as $tagul){
+		save_tag($tagul,$doit->id);
+	}
+}
+//add description
+save_description($doit->id,_post('description'));
 add_activity('4', $doit->id);
 echo '<div class="msg-info">'._post('title').' '._lang("created successfully.").' <a href="'.admin_url("videos").'">'._lang("Manage videos.").'</a></div>';
 }elseif(_post('vfile') || _post('vremote')) { 
