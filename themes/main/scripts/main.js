@@ -1,5 +1,5 @@
 /*!
- * MediaVibe v6
+ * PHPVibe v11
  *
  * Copyright Interact.Software
  * https://www.phpvibe.com
