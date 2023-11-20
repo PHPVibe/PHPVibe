@@ -2,7 +2,8 @@
 // Root 
 if( !defined( 'ABSPATH' ) )$abs = str_replace( array('\\', '/app/minify'),array( '/',''),  dirname( __FILE__ ) );
 	define( 'ABSPATH', $abs  );
-$full_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+/* $full_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; */
+$full_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 $uri_parts = explode('css.php', $full_link, 2);
 $site_link = $uri_parts[0];$site_link = str_replace('app/minify/', '', $site_link);
 $themefold = isset($_GET['t']) ? $_GET['t'] : "main";
