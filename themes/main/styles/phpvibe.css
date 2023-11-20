@@ -28,9 +28,6 @@ body {
 .clearfix {
   clear: both;
 }
-.relative {
-	position:relative
-}
 ul.dropdown-menu li:last-of-type {
   border-bottom: none;
 }
@@ -557,7 +554,7 @@ a#revealRelated {
   height: 56px;
   float: left;
   position: relative;
-  border-radius: 4px;
+  border-radius: 8px;
 }
 .video-player-sidebar ul {
   display: block;
@@ -734,7 +731,8 @@ a#revealRelated {
   height: 101px;
   float: left;
   position: relative;
-  border-radius: 4px;
+  border-radius: 16px;
+  overflow: hidden;
 }
 .video-related ul {
   display: block;
@@ -754,9 +752,12 @@ a#revealRelated {
   padding-top: 0 !important;
 }
 .video-related .thumb .timer {
-  opacity: 0.9;
-  right: 4px;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.07);
+    opacity: 0.8;
+    top: 8px;
+    bottom: auto;
+    right: 14px;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.07);
+    border-radius: 6px;
 }
 .video-related .inner {
   display: block;
@@ -785,7 +786,7 @@ a#revealRelated {
   overflow: hidden;
 }
 .video-related li:hover img {
-  border-left: 1px solid #cc181e;
+  border: 2px solid #2277f2;
 }
 .video-related li:hover .data .title a {
   color: #167ac6;
@@ -1001,7 +1002,7 @@ a#revealRelated {
   width: 100%;
   text-align: center;
   clear: both;
-  margin: 0 auto 30px;
+  margin: 25px auto;
 }
 .phpvibe-video-list:after {
   visibility: hidden;
@@ -1014,7 +1015,8 @@ a#revealRelated {
 /** Video Element **/
 .video {
   position: relative;
-  width: 324px;
+  width:402px;
+  width: calc(25% - 10px);
   float: left;
   padding: 4px 4px 16px 0;
   vertical-align: top;
@@ -1028,7 +1030,7 @@ a#revealRelated {
   width: calc(100% - 18px) !important;
 }
 .owl-item {
-  max-width: 324px !important;
+  max-width: 403px !important;
 }
 @media (min-width: 1200px) and (max-width: 1599px) {
   .video {
@@ -1109,7 +1111,7 @@ a#revealRelated {
     min-height: 180px;
   }
   .video-thumb {
-    min-height: 180px;
+    min-height: 180px;	
   }
   .owl-theme .owl-controls .owl-buttons div {
     opacity: 0.95 !important;
@@ -1201,15 +1203,21 @@ a#revealRelated {
   height: 70px;
 }
 .video-thumb {
-  position: relative;
-  display: block;
-  width: 100%;
-  overflow: hidden;
-  background: #eee;
-  font-size: 0;
-  vertical-align: middle;
-  height: 180px;
-  border-radius: 8px;
+    position: relative;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    background: #eee;
+    font-size: 0;
+    vertical-align: middle;
+   
+    border-radius: 20px;
+	 aspect-ratio: 16 / 9;
+}
+@media screen and (min-width:1294px) {
+.video-thumb {
+	 height: 226px;
+}
 }
 .video-thumb .timer {
   position: absolute;
@@ -1279,6 +1287,18 @@ a.grcreative > i {
 }
 .video-thumb .clip img {
   width: 100%;
+}
+.video-thumb:hover img,
+.video-related .thumb:hover img {
+-moz-transform: scale(1.25);
+    -webkit-transform: scale(1.25);
+    -o-transform: scale(1.25);
+    -ms-transform: scale(1.25);
+    -webkit-transform: scale(1.25);
+    transform: scale(1.25);
+    -webkit-transition: transform 1.25s ease-in-out;
+    -moz-transition:transform 1.25s ease-in-out;
+    -ms-transition:transform 1.25s ease-in-out;
 }
 .video-thumb .heartit {
   position: absolute;
@@ -3674,7 +3694,7 @@ a.readmore i {
 }
 #media-info {
   border-bottom: 1px solid #e8e8e8;
-   padding: 11px 0 0;
+  padding: 20px 0;
 }
 .video-description {
     background: #eee;
@@ -7134,5 +7154,4 @@ a.grcreative > i {
 .page.p-addvideo, .page.p-share, .page.p-addmusic, .page.p-addimage {
     max-width: 900px;
     margin: 25px auto;
-    min-height: 60vh;
 }
