@@ -3,7 +3,7 @@
 # Developer :: Marius Patrascu [ https://www.linkedin.com/in/marius-iulian-p%C4%83tra%C8%99cu-32455b240/ ] with the help of many beautiful members of the Vibe community
 
 
-Repo for https://phpvibe.com/phpvibe/p1/
+Repo for https://phpvibe.com/
 
 
 # Video & Multimedia CMS: Unleash the Power of PHPVibe
