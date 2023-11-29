@@ -419,7 +419,7 @@
 			{
 				echo "<font face=arial size=2>No Results</font>";
 			}
-			echo "</blockquote></blockquote>".$this->donation()."<hr noshade color=dddddd size=1>";
+			echo "</blockquote></blockquote><hr noshade color=dddddd size=1>";
 			// Stop output buffering and capture debug HTML
 			$html = ob_get_contents();
 			ob_end_clean();

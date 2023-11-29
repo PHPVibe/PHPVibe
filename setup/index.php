@@ -1,6 +1,21 @@
 <?php  error_reporting(E_ALL); 
 if(!isset($_SESSION['user_id'])) {$_SESSION['user_id'] = 1;}
-
+function glob_recursive(string $baseDir, string $pattern, int $flags = GLOB_NOSORT | GLOB_BRACE)
+{
+    $paths = glob(rtrim($baseDir, '\/') . DIRECTORY_SEPARATOR . $pattern, $flags);
+    if (is_array($paths)) {
+        foreach ($paths as $path) {
+            if (is_dir($path)) {
+                $subPaths = (__FUNCTION__)($path, $pattern, $flags);
+                if ($subPaths !== false) {
+                    $subPaths = (array) $subPaths;
+                    array_push($paths, ...$subPaths);
+                }
+            }
+        }
+    }
+    return $paths;
+}
 // security
 if( !defined( 'in_phpvibe' ) )
 	define( 'in_phpvibe', true);
@@ -37,8 +52,7 @@ $cachedb = new ezSQL_mysqli(DB_USER,DB_PASS,DB_NAME,DB_HOST,'utf8');
 
 	
 ob_start();
-
-if(isset($_SESSION['user_id'])){
+$error = 0;
 // Base URI
 
 $base_href_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
@@ -62,218 +76,425 @@ echo '
  <html dir="ltr" lang="en-US">  
 <head>  
 <meta http-equiv="content-type" content="text/html;charset=UTF-8">
-<title>PHPVibe 11 :: Setup</title>
+<title>PHPVibe :: Setup</title>
 <meta charset="UTF-8">  
-<link rel="stylesheet" type="text/css" href="'.$site_url.ADMINCP.'/css/style.css" media="screen" />
-<link href="'.$site_url.ADMINCP.'/css/bootstrap.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="'.$site_url.ADMINCP.'/css/plugins.css"/>
-<link rel="stylesheet" href="'.$site_url.ADMINCP.'/css/font-awesome.css"/>
-    <link href=\'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800\' rel=\'stylesheet\' type=\'text/css\'>
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-	<style>
-	.panel-heading {padding:15px}
-	[class*="msg-"] {padding-left:45px;}
-	.msg-win {    font-size: 14px;}
-	</style>
+<link rel="stylesheet" type="text/css" href="'.$base_href.'setup.style.css" media="screen" />
+<script type="text/javascript" src="'.$base_href.'jquery.js"></script>
 </head>
-<body style="background: #fafafa">
-<div id="wrapper" class="container-fluid page" style="max-width:740px; margin:30px auto; padding:20px;">
+<body>
+<div id="wrapper" class="container">
 <div id="content">
-<div class="row">
 
 '; ?>
-<div class="row" style="text-align:center;">
-<div style="display:block;padding:2%">
-<img src="https://phpvibe.com/assets/images/logobig.png"><br> 
-<p style="margin:30px 0 0">
-<h1>PHPVibe</h1>
-</p>
+<div class="text-center">
+<div class="row head-row">
+		<div class="logo">
+		<img src="logobig.png"><br> 
+		<p style="margin:30px 0 0">
+		<h1>PHPVibe</h1>
+		</p>
+		</div>
 </div>
-Quick links:
-<a style="display:inline-block; padding:2%;" target="_blank" href="https://old.phpvibe.com/installing-phpvibe/">Installing PHPVibe</a>
-<a style="display:inline-block; padding:2%;" target="_blank" href="https://old.phpvibe.com/troubleshooting">Troubleshooting</a>
-</div>
-<div class="row">
-<h2>Step 1</h2>
-<?php $error = 0;
+<?PHP
+$handler = isset($_REQUEST['step']) ? $_REQUEST['step'] : 1 ;
 
-if(!hasA_license()) {
-echo "<section class=\"panel panel-danger\">
+$aerror = '<div class="oksign">
+	<span class="bg-red">
+	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-triangle"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>	</span>
+	</div>';
+$caution = '<div class="oksign">
+	<span class="bg-yellow">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+	</span>
+	</div>';
+$passed =  '<div class="oksign">
+	<span class="bg-blue">
+			<svg  x-description="Heroicon name: solid/check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+			  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+			</svg>
+	</span>
+	</div>';
 
-<div class=\"panel-heading\" style='background-color: #f96868; padding:8px 15px; color:#fff'>
-The PHPVibe license looks wrong: ".phpVibeKey."</div> 
-<div style=\"padding:30px;\">
 
-Create a license key at <a href=\"https://phpvibe.com/licenses\" target=\"_blank\"> PHPVibe.com -> Licenses</a> by adding this domain: <br />
- <p style='text-align:center; padding:14px; border:1px solid #4CAF50 ; border-style: dotted;'>".get_domain($site_url)." </p>
-<br> Refresh the page and click the config icon near the domain, copy the key for v11 and add it to vibe_config.php's line <pre><code>define( 'phpVibeKey', 'License key' );</code></pre>
-Replace <em>License key</em> with the created key.
-</div>
-</section>
-";
-_error();
-}
-
-if(hasA_license()) {
-echo '<div class="msg-win">License key exists : '.phpVibeKey.'</div>';
-}
-if (strpos(get_domain(SITE_URL), get_domain($site_url)) === false) {
-echo '<div class="msg-warning">Error: The url ( '.SITE_URL.' ) defined in vibe_config.php seems wrong</div>';
-_error();	
-} else {
-echo '<div class="msg-win">You are installing PHPVibe at '.SITE_URL.'</div>';
+switch ($handler) {
+    default:
+        echo '
+		<div class="row head-row">
+		
+		<p style="display:block; text-align:left; line-height:20px">PHPVibe is a dynamic and versatile video sharing platform, empowering users to create, share, and monetize their multimedia content with ease. </p>
+        
+		<div class="row text-center">
+		<div class="col-12 top30 text-center">
+		<a class="button primary lg" href="index.php?step=2">Start the setup</a>
+		</div>	
+		</div>			
+			<div class="row text-center">
+			<div class="col-12 text-center top30">		
+				First time? Read this: <br>
+				<a style="display:inline-block; padding:2%;" class="outline button" target="_blank" href="https://old.phpvibe.com/installing-phpvibe/">Installing PHPVibe</a> 
+				<a style="display:inline-block; padding:2%;" class="outline button"target="_blank" href="https://old.phpvibe.com/troubleshooting">Troubleshooting</a>
+				<br><small>Links open in new tab</small>
+			</div>
 	
-}
-if(substr(SITE_URL, -1) !== '/') {
-echo '<div class="msg-warning">Make sure the url in vibe_config.php has an ending slash "/". </div>';
-_error();
-}
-$parse = parse_url($site_url); 
-if($parse['path'] != "/") {
-echo '<div class="msg-hint">Seems PHPVibe it\'s installed in a folder. We suggest you use a subdomain or domain for a smooth experience.  </div><div class="msg-info"> But, if folder is your option please remember to edit the root/.httaccess file and change RewriteBase / to RewriteBase '.$parse['path'].' and also changed "Base path" in Settings -> Permalinks (after setup) for url rewrite to work, else it will return 404. </div>';
-}
-echo '<h2>Step 2: Database details</h2>';
-if(!empty($db->captured_errors)) {
-echo '<div class="msg-warning">Connection error! Please make sure the database details are correct and that the sql user has permissions (ALL PRIVILEGES) over the database.</div>';	
-echo '<pre><code>';
-var_dump($db->captured_errors);
-echo '</code></pre>';
-_error();
-} else {
-echo '<div class="msg-win"> Database connection seems fine.</div>';	
-}
-echo '<h2>Step 3: File permissions (chmod)</h2>';
+			</div>
+		</div>
+		';
+        break;
+    case 2:
+	echo '<h2>Url</h2>';
+			if (strpos(get_domain(SITE_URL), get_domain($site_url)) === false) {
+		echo '<div class="lilbox col-12 pad20 shadow">'.$aerror.' The url <pre> '.SITE_URL.' </pre> defined seems wrong</div>';
+		_error();
+		} else {
+		echo '<div class="lilbox col-12 pad20 shadow">'.$passed.'You are installing PHPVibe at <pre>'.SITE_URL.'</pre></div>';			
+		}
+		if(substr(SITE_URL, -1) !== '/') {
+		echo '<div class="lilbox col-12 pad20 shadow">'.$aerror.' The url is missing the ending slash "/".
+        <pre>'.SITE_URL.'/</pre>		</div>';
+		_error();
+		}
+		$parse = parse_url($site_url); 
+		if($parse['path'] != "/") {
+			echo '<div class="lilbox col-12 pad20 shadow">'.$caution.' PHPVibe seems to be installed in a folder! <br> <pre>We suggest you avoid that for a smooth experience.</pre>  
+			<br> <strong>Else</strong> : 
+			<br> 1.) Edit the root .htaccess file and change <strong>RewriteBase /</strong> to <br> <strong>RewriteBase /yourfoldername</strong> <br> (the folder name is probably '.$parse['path'].')
+			<br>	2.)	Uncomment and change "Base path" in the index.php file like this: 
+			<pre><code>/* Uncomment and edit bellow if installed in a folder */
+			$router->setBasePath(\'/yourfoldername\'));</code></pre>
+			</div>';
+			}
+			
+		if($error > 0) {
+        echo '<p class="full pad20 text-center">You may be looking for the <a target="_blank" href="https://old.phpvibe.com/installing-phpvibe/">configuration file</a>.</p>';
+		echo '	<div class="row text-center">
+		<div class="col-12 top30 text-center">
+		<a class="button outline dark" href="index.php?step=3">Continue</a><br>
+		<span class="red-text">Caution!</span> <small class="red-text">Doing it with errors may break your website!</small>
+		</div>	
+		</div>	';
+		} else {
+			echo '	<div class="row text-center">
+		<div class="col-12 top30 text-center">
+		<a class="button primary lg" href="index.php?step=3">Continue</a>
+		</div>	
+		</div>	';
+		}
+        break;
+    case 3:
+       echo '<h2>Database test</h2>';
+	   
+	   
+	   echo '<div class="lilbox col-12 pad20 shadow">Connecting as '.DB_USER.' to  '.DB_NAME.' @ '.DB_HOST.'</div>';
+	    echo '<p class="full pad20 text-center">Result bellow: </p>
+		<iframe src="'.$site_url.'setup/dbcheck.php" width="100%" height="300" style="border:none;"></iframe>
+		';
+	    echo '<p class="full pad20 text-center">Any errors? Check the data in the <a target="_blank" href="https://old.phpvibe.com/installing-phpvibe/">configuration file</a>.<br>
+		<small>Makes sure the details are ok, no whitespaces, no errors, then check that the user has full permissions over the database (on the server)</small></p>';
+	    echo '<div class="row text-center">
+		<div class="col-12 top30 text-center">
+		<a class="button primary lg" href="index.php?step=4">Continue</a>
+		</div>	
+		</div>	';
+	   
+        break;
+		
+		case 4:
+		    echo '<h2>Database :: Setup</h2>';
+			echo 'Your tables prefix for this install is : <pre>'.DB_PREFIX.'</pre><br>';
+			$test_db = $db->get_col("SHOW TABLES",0);
+	
+			
+				if($test_db) {
+					echo '<div class="row text-center">
+							<div class="col-12 ">
+					<div class="lillist flex-center">'.$caution.' <strong>The database is not empty!</strong> </div>';
+					echo 'Existing tables are</p><ol class="listute">';
+					foreach ($test_db as $tabelvechi) {
+			        echo '<li>'.$tabelvechi.'</li>';			 
+	            }
+				echo '</ol><p class="full"> Please check if this could lead to a conflict!</p></div></div>';
+					
 
-@chmod(ABSPATH.'/'.ADMINCP.'/cache', 0777);
-if (!is_writable(ABSPATH.'/'.ADMINCP.'/cache')) {
-echo '<div class="msg-warning">Admin\'s cache folder ('.ABSPATH.'/'.ADMINCP.'/cache) is not writeable</div>';
-_error();
-} else {
-echo '<div class="msg-win">Admin\'s cache folder ('.ABSPATH.'/'.ADMINCP.'/cache) is writeable</div>';
-}
-@chmod(ABSPATH.'/'.ADMINCP.'/alog.txt', 0777);
-if (!is_writable(ABSPATH.'/'.ADMINCP.'/alog.txt')) {
-echo '<div class="msg-warning">Admin\'s log file ('.ABSPATH.'/'.ADMINCP.'/alog.txt) is not writeable</div>';
-_error();
-} else {
-echo '<div class="msg-win">Log file ('.ABSPATH.'/alog.txt) is writeable</div>';
-}
-@chmod(ABSPATH.'/storage/cache', 0777);
-if (!is_writable(ABSPATH.'/storage/cache')) {
-echo '<div class="msg-warning">Cache folder ('.ABSPATH.'/storage/cache) is not writeable</div>';
-_error();
-} else {
-echo '<div class="msg-win">Cache folder ('.ABSPATH.'/storage/cache) is writeable</div>';
-}
-@chmod(ABSPATH.'/storage/jcache', 0777);
-if (!is_writable(ABSPATH.'/storage/jcache')) {
-echo '<div class="msg-warning">Json cache folder ('.ABSPATH.'/storage/jcache) is not writeable</div>';
-_error();
-} else {
-echo '<div class="msg-win">Json cache folder ('.ABSPATH.'/storage/jcache) is writeable</div>';
-}
-@chmod(ABSPATH.'/storage/minify', 0777);
-if (!is_writable(ABSPATH.'/storage/minify')) {
-echo '<div class="msg-warning">Minify cache folder ('.ABSPATH.'/storage/minify) is not writeable</div>';
-_error();
-} else {
-echo '<div class="msg-win">Minify cache folder ('.ABSPATH.'/storage/minify) is writeable</div>';
-}
-@chmod(ABSPATH.'/storage/cache/thumbs', 0777);
-if (!is_writable(ABSPATH.'/storage/cache/thumbs')) {
-echo '<div class="msg-warning">Thumbs cache folder ('.ABSPATH.'/storage/cache/thumbs) is not writeable</div>';
-_error();
-} else {
-echo '<div class="msg-win">Thumbs cache folder ('.ABSPATH.'/storage/cache/thumbs) is writeable</div>';
-}
-@chmod(ABSPATH.'/storage/cache/full', 0777);
-if (!is_writable(ABSPATH.'/storage/cache/full')) {
-echo '<div class="msg-warning">Full cache ('.ABSPATH.'/storage/cache/full) is not writeable</div>';
-_error();
-} else {
-echo '<div class="msg-win">Full cache ('.ABSPATH.'/storage/cache/full) is writeable</div>';
-}
-@chmod(ABSPATH.'/storage/cache/html', 0777);
-if (!is_writable(ABSPATH.'/storage/cache/html')) {
-echo '<div class="msg-warning">Static pages cache ('.ABSPATH.'/storage/cache/html) is not writeable</div>';
-_error();
-} else {
-echo '<div class="msg-win">Static pages cache ('.ABSPATH.'/storage/cache/html) is writeable</div>';
-}
-@chmod(ABSPATH.'/storage/media', 0777);
-if (!is_writable(ABSPATH.'/storage/media')) {
-echo '<div class="msg-warning">Media storage folder ('.ABSPATH.'/storage/media) is not writeable</div>';
-_error();
-}else {
-echo '<div class="msg-win">Media storage folder ('.ABSPATH.'/storage/media) is writeable</div>';
-}
-@chmod(ABSPATH.'/storage/rawmedia', 0777);
-if (!is_writable(ABSPATH.'/storage/rawmedia')) {
-echo '<div class="msg-warning">Raw media storage folder ('.ABSPATH.'/storage/rawmedia) is not writeable</div>';
-_error();
-}else {
-echo '<div class="msg-win">Raw media storage folder ('.ABSPATH.'/storage/rawmedia) is writeable</div>';
-}
-@chmod(ABSPATH.'/storage/media/thumbs', 0777);
-if (!is_writable(ABSPATH.'/storage/media/thumbs')) {
-echo '<div class="msg-warning">Media thumbs storage folder ('.ABSPATH.'/storage/media/thumbs) is not writeable</div>';
-_error();
-}else {
-echo '<div class="msg-win">Media thumbs storage folder ('.ABSPATH.'/storage/media/thumbs) is writeable</div>';
-}
-@chmod(ABSPATH.'/storage/uploads', 0777);
-if (!is_writable(ABSPATH.'/storage/uploads')) {
-echo '<div class="msg-warning">Common uploads folder ('.ABSPATH.'/storage/uploads) is not writeable</div>';
-_error();
-} else {
-echo '<div class="msg-win">Common uploads folder ('.ABSPATH.'/storage/uploads) is writeable</div>';
-}
-@chmod(ABSPATH.'/storage/langs', 0777);
-if (!is_writable(ABSPATH.'/storage/langs')) {
-echo '<div class="msg-warning">Languages folder ('.ABSPATH.'/storage/langs) is not writeable</div>';
-_error();
-} else {
-echo '<div class="msg-win">Languages folder ('.ABSPATH.'/storage/langs) is writeable</div>';
-}
-if(!extension_loaded('mbstring')) { 
-echo '<div class="msg-hint">Seems your host misses the mbstring extension. This is not an error, but you may see weird characters when cutting uft-8 titles  </div>';
- }
-if (phpversion() < 7.3) {
-echo '<div class="msg-warning">Error: PHPVibe needs PHP version 7.3 at least (your version is '.phpversion().' )</div>';
-_error();
-} else {
-echo '<div class="msg-win">PHP is ok! (your version is '.phpversion().' ) </div>';
-}
-if($error > 0) {
-echo "<section class=\"panel panel-danger\">
-<div class=\"panel-heading\" style=\"background-color: #f96868; padding:8px 15px; color:#fff\">
-Some things require attention</div> 
-<div style=\"padding:30px; font-size:18px;\">Please correct the ".$error." errors listed above to continue this setup!";
-if(hasA_license()) {
-echo "<p><small><a href=\"".$site_url."setup/index-db.php\">Continue to the next step </a> (This may break the cms!)</small>
-</p>";
-}
-echo "</div>
-</section>";
-die();
-} else {
-echo '<div class="msg-win">Congratulations: No files permission issues found.</div>';
-echo "<p><a class=\"btn btn-block btn-lg btn-primary\" href=\"".$site_url."setup/index-db.php\">Continue to the next step </a> </p>";
-
+					
+				}
+			
+			echo "
+			<script>
+				function installTheDatabase() {
+					
+					alert('Have patience and don\'t close the page!');
+				  $.ajax({
+				  url: '".$base_href."install.db.php',
+				  beforeSend: function( xhr ) {
+					$('a#setuptables').html('Started...this may take a minute');
+					 $('#secod').html('<img src=\"cog-gear.gif\"/>');
+				  }
+				})
+				  .done(function( data ) {
+					  //alert(data);
+					if ( data == 'done' ) {		
+					  $('a#setuptables').html('Done. You can now continue');
+					  $('#secod').remove();
+						} else {
+					  $('a#setuptables').text('Fail! Check the errors and try again.');
+					$('a#setuptables').removeClass('success').addClass('dark');
+					  $('#secod').html(data);
+					}
+				  });	
+				}
+				</script>
+			";
+			/* 
+			echo '<a target="_blank" href="https://icons8.com/icon/H6C79JoP90DH/settings">Gear</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>';
+			*/
+			echo '<div class="row text-center">
+		<div class="col-12 top30 text-center">
+		<a id="setuptables" class="button success lg"  href="#" onclick="installTheDatabase();return false;">Install the database tables</a>
+		<div id="secod" class="flex flex-col flex-center pad20"></div>
+		</div>
+		
+		</div>	';
+		   
+		     echo '<div class="row text-center">
+		<div class="col-12 top30 text-center">
+		<a class="button primary lg" href="index.php?step=5">Continue</a>
+		</div>	
+		</div>	';
+		   
+		break;
+			 
+		case 5:
+		  echo '<h2>Folders</h2>';
+		  
+		  $checkpassed = array();
+		  
+		  $search_results = glob_recursive(ABSPATH.'/storage/', '*', GLOB_ONLYDIR);
+		  $existingdirs = array();
+		  foreach($search_results as $tdir) {
+			  $item = ltrim(str_replace(ABSPATH, '',$tdir),'/');
+			  $existingdirs[] = str_replace('\\', '/',$item);
+		  }
+		  
+		 
+		  $expectedfolders = array(		  
+			'storage/media',
+			'storage/media/thumbs',
+			'storage/media',
+			'storage/minify',
+			'storage/rawmedia',
+			'storage/uploads',
+			'storage/cache',
+			'storage/jcache',	
+			'storage/cache/thumbs',
+			'storage/cache/full',
+			'storage/cache/html',
+			'storage/langs'	  
+		  );
+		  unset($search_results);
+		  array_unique($existingdirs);
+		  asort($existingdirs);
+		  //var_dump($existingdirs);
+		  array_unique($expectedfolders);
+		   array_unique($existingdirs);
+		asort($expectedfolders);
+		//var_dump($expectedfolders);	
+		 $missingresult = array_diff($expectedfolders, $existingdirs);
+		if(count($missingresult) > 0) {
+			echo '<strong>You need to create the following folders</strong> <br> <small> in '.ABSPATH.'</small>';
+			foreach ($missingresult as $buildthis) {
+				echo '<pre>'.$buildthis.'</pre>';
+				
+			}
+		}
+		
+		echo '<strong>Folder permissions</strong>';
+		$ci = 0;
+		foreach ($expectedfolders as $dirverify) {
+			@chmod(ABSPATH.'/'.$dirverify, 0777);
+			if (!is_writable(ABSPATH.'/'.$dirverify)) {
+				echo '<div class="lillist">'.$aerror.'<strong>'.$dirverify.'</strong></div>'; /* Flex issue? */
+				$ci++;
+			} else {
+				
+				echo '<div class="lillist">'.$passed.'<strong>'.$dirverify.'</strong></div>';/* Flex issue? */
+			}
+			
+			
+		}
+		
+		if($ci > 0) {
+				echo '<strong>Please make sure all this folders are writable! </strong> 
+				<br> If they are writable your server can modify files, add, put videos. 
+				<br> Folders are located in : '.ABSPATH.'
+				<br><pre>Chmod them 0777 or 0755 depending on your server(\'s settings).</pre>';
+			}
+		   echo '<div class="row text-center">
+		<div class="col-12 top30 text-center">
+		<a class="button primary lg" href="index.php?step=6">Continue</a>
+		</div>	
+		</div>	';
+		  break;
+		 
+		 case 6:
+		 
+		 if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['pass1']) && isset($_POST['username'])){
+			 
+			if(!empty($_POST['pass1']) && !empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['username'])) {
+				
+			if(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {	
+				$uniqAd = $db->get_var("SELECT count(*) from ".DB_PREFIX."users where email='" . $db->escape($_POST['email']) . "' or username='" . $db->escape($_POST['username']) . "'");
+				if($uniqAd > 1 ) {
+						echo '<div class="lilbox shadow pad20"> '.$aerror.' <pre>Email or username are already in use! Try another one</pre></div>';
+				} else {
+			$sql = "INSERT INTO ".DB_PREFIX."users (name,username,email,type,lastlogin,date_registered,group_id,password,avatar)"
+			 . " VALUES ('" . $db->escape($_POST['name']) . "','" . $db->escape($_POST['username']) . "','" . $db->escape($_POST['email']) . "','core', now(), now(), '1', '".sha1($_POST['pass1'])."', 'storage/uploads/def-avatar.jpg')";
+			$db->query($sql);
+			echo '<div class="lilbox shadow pad20"> '.$passed.' <pre>Account '. $db->escape($_POST['name']) .' created!</pre></div>';
+			
+				}
+			} else {
+			echo '<div class="lilbox shadow pad20"> '.$aerror.' <pre>Wrong email format</pre></div>';
+			}
+			} else {
+			echo '<div class="lilbox shadow pad20"> '.$aerror.' <pre>Some fields are empty </pre></div>';
+			}
+			}
+		 
+		 
+		 
+		 $u_check = $db->get_var("SELECT count(*) as nr from ".DB_PREFIX."users where group_id='1'");
+			if($u_check) {
+			$Admins = $u_check;
+			} else {
+			$Admins = 0;	
+			}
+		  echo '<h2>Administrators ('.$Admins.')</h2>';
+		  
+		  if($Admins > 0) {
+			 			  
+			  $Adnames = $db->get_results("SELECT name, username from ".DB_PREFIX."users where group_id='1'");
+			   echo '<ol class="listute">';
+			  foreach ($Adnames as $Names) {
+				  echo '<li>'.$Names->name.'  ('.(empty($Names->username) ? ' Empty ' : $Names->username).')'.'</li>';
+				  
+			  }
+			   echo '</ol>';
+			  echo '<hr class="full top30">';
+			  
+		  }
+		  echo '<h2>Add a new admin</h2>';
+		  if($Admins < 1) {
+		  echo '<strong>This would be your first admin, so...you maybe?</strong>';		  
+		  } 
+		  
+		  echo '
+		  <form id="validate" class="form-horizontal top30 pad20" action="'.$base_href.'index.php?step=6&done=1" enctype="multipart/form-data" method="post">
+			<fieldset>
+					<div class="form-group form-material floating">
+					<label class="control-label">Name</label>
+						<div class="controls">
+						<input type="text" name="name" class="form-control full" value="" /> 						
+						<span class="help-block" id="limit-text">Account\'s name.</span>
+						</div>	
+					</div>
+					<div class="form-group form-material floating">
+					<label class="control-label">Username</label>
+						<div class="controls">
+						<input type="text" id="nickname" name="username" class="form-control full" value="" onkeyup="checktheuser()"/> 						
+						<span class="help-block" id="nicknamehelp">Try a nickname.</span>
+						</div>	
+					</div>
+					<div class="form-group form-material floating">
+					<label class="control-label">Email</label>
+						<div class="controls">
+						<input type="text" id="mail" name="email" onkeyup="checkthemail()" class="form-control full" value="" /> 						
+						<span class="help-block" id="mailhelp">Valid e-mail address.</span>
+						</div>	
+					</div>		
+					<div class="form-group form-material floating">
+					<label class="control-label">Password</label>
+						<div class="controls">
+						<input id="password" type="password" name="pass1" class="form-control full" value=""  /> 
+						<span class="help-block" id="limit-text">
+						<input type="checkbox" class="ios-switch blue" onclick="ShowPass()">  Show Password						
+					    </span>
+						</div>	
+					</div>	
+					<div class="form-group form-material floating top30 pad20">
+						<button class="button success" type="submit">Create account</button>	
+					</div>	
+			</fieldset>					
+		  </form>		  
+		  ';
+		  echo "
+			<script>
+			function ShowPass() {
+							  var x = document.getElementById('password');
+							  if (x.type === 'password') {
+								x.type = 'text';
+							  } else {
+								x.type = 'password';
+							  }
+							}
+				function checktheuser() {
+				var username = $('#nickname').val();
+				
+					if(username.length > 3) {
+					//alert(username);
+						  $.ajax({
+						  url: '".$base_href."ucheck.php',
+                          type: 'post',
+                          data: {username: username}
+						  })
+						  .done(function( data ) {
+							  //alert(data);
+							 if(data < 1) {
+							  $('#nicknamehelp').html('Username is available!').addClass('helper text-success').removeClass('text-error');
+							 } else {
+								 $('#nicknamehelp').html('Username is taken!').addClass('helper text-error').removeClass('text-success');
+							 }
+							
+						  });	
+					}
+				}
+					function checkthemail() {
+				var email = $('#mail').val();
+				
+					if(email.length > 3) {					
+						  $.ajax({
+						  url: '".$base_href."mailcheck.php',
+                          type: 'post',
+                          data: {email: email}
+						  })
+						  .done(function( data ) {
+							  //alert(data);
+							 if(data < 1) {
+							  $('#mailhelp').html('Email is available!').addClass('helper text-success').removeClass('text-error');
+							 } else {
+								 $('#mailhelp').html('Email is already used! Try another one!').addClass('helper text-error').removeClass('text-success');
+							 }
+							
+						  });	
+					}
+				}
+				</script>
+			";
+		  
+		   echo '<div class="row text-center">
+		<div class="col-12 top30 text-center">
+		<a class="button primary lg" href="index.php?step=7">Continue</a>
+		</div>	
+		</div>	';
+		  
+		   break;
+		case 7:
+		do_remove_file_now(ABSPATH.'/hold'); 
+		break;
 }
 
 
 echo '
-</div>
-</div>
-</div>
-</body>
-</html>
-';
-}
-ob_end_flush();
-//That's all folks!
+		</div>
+		</div> <br style="clear:both">
+			<strong class="grey-text" style="font-weight: 300;">&copy; Copyright 2010 - '.date('Y').' Marius Patrascu, PHPVibe.com</strong>';
 ?>
