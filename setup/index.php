@@ -488,7 +488,17 @@ switch ($handler) {
 		  
 		   break;
 		case 7:
-		do_remove_file_now(ABSPATH.'/hold'); 
+		do_remove_file_now(ABSPATH.'/hold');
+
+ echo '<h2>Remove this (/setup) folder!</h2>';		
+		
+		  echo '<div class="row text-center">
+		<div class="col-12 top30 text-center">
+		<a class="button primary lg" href="'.$site_url.'">You\'re all done!</a>
+		</div>	
+		</div>	';
+		
+		
 		break;
 }
 
