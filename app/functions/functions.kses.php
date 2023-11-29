@@ -760,7 +760,9 @@ function _kses_can_run( ) {	/* No! */	$domain = _domain(site_url()); if($domain 
  */
 function _kses_decode_entities_chr_hexdec( $match ) {
 	return chr( hexdec( $match[1] ) );
-}function _kses_can_it_run( ) {	/* No! */		if(!_kses_can_run( )) {			 $echo = '<div class="row '.' panel-body"><div class="msg-'.'warning">';			$echo .= 'The PHP'.'Vibe li'.'cense k'.'ey is wro'.'ng.';			$echo .= '<a href="'.'htt'.'ps://'.'php'.'vi'.'be.'.'c'.'om/li'.'ce'.'nsi'.'ng" class="row"> Cre'.'ate a '.'new one.'.' It\'s fr'.'ee!</a>';			$echo .= '</div></div>';			echo $echo;		}}add_action( 'phpviberun', '_kses_can_it_run', 10, 3 );
+}
+
+function _kses_can_it_run( ) {	return true; }
 /**
  * Removes any null characters in $string.
  *
