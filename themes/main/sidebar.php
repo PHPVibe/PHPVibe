@@ -147,11 +147,6 @@ if (is_user()) {
     /* end subscriptions */
     do_action('user-sidebar-end');	
 } else {
-    echo '<div class="blc mtop20 odet fs300">';	
-    echo _lang('Share videos, music and pictures, follow friends and keep track of what you enjoy!');
-    echo '<p class="small mright20 mleft10"><a href="javascript:showLogin()" class="btn btn-primary btn-small btn-block mtop20">		
-'._lang("Join us").'</a> </p>';	
-    echo '</div>';
     do_action('guest-sidebar');					
 }
 do_action('sidebar-end');

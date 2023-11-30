@@ -166,8 +166,8 @@ $lg = '<!-- Start Login Modal -->
 <span aria-hidden="true">×</span>
 </button>
 <div class="text-center">
-<i class="material-icons" style="font-size:50px">how_to_reg</i>
 <h4 class="modal-title">'._lang('Login').'</h4>
+<div class="blc mtop20 odet fs300">'._lang('Share videos, music and pictures, follow friends and keep track of what you enjoy!').'</div>
 </div>
 </div>
 <div class="modal-body">
@@ -197,6 +197,8 @@ $lg = '<!-- Start Login Modal -->
 </div>
 <div class="modal-footer">
 <button type="button" class="btn btn-default btn-block" data-dismiss="modal">'._lang("Close").'</button>
+
+
 </div>
 </div>
 </div>

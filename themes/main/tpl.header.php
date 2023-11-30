@@ -176,10 +176,20 @@ function top_nav(){
 
 	';
 	} else {
-
-
+/* Show guest */
+        $nav .= ' <a id="openusr" class=" uav no-user top-link"  href="javascript:showLogin()"
+	data-animation="scale-up" role="button" title="'._lang('Login').'">
+	<i class="material-icons">account_circle</i>
+	</a>
+	<a id="uploadNow" data-target="#login-now" data-toggle="modal" href="javascript:void(0)" class="hidden-xs top-link btn-upload" title="'._lang("Login to upload").'">
+	<i class="material-icons">&#xE2C6;</i>
+	</a>
+	<a href="javascript:showLogin()" class="btn btn-primary btn-small btn-block">'._lang("Join").'</a>
+	';
 	}
-	$nav .= '</div>
+    $nav .= '
+	<a data-target="#search-now" data-toggle="modal" href="javascript:void(0)" class="top-link" id="show-search"><i class="material-icons">&#xE8B6;</i></a>
+	</div>
 
 	</div>
 	</div>
@@ -232,14 +242,9 @@ function top_nav(){
     }
 
 
-	$nav .= '
-	<a data-target="#search-now" data-toggle="modal" href="javascript:void(0)" class="top-link" id="show-search"><i class="material-icons">&#xE8B6;</i></a>';
 
-	if(!is_user()) {
-        $nav .= ' <a id="uploadNow" data-target="#login-now" data-toggle="modal" href="javascript:void(0)" class="top-link btn-upload" title="'._lang("Login to upload").'">
-	<i class="material-icons">&#xE2C6;</i>
-	</a>';
-    } else {
+
+	if(is_user()) {
         if((get_option('upmenu') == 1) ||  is_moderator()) {
             $nav .= '
 	<a id="uplBtn" href="'.site_url().share.'" class="btn-upload-now" title="'._lang('Upload or share').'">
@@ -247,22 +252,9 @@ function top_nav(){
 	</a>';
         }
 	}
-	if(!is_user()) {
-        $nav .= '
-	<a id="openusr" class=" uav no-user top-link"  href="javascript:showLogin()"
-	data-animation="scale-up" role="button" title="'._lang('Login').'">
-	<i class="material-icons">account_circle</i>
-	</a>
-	</div>';
-	} else {
-        $nav .= '
 
-
-
-	</div>
-';
-    }
-    $nav .= '
+$nav .= '</div>';
+$nav .= '
 </div>
 </div>
 </header>

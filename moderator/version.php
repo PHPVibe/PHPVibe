@@ -1,4 +1,4 @@
 <?php //Version
-$phpVersion = 6;
-$phpSubversion = '4';
+$phpVersion = 11;
+$phpSubversion = '41';
 ?>
