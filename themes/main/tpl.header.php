@@ -177,7 +177,7 @@ function top_nav(){
 	';
 	} else {
 /* Show guest */
-        $nav .= ' <a id="openusr" class=" uav no-user top-link"  href="javascript:showLogin()"
+        $nav .= ' <a id="openusr" class=" hidden-xs uav no-user top-link"  href="javascript:showLogin()"
 	data-animation="scale-up" role="button" title="'._lang('Login').'">
 	<i class="material-icons">account_circle</i>
 	</a>
