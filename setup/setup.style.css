@@ -414,10 +414,10 @@ h2 {
   font-size: 2.15em;
 }
 h3 {
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 h4 {
-  font-size: 1.25em;
+  font-size: 1em;
 }
 h5 {
   font-size: 1em;
@@ -1483,4 +1483,58 @@ ol.listute > li::after {
  .ios-switch.ios-xs::after {
      width: 22px;
      height: 22px;
+}
+
+.license , .license p {
+	font-size:14px;
+	font-weight:400
+}
+
+
+.scrollbar {
+    float: left;
+    height: 560px;
+    width: 100%;
+    background: #F9F9F9;
+    overflow-y: scroll;
+    margin-bottom: 25px;
+    padding: 10px 5px;
+    border-radius: 16px;
+}
+.force-overflow
+{
+	min-height: 450px;
+}
+
+#style-1::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}
+
+.msg-warning, .msg-win {
+	background: #fef4f6;
+    color: #f0506e;
+	padding: 10px;
+    border-radius: 16px;
+    border: 1px solid #f0506e;
+}
+.msg-win {
+	background: #edfbf6;
+    color: #32d296;
+	border: 1px solid #edfbf6;
 }

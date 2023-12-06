@@ -96,7 +96,7 @@ echo '
 		</div>
 </div>
 <?PHP
-$handler = isset($_REQUEST['step']) ? $_REQUEST['step'] : 1 ;
+$handler = isset($_REQUEST['step']) ? $_REQUEST['step'] : 0 ;
 
 $aerror = '<div class="oksign">
 	<span class="bg-red">
@@ -117,18 +117,34 @@ $passed =  '<div class="oksign">
 
 
 switch ($handler) {
+	case 0:	
     default:
         echo '
 		<div class="row head-row">
 		
 		<p style="display:block; text-align:left; line-height:20px">PHPVibe is a dynamic and versatile video sharing platform, empowering users to create, share, and monetize their multimedia content with ease. </p>
         
-		<div class="row text-center">
-		<div class="col-12 top30 text-center">
-		<a class="button primary lg" href="index.php?step=2">Start the setup</a>
-		</div>	
-		</div>			
+				
+			<div class="row text-left top30 bb">
+			
+			<div class="scrollbar" id="style-1" >';
+			
+			$fh = fopen('license.txt','r');
+				while ($line = fgets($fh)) {
+				
+				  echo $line;
+				}
+				fclose($fh);
+			
+			echo '
+			</div>
+			</div>
+			
 			<div class="row text-center">
+		<div class="col-12 top30 text-center">
+		<a class="button primary lg" href="index.php?step=1">Start the setup</a>
+		</div>	
+
 			<div class="col-12 text-center top30">		
 				First time? Read this: <br>
 				<a style="display:inline-block; padding:2%;" class="outline button" target="_blank" href="https://old.phpvibe.com/installing-phpvibe/">Installing PHPVibe</a> 
@@ -140,6 +156,16 @@ switch ($handler) {
 		</div>
 		';
         break;
+		
+	case 1:	
+	echo '<h2>Server requirements</h2>';
+	
+	echo '<iframe src="'.$site_url.'setup/reqcheck.php" width="100%" height="640px" style="border:none;" scrolling="no"></iframe>
+	<div class="row text-center top30">
+		<div class="col-12 top30 text-center">
+		<a class="button primary lg" href="index.php?step=2">Continue</a>
+		</div>	';
+	break;
     case 2:
 	echo '<h2>Url</h2>';
 			if (strpos(get_domain(SITE_URL), get_domain($site_url)) === false) {
@@ -198,7 +224,7 @@ switch ($handler) {
 	   
         break;
 		
-		case 4:
+	case 4:
 		    echo '<h2>Database :: Setup</h2>';
 			echo 'Your tables prefix for this install is : <pre>'.DB_PREFIX.'</pre><br>';
 			$test_db = $db->get_col("SHOW TABLES",0);
@@ -263,7 +289,7 @@ switch ($handler) {
 		   
 		break;
 			 
-		case 5:
+	case 5:
 		  echo '<h2>Folders</h2>';
 		  
 		  $checkpassed = array();
@@ -487,7 +513,7 @@ switch ($handler) {
 		</div>	';
 		  
 		   break;
-		case 7:
+	case 7:
 		do_remove_file_now(ABSPATH.'/hold');
 
  echo '<h2>Remove this (/setup) folder!</h2>';		

@@ -1,0 +1,58 @@
+<div class="license">
+  <p>
+    <h2>PHPVibe License Agreement</h2>
+  </p>
+  <p>This License Agreement (the "Agreement") is entered into by and between MediaVibe Agency, PHPVibe.com and Marius Patrascu, ("Licensor") and the individual or entity using the PHPVibe Content Management System ("CMS") ("Licensee").</p>
+  <p>
+    <h3>1. License Grant</h3>
+  </p>
+  <h4>a. Personal Use: </h4> <p>Licensor grants Licensee a non-exclusive, non-transferable license to use the PHPVibe CMS for personal, non-commercial use.</p>
+  For personal use you may enjoy choosen versions of PHPVibe as Open Source and can do the following:
+   <br>  1. reproduce the CMS in copies, either alone or as part of a collective work without removing the name, brand and license agreements, other marks and etiquettes;
+   <br> 2. translate, adapt, alter, transform, modify, or arrange the CMS, thereby creating derivative works ("Derivative Works") based upon the CMS;
+   <br> 3. distribute or communicate copies of the CMS and Derivative Works to the public, with the proviso that copies of CMS or Derivative Works that You distribute or communicate shall be licensed under this License Agreement;
+   <br> 4. to perform the CMS publicly; and
+   <br> 5. to display the CMS publicly. 
+  
+  <h4>b. Commercial Use:</h4> <p>For any commercial or business-related use, including but not limited to companies, organizations, and entities, Licensee must purchase a <a href="https://phpvibe.com/commercial-license/o1g/" target="_blank">commercial license</a> from Licensor.</p>
+  <p>
+    <h3>2. Restrictions</h3>
+  </p>
+  <p>a. Licensee may not sublicense, sell, lease,  to any third party.</p>
+  <p>b. Licensee may not create and distribute derivative works based on the PHPVibe CMS under his/her/its own name and brand.</p>
+  <p>c. Licensee may modify, adapt, translate, reverse engineer, decompile, disassemble the PHPVibe CMS for study and other reasons without removing the brand and license agreements, marks and etiquettes.</p>
+  <p>
+    <h3>3. Resale Rights</h3>
+  </p>
+  <p>Licensee agrees not to sell, resell, redistribute, or otherwise transfer the PHPVibe CMS or any part thereof, whether for profit or not, without <a href="https://phpvibe.com/commercial-license/o1g/" target="_blank">a commercial license</a> or the express written consent of Licensor.</p>
+  <p>
+    <h3>4. Support and Updates</h3>
+  </p>
+  <p>a. Licensor may, at its discretion, provide support and updates to the PHPVibe CMS.</p>
+  <p>b. Support and updates may be subject to additional fees for Licensee.</p>
+  <p>
+    <h3>5. Termination</h3>
+  </p>
+  <p>This Agreement is effective until terminated. Licensor may terminate this Agreement immediately and without notice if Licensee breaches any provision.</p>
+  <p>
+    <h3>6. Disclaimer of Warranty</h3>
+  </p>
+  <p>The PHPVibe CMS is provided "as is," without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and non-infringement.</p>
+  <p>
+    <h3>7. Limitation of Liability</h3>
+  </p>
+  <p>In no event shall Licensor be liable for any damages, including but not limited to direct, indirect, special, incidental, or consequential damages, arising out of the use or inability to use the PHPVibe CMS.</p>
+  <p>
+    <h3>8. Governing Law</h3>
+  </p>
+  <p>This Agreement shall be governed by and construed in accordance with the laws of Dolj County, Romania.</p>
+  <p>
+    <h3>9. Entire Agreement</h3>
+  </p>
+  <p>This Agreement constitutes the entire agreement between the parties and supersedes all prior agreements, whether oral or written, with respect to the PHPVibe CMS.</p>
+  <p>
+    <h3>10. Contact Information</h3>
+  </p>
+  <p>For any inquiries regarding this Agreement, please contact:</p>
+  <p>MediaVibe Agency , PHPVibe.com </p>
+</div>
