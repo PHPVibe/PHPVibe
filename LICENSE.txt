@@ -1,23 +1,58 @@
-Propietary License
 
-Copyright (c) 2011-2022 Marius Patrascu and the PHPVibe Community
+PHPVibe License Agreement
 
-Permission is hereby granted, free of charge, to any person (non-commercial entity) obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This License Agreement (the "Agreement") is entered into by and between MediaVibe Agency, PHPVibe.com, and Marius Patrascu, ("Licensor") and the individual or entity using the PHPVibe Content Management System ("CMS") ("Licensee").
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-PHPVibe should not be used on commercial websites, company websites, profit websites without a commercial license issued for that domain (from PHPVibe.com).
+1. License Grant
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+a. Personal Use: Licensor grants Licensee a non-exclusive, non-transferable license to use the PHPVibe CMS for personal, non-commercial use.
+For personal use you may enjoy chosen versions of PHPVibe as Open Source and can do the following:
+1. reproduce the CMS in copies, either alone or as part of a collective work without removing the name, brand and license agreements, other marks, and etiquettes;
+2. translate, adapt, alter, transform, modify, or arrange the CMS, thereby creating derivative works ("Derivative Works") based upon the CMS;
+3. distribute or communicate copies of the CMS and Derivative Works to the public, with the proviso that copies of CMS or Derivative Works that You distribute or communicate shall be licensed under this License Agreement;
+4. to perform the CMS publicly; and
+5. to display the CMS publicly.
+
+b. Commercial Use: For any commercial or business-related use, including but not limited to companies, organizations, and entities, the Licensee must purchase a commercial license from the Licensor.
+
+2. Restrictions
+
+a. Licensee may not sublicense, sell, or lease, to any third party.
+b. Licensee may not create and distribute derivative works based on the PHPVibe CMS under his/her/its own name and brand.
+c. Licensee may modify, adapt, translate, reverse engineer, decompile, and disassemble the PHPVibe CMS for study and other reasons without removing the brand and license agreements, marks, and etiquettes.
+
+3. Resale Rights
+
+The licensee agrees not to sell, resell, redistribute, or otherwise transfer the PHPVibe CMS or any part thereof, whether for profit or not, without a commercial license or the express written consent of the Licensor.
+
+4. Support and Updates
+
+a. Licensor may, at its discretion, provide support and updates to the PHPVibe CMS.
+b. Support and updates may be subject to additional fees for the Licensee.
+
+5. Termination
+
+This Agreement is effective until terminated. Licensor may terminate this Agreement immediately and without notice if Licensee breaches any provision.
+
+6. Disclaimer of Warranty
+
+The PHPVibe CMS is provided "as is," without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and non-infringement.
+
+7. Limitation of Liability
+
+In no event shall Licensor be liable for any damages, including but not limited to direct, indirect, special, incidental, or consequential damages, arising out of the use or inability to use the PHPVibe CMS.
+
+8. Governing Law
+
+This Agreement shall be governed by and construed under the laws of Dolj County, Romania.
+
+9. Entire Agreement
+
+This Agreement constitutes the entire agreement between the parties and supersedes all prior agreements, whether oral or written, to the PHPVibe CMS.
+
+10. Contact Information
+
+For any inquiries regarding this Agreement, please contact:
+MediaVibe Agency, PHPVibe.com
 
 More about PHPVibe's licensing https://phpvibe.com/
