@@ -142,15 +142,10 @@ switch ($handler) {
 			
 			<div class="row text-center">
 		<div class="col-12 top30 text-center">
-		<a class="button primary lg" href="index.php?step=1">Start the setup</a>
+		<a class="button primary lg" href="index.php?step=1">Accept agrement & Start</a>
 		</div>	
 
-			<div class="col-12 text-center top30">		
-				First time? Read this: <br>
-				<a style="display:inline-block; padding:2%;" class="outline button" target="_blank" href="https://old.phpvibe.com/installing-phpvibe/">Installing PHPVibe</a> 
-				<a style="display:inline-block; padding:2%;" class="outline button"target="_blank" href="https://old.phpvibe.com/troubleshooting">Troubleshooting</a>
-				<br><small>Links open in new tab</small>
-			</div>
+			
 	
 			</div>
 		</div>
@@ -160,7 +155,7 @@ switch ($handler) {
 	case 1:	
 	echo '<h2>Server requirements</h2>';
 	
-	echo '<iframe src="'.$site_url.'setup/reqcheck.php" width="100%" height="640px" style="border:none;" scrolling="no"></iframe>
+	echo '<iframe src="'.$site_url.'setup/reqcheck.php" width="100%" height="1000px" style="border:none;" scrolling="no"></iframe>
 	<div class="row text-center top30">
 		<div class="col-12 top30 text-center">
 		<a class="button primary lg" href="index.php?step=2">Continue</a>
@@ -515,12 +510,12 @@ switch ($handler) {
 		   break;
 	case 7:
 		do_remove_file_now(ABSPATH.'/hold');
-
- echo '<h2>Remove this (/setup) folder!</h2>';		
+ echo '<h2>Done install!</h2>';	
+ 
 		
 		  echo '<div class="row text-center">
 		<div class="col-12 top30 text-center">
-		<a class="button primary lg" href="'.$site_url.'">You\'re all done!</a>
+		<a class="button primary lg" href="'.$base_href.'done.php"> Start configuring</a>
 		</div>	
 		</div>	';
 		

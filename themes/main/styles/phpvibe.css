@@ -731,7 +731,7 @@ a#revealRelated {
   height: 101px;
   float: left;
   position: relative;
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: hidden;
 }
 .video-related ul {
@@ -1021,6 +1021,7 @@ a#revealRelated {
   padding: 4px 4px 16px 0;
   vertical-align: top;
   word-wrap: break-word;
+  aspect-ratio: 16 / 9;
 }
 
 .owl-item .video {
@@ -1211,7 +1212,7 @@ a#revealRelated {
     font-size: 0;
     vertical-align: middle;
    
-    border-radius: 20px;
+    border-radius: 12px;
 	 aspect-ratio: 16 / 9;
 }
 @media screen and (min-width:1294px) {
@@ -2487,6 +2488,7 @@ a#show-sidebar {
 #show-search {
 display:none;
 }
+#openusr {min-width: 32px;}
 a#openusr > .badge {
   position: relative;
   top: 2px;
@@ -2498,11 +2500,15 @@ a#openusr > .badge {
   }
 }
 @media (max-width: 660px) {
+ a#openusr, .user-quick .top-separator {
+    width:0;
+    display:none
+  }
   .searchWidget {
     display: none;
   }
   #show-search {
-    display: inline-block!important;
+    display: inline-flex!important;
     width: 24px;
   }
   .search-now-clone .searchWidget {

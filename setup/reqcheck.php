@@ -85,7 +85,13 @@ echo '
 	padding:15px;
 	min-height:100vh
 }
-
+.scrollbar {
+	height:990px;
+}
+.lillist {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
 	</style>
   </head>
   <body>
@@ -124,35 +130,50 @@ $passed =  '<div class="oksign">
 	
 echo '<h4>Basics</h4>';	
 
-if (phpversion() < 8) {
-echo '<div class="lillist">'.$aerror.' PHPVibe needs PHP version 8+ (your version is '.phpversion().' )</div>';
+if (phpversion() < 7.3) {
+echo '<div class="lillist">'.$aerror.' PHPVibe needs PHP version 8 or at least a 7.3 (your version is '.phpversion().' )</div>';
 $error++;
 }  else {
- echo '<div class="lillist">'.$passed.' PHP ('.phpversion().') is OK.</div>';
+ echo '<div class="lillist">'.$passed.' PHP ('.phpversion().') is enabled. PHP 7.3+ is needed, 8 is recommended.</div>';
+}
+ if(function_exists('mysqli_connect')) {
+ echo '<div class="lillist">'.$passed.' MySqli is enabled.</div>';
+} else {
+echo '<div class="lillist">'.$aerror.' MySqli is disabled.</div>';
+	$error++;
 }
 if(extension_loaded('mbstring')) { 
-echo '<div class="lillist">'.$passed.' mbString is OK.</div>';
+echo '<div class="lillist">'.$passed.' mbString is enabled.</div>';
  } else {
- echo '<div class="lillist">'.$aerror.' mbString is OFF.</div>';
+ echo '<div class="lillist">'.$aerror.' mbString is disabled.</div>';
+ }
+ if(extension_loaded('zip')) { 
+echo '<div class="lillist">'.$passed.' Zip is enabled.</div>';
+ } else {
+ echo '<div class="lillist">'.$aerror.' Zip is disabled.</div>';
  }
  if(function_exists('mcrypt_encrypt')) {
- echo '<div class="lillist">'.$passed.' Mcrypt is OK.</div>';
+ echo '<div class="lillist">'.$passed.' Mcrypt is enabled.</div>';
 } else {
-echo '<div class="lillist">'.$aerror.' Mcrypt is OFF.</div>';
+echo '<div class="lillist">'.$aerror.' Mcrypt is disabled.</div>';
 	$error++;
 }
  if(function_exists('base64_decode')) {
- echo '<div class="lillist">'.$passed.' Base64 encode/decode is OK.</div>';
+ echo '<div class="lillist">'.$passed.' Base64 encode/decode is enabled.</div>';
 } else {
-echo '<div class="lillist">'.$aerror.' Base64 encode/decode is OFF.</div>';
+echo '<div class="lillist">'.$aerror.' Base64 encode/decode is disabled.</div>';
 	$error++;
 }
 if(extension_loaded('gd')){
-echo '<div class="lillist">'.$passed.' GD is OK.</div>';
+echo '<div class="lillist">'.$passed.' GD is enabled.</div>';
  } else {
- echo '<div class="lillist">'.$aerror.' GD is OFF.</div>';
+ echo '<div class="lillist">'.$aerror.' GD is disabled.</div>';
  }	
- 
+ if( ini_get('allow_url_fopen') ) {
+echo '<div class="lillist">'.$passed.'allow_url_fopen is enabled.</div>';    
+    } else {
+ echo '<div class="lillist">'.$aerror.'allow_url_fopen is disabled.</div>';
+    }
  if( strpos( $_SERVER['SERVER_SOFTWARE'], 'Apache') !== false) {
 echo '<div class="lillist">'.$passed.' Apache server</div>';
 } else {
@@ -196,7 +217,7 @@ echo "</pre>";
 echo '<div class="lillist">'.$aerror.' Can\'t find FFMPEG FFMPEG since shell_exec is disabled.</div>'; 
 }	
 if($error > 0) {
-echo '<div class="top30"><div class="msg-warning m-b-20">'.$error.' '.(($error > 1)? 'errors' : 'error').' listed above.</div> Configure the server/contact your hosting/switch host for errorless flow.</div>';
+echo '<div class="top30"><div class="msg-warning m-b-20"> '.(($error > 1)? $error.'warnings' : 'One warning').' listed above.</div> </div>';
 } else {
 echo '
 <div class="top30"><div class="msg-warning">PHPVibe depends on more requirements than this test can perform, <br> you seem to have a fit hosting environment,<br> but please check the requirements list updated on our website.</div>

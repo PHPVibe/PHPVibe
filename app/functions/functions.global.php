@@ -1,14 +1,8 @@
 <?php /*!
-* MediaVibe v6
+* PHPVibe 
 *
-* Copyright Interact.Software
+* Copyright PHPVibe.com
 * http://www.phpvibe.com
-* phpVibe IS NOT A FREE SOFTWARE
-* If you have downloaded this CMS from a website other
-* than www.phpvibe.com if you have received
-* this CMS from someone who is not a representative of phpVibe, you are involved in an illegal activity.
-* The phpVibe team takes actions against all unlincensed websites using Google, local authorities and 3rd party agencies.
-* Designed and built exclusively for sale @ phpVibe.com & phpRevolution.com.
 */
 // Global functions
 //Site url
@@ -141,38 +135,64 @@ return $flagValidation;
 *
 */
 function get_option( $option_name, $default = false ) {
-global $db,$cachedb, $all_options;
+global $db, $all_options;
 // Allow plugins to short-circuit options
 $pre = apply_filter( 'shunt_option_'.$option_name, false );
 if ( false !== $pre )
 return $pre;
+// Try from cache
+if ( !isset( $all_options ) || is_empty( $all_options ) ) {
+$all_options = get_all_options();
+}
+/* Safe guard */
+if (is_object($all_options)) {
+	$all_options = json_decode(json_encode ( $all_options ) , true);
+}
 // If option not available already, get its value from the DB
 if ( !isset( $all_options[$option_name] ) ) {
 $option_name = escape( $option_name );
-$row = $cachedb->get_row( "SELECT `option_value` FROM ".DB_PREFIX."options WHERE `option_name` = '$option_name' LIMIT 1" );
+$row = $db->get_row( "SELECT `option_value` FROM ".DB_PREFIX."options WHERE `option_name` = '$option_name' LIMIT 1" );
 if ( is_object( $row) ) { // Has to be get_row instead of get_var because of funkiness with 0, false, null values
 $value = $row->option_value;
 } else { // option does not exist, so we must cache its non-existence
 $value = $default;
 }
+
 $all_options[ $option_name ] = maybe_unserialize( $value );
+jc_destroy(get_options_filename());
+jc_put(get_options_filename(), $all_options);
 }
+
 return apply_filter( 'get_option_'.$option_name, $all_options[$option_name] );
 }
 /**
 * Read all options from DB at once
 *
 */
+function get_options_filename() {
+return substr(preg_replace('/[^\p{L}\p{N}\s]/u', '', strrev(ABSPATH.$_SERVER['SERVER_ADDR'].DB_NAME)), 12);
+}
 function get_all_options() {
-global $cachedb;
+global $db;
 $vibe_opt = array();
 // Allow plugins to short-circuit all options. (Note: regular plugins are loaded after all options)
 $pre = apply_filter( 'shunt_all_options', false );
 if ( false !== $pre )
 return $pre;
-$allopt = $cachedb->get_results( "SELECT `option_name`, `option_value` FROM  ".DB_PREFIX."options where autoload='yes'" );
+$name = get_options_filename();
+if(jc_exists($name)) {
+$all_options = jc_get($name, true);
+/* Safe guard */
+if (is_object($all_options)) {
+	$all_options = json_decode(json_encode ( $all_options ) , true);
+}
+return $all_options;
+} else {
+$allopt = $db->get_results( "SELECT `option_name`, `option_value` FROM  ".DB_PREFIX."options where autoload='yes'" );
 foreach( (array)$allopt as $option ) {
 $vibe_opt[$option->option_name] = maybe_unserialize( $option->option_value );
+}
+jc_put($name, $vibe_opt);
 }
 $vibe_opts = apply_filter( 'get_all_options', $vibe_opt );
 return $vibe_opts;
@@ -197,6 +217,8 @@ $_newvalue = escape( maybe_serialize( $newvalue ) );
 $db->query( "UPDATE  ".DB_PREFIX."options SET `option_value` = '$_newvalue' WHERE `option_name` = '$option_name'" );
 if ( $db->rows_affected == 1 ) {
 $all_options[ $option_name ] = $newvalue;
+/* Clear cache file */
+jc_destroy(get_options_filename());
 return true;
 }
 return false;
@@ -214,6 +236,8 @@ return;
 $_value = escape( maybe_serialize( $value ) );
 //do_action( 'add_option', $safe_name, $_value );
 $db->query( "INSERT INTO  ".DB_PREFIX."options (`option_name`, `option_value`) VALUES ('$name', '$_value')" );
+/* Clear cache file */
+jc_destroy(get_options_filename());
 return;
 }
 /**
@@ -229,6 +253,8 @@ if ( is_null( $option ) || !$option->option_id )
 return false;
 //do_action( 'delete_option', $option_name );
 $db->query( "DELETE FROM  ".DB_PREFIX."options WHERE `option_name` = '$name'" );
+/* Clear cache file */
+jc_destroy(get_options_filename());
 return true;
 }
 
@@ -366,7 +392,7 @@ $cachedb->query( "INSERT INTO  ".DB_PREFIX."langs (`term`) VALUES ('$txt')" );
 }
 }
 /**
-* Get language terms from the DB
+* Get language terms 
 *
 */
 function get_language( $lang_code, $default = false ) {
@@ -1745,10 +1771,14 @@ $objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(jcachefo
 		}
 return $log;		
 }
-function jc_get($filename) {
+function jc_get($filename, $obj = true) {
 	$file = jcachefold.'/'.$filename.'.json';
 	if (file_exists($file)) {
+	if ($obj) {	
 	return json_decode(file_get_contents($file));
+	} else {
+		return json_decode(file_get_contents($file), true);
+	}
 	} else{
 	return false;
 	}

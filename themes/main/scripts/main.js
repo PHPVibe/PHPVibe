@@ -840,9 +840,11 @@ $("input:radio[name=changeEmbed]").click(function() {
     /* End document ready */
 });
 function reset169() {
+$(".main-holder .video-thumb").imagesLoaded(function() {
 var vid_w = $('.main-holder .video-thumb').width();
 	var vid_h = vid_w / (16/9);
     $(".main-holder .video-thumb").height(vid_h);	
+});
 }
 function SearchSwitch(com) {	
 	$('input#switch-com').val(com);
