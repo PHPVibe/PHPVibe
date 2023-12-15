@@ -11,12 +11,12 @@ return apply_filters('importers_menu',false);
 }
 class PHPVibeVersionHelper
 {
-	
+    var $list         = null;
     public static $cms = 'PHPVibe';
 	function __construct() {
-    $string = file_get_contents(ADM."/_phpvibe.json");	
+    $string = file_get_contents(ADM."/phpvibe.json");
 	$this->list = json_decode($string, false);
-	if(!isset($this->list->fullversion)) { exit("ERROR! Missing or broken PHPVibe version file! <br>Please check/reupload the ".ADM."/_phpvibe.json file");}
+	if(!isset($this->list->fullversion)) { exit("ERROR! Missing or broken PHPVibe version file! <br>Please check/reupload the ".ADM."/phpvibe.json file");}
   }
 	public function cms() {
 		 return (is_empty($this->list->software)? self::$cms : $this->list->software );
@@ -66,9 +66,9 @@ return '<!DOCTYPE html>
 		<link rel="stylesheet" href="'.admin_url().'css/chartist.css"/>
 	<link rel="stylesheet" href="'.admin_url().'editor/summernote/summernote.css"/>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+	 '.apply_filters("admin_custom_css_links",false).'	
 	<style>
-	body {  	}
-	
+	 '.apply_filters("admin_custom_css_raw",false).'	
 	</style>
 	';
 }
@@ -103,14 +103,20 @@ $head= admin_css().'
 <script type="text/javascript" src="'.admin_url().'js/jquery-labelauty.js"></script>
 <script type="text/javascript" src="'.admin_url().'js/jquery.autocomplete.min.js"></script>
 <script type="text/javascript" src="'.admin_url().'js/chartist.min.js"></script>
+<script type="text/javascript" src="'.admin_url().'js/snackbar.js"></script>
 <script type="text/javascript" src="'.admin_url().'js/phpvibe.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+ '.apply_filters("admin_custom_js_links",false).'	
+
 <script type="text/javascript"> 
+hljs.initHighlightingOnLoad();
 var admin__url  = "'.admin_url().'"; 
 var admin_url  = "'.admin_url().'";
 $(document).ready(function() {
 $(".ckeditor").summernote();
+'.apply_filters("admin_custom_jqreadyjs_raw",false).'
 });
+
+ '.apply_filters("admin_custom_js_raw",false).'	
 </script>
 ';
 $clx = '';
@@ -190,7 +196,7 @@ $sb = '
 		  <h1>Admin</h1>
 		  <h2>Hi '.user_name().'!</h2>
 		  <ul>		
-	    
+	    '.apply_filters("before_admin_menu",false).'
 		 <li class="LiHead"> <a href="#"><i class="material-icons">&#xE1AD;</i> Settings</a>
                    <ul>
                      <li><a href="'.admin_url('setts').'"><div class="lidot"></div> Global options</a></li>
@@ -207,6 +213,7 @@ $sb = '
 					'.apply_filters("configuration_menu",false).'
 					</ul>
 				</li>	
+		 '.apply_filters("before_plugins_menu",false).'		
        <li class="LiHead"><a href="'.admin_url('plugins').'"><i class="material-icons">system_update_alt</i> Plugins</a></li>
 					 <li class="LiHead"><a href="'.admin_url('langs').'"><i class="material-icons">language</i> Languages</a></li>
                <li class="LiHead"><a href="#"><i class="material-icons">video_library</i> Media library</a>

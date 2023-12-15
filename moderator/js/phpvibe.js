@@ -1,17 +1,11 @@
 /*!
- * phpVibe v5
+ * PHPVibe 
  *
- * Copyright Media Vibe Solutions
- * http://www.phpRevolution.com
- * phpVibe IS NOT FREE SOFTWARE
- * If you have downloaded this CMS from a website other
- * than www.phpvibe.com or www.phpRevolution.com or if you have received
- * this CMS from someone who is not a representative of phpVibe, you are involved in an illegal activity.
- * The phpVibe team takes actions against all unlincensed websites using Google, local authorities and 3rd party agencies.
- * Designed and built exclusively for sale @ phpVibe.com & phpRevolution.com.
+ * Copyright MediaVibe (PHPVibe.com)
+ * http://www.phpVibe.com
  */
-
-jQuery(function($){
+ 
+jQuery(function($){	
  $('.form-material').each(function() {
         var $this = $(this);
         if ($this.data('material') === true) {

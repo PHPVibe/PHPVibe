@@ -1,4 +1,4 @@
-<?php  error_reporting(E_ALL); 
+<?php  error_reporting(0);  /* E_ALL - for Debugging*/
 
 //Vital file include
 require_once("../load.php"); 

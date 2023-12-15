@@ -1,6 +1,10 @@
 <?php namespace PHPVibe\Video;
 class SingleVideo {
 	private $id;
+    var $error  = null;
+    var $errorlog  = null;
+    var $db  = null;
+var $videodetails = null;
     public function __construct($id)     { 
 	global $db;
 	$this->error = false; //Let's be optimistic

@@ -30,6 +30,12 @@
 		var $last_query       = null;
 		var $last_error       = null;
 		var $col_info         = null;
+        var $dbh         = null;
+        var $func_call         = null;
+        var $last_result = null;
+        var $result = null;
+        var $from_disk_cache = null;
+        var $num_rows = null;
 		var $captured_errors  = array();
 		var $cache_dir        = false;
 		var $cache_queries    = false;

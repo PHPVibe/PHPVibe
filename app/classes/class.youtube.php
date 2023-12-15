@@ -14,6 +14,16 @@ class Youtube
      * @var string
      */
     protected $referer;
+	
+	/**
+     * @var string
+     */
+	private $nextoken;
+	
+	/**
+     * @array
+     */
+	private $tokenlist;
 
     /**
      * @var array
@@ -48,8 +58,9 @@ class Youtube
         if (!array_key_exists('key', $params)) {
             throw new \InvalidArgumentException('Google API key is required, please visit http://code.google.com/apis/console');
         }
-        $this->youtube_key = $params['key'];
-
+        $this->youtube_key = isset($params['key']) ? $params['key'] : '';
+		$this->nextoken = isset($params['pageToken']) ? $params['pageToken'] : '';
+		$this->tokenlist = array();
         if (array_key_exists('referer', $params)) {
             $this->referer = $params['referer'];
         }
@@ -208,28 +219,32 @@ class Youtube
 	return $pagination[25];
 	}
 	/**
-     * This page's token 
+     * [Deprecated] This page's token 
      * @param $bpp
 	 * @param $page
      * @return string
      */
 	 public function thisToken($bpp = 25, $page = 1) {
-		 $tokens = $this->ytokens($bpp);
-		 if(isset($tokens[$page]['token'])) return $tokens[$page]['token'];
-		 return null;		
+		 return $this->NextToken();		
 	 }
-    /**
-     * Guess the next page token 
+	 /**
+     * Return the next page token 
      * @param $bpp
 	 * @param $page
      * @return string
      */
-	 public function nextToken($bpp = 25, $page = null) {
-		 if (is_null($page)) $page = this_page();
-		 $tokens = $this->ytokens($bpp);
-		 $next = $page + 1;
-		 if(isset($tokens[$next]['token'])) return $tokens[$next]['token'];
-		 return null;		
+	 public function SetNextToken($new) {
+		$this->nextoken = $new;
+		$this->tokenlist[] = $new;
+	 }
+    /**
+     * Return the next page token 
+     * @param $bpp
+	 * @param $page
+     * @return string
+     */
+	 public function NextToken() {
+		return $this->nextoken;
 	 }
 	 /**
      * Renders a full pagination 
@@ -241,27 +256,15 @@ class Youtube
      * @returns string
      */
 	 public function YPaginate($url = '',$bpp = 25, $ulClass = 'Pages',$liClass = '', $liActive = 'current' ) {
-	 $tokens = $this->ytokens($bpp);
-	 $html = '<ul class="'.$ulClass.'">';
-	 if($tokens){
-		for ($i=1; $i <= count($tokens); $i++) {
-		$cls = (this_page() == $i) ? $liActive : $liClass;	
-        $html .= '<li class="'.$cls.'">
-		<a href="'.$url.$i.'&token='.$tokens[$i]["token"].'">'.$i.'</a>
-		</li>';
-		}		
-	 }
-	 $html .='</ul>';
-	 return $html;
+	 return false;
 	 }
 	 /**
      * Get the number of pages for current $bpp 
      * @param $bpp
      * @return integer
      */
-	 public function countPages($bpp = 25) {
-		 $tokens = $this->ytokens($bpp);
-		 return count($tokens);		
+	 public function countPages($bpp = 25) {		 
+		 return false;		
 	 }
 	 
     /**
@@ -343,16 +346,17 @@ class Youtube
      * @return array
      * @throws \Exception
      */
-    public function getPlaylistItemsByPlaylistId($playlistId, $maxResults = 50, $p = null)
+    public function getPlaylistItemsByPlaylistId($playlistId, $maxResults = 50, $pt = null)
     {
         $API_URL = $this->getApi('playlistItems.list');
-		if(is_null($p)) $p =  this_page();
         $params = array(
             'playlistId' => $playlistId,
             'part' => 'contentDetails, status',
             'maxResults' => $maxResults,
-			'pageToken' => $this->thisToken($maxResults, $p)
+			'pageToken' => $pt
         );
+		
+		//print_r($pt);
         $apiData = $this->api_get($API_URL, $params);
         return $this->decodeList($apiData);
     }
@@ -452,6 +456,8 @@ class Youtube
     {
 	    $itemsArray = false;
         $resObj = json_decode($apiData);
+		
+		
         if (isset($resObj->error)) {
             $msg = "Error " . $resObj->error->code . " " . $resObj->error->message;
             if (isset($resObj->error->errors[0])) {
@@ -476,7 +482,7 @@ class Youtube
 	**/ 
 	public function Single($id = false) {
 	if($id){
-return $this->vMake($this->getVideoInfo($id));
+return $this->MakeVideoPretty($this->getVideoInfo($id));
 	}		
 	}
 	/**
@@ -484,7 +490,7 @@ return $this->vMake($this->getVideoInfo($id));
 	 * @param $video
      * @return \Array
 	**/ 
-	public function vMake($video) {		
+	public function MakeVideoPretty($video) {		
 		$v = array();
 		
         $v['videoid'] = $v['id'] = 	$video->id;
@@ -539,6 +545,14 @@ return $this->vMake($this->getVideoInfo($id));
     public function decodeList(&$apiData)
     {
         $resObj = json_decode($apiData);
+		
+		//print_R($resObj);
+		//print_r($resObj->nextPageToken.' || ');
+		if (isset($resObj->nextPageToken)) {
+			$this->SetNextToken($resObj->nextPageToken);
+			$this->nextoken = $resObj->nextPageToken;
+		}
+		print_r($this->NextToken().' || ');
         if (isset($resObj->error)) {
             $msg = "Error " . $resObj->error->code . " " . $resObj->error->message;
             if (isset($resObj->error->errors[0])) {
