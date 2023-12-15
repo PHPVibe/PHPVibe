@@ -194,23 +194,22 @@ if($result['valid'] == "true"){
 echo '<div class="lillist">'.$aerror.' cUrl test failed.</div>';
 $error++;
 }
+$isShellOk = (is_callable('shell_exec') && false === stripos(ini_get('disable_functions'), 'shell_exec'));
 
-if(function_exists('shell_exec')) {
+if($isShellOk) {
  echo '<div class="lillist">'.$passed.' shell_exec is enabled.</div>';
 }	else {
 echo '<div class="lillist">'.$aerror.' shell_exec is disabled.</div>'; 
 }
-if(function_exists('shell_exec')) {
-$ffmpeg = trim(shell_exec('type -P ffmpeg'));
+if($isShellOk) {
+$ffmpeg =shell_exec('ffmpeg -version 2>&1; echo $?');
 if (empty($ffmpeg)) {
 echo '<div class="lillist">'.$aerror.' Can\'t find FFMPEG from here.</div>'; 
 } else {
- echo '<div class="lillist">'.$passed.' FFMPEG seems to be available as <strong>'.$ffmpeg.'. Required version: 2.5+</strong></div>'; 
-exec($ffmpeg." -h full", $codecArr);
-echo "<pre>";
-for($ii=0;$ii<count($codecArr);$ii++){
-    echo $codecArr[$ii].'</br>';
-}
+ echo '<div class="lillist"> FFMPEG required version: 2.5+ </strong></div>'; 
+exec(trim($ffmpeg)." -h full", $codecArr);
+echo "<pre style=\"height:60px; overflow:auto\">";
+    echo $ffmpeg;
 echo "</pre>";
 }
 } else {
