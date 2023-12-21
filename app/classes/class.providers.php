@@ -603,7 +603,7 @@ function PHPVibeSources() {
              case 'youtube':
                  if (!nullval(get_option('youtubekey', null)))
                      {
-                     $yt            = new Youtube(array(
+                     $yt            = new YoutubeLite(array(
                          'key' => get_option('youtubekey')
                      ));
                      $id            = $yt->parseVIdFromURL($this->link);

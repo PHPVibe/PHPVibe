@@ -398,7 +398,7 @@ output{display:block;padding-top:7px;font-size:14px;line-height:1.57142857;color
     background-color:#fff;
     background-image:none;
     border:1px solid rgba(209,213,219,1);
-    border-radius:12px;
+    border-radius:5px;
     box-shadow:  0 0 #0000,0 0 #0000, 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     -webkit-transition:border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
     -o-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;

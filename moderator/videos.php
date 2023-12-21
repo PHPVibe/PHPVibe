@@ -273,7 +273,6 @@ sort
 	preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $video->source, $match);
 
 	?>
-	 <a class="cmd-link youtube-coms-imp tipS" title="Import youtube comments" href="<?php echo admin_url('ytcoms').'&local='.$video->id.'&yt='.$match[1];?>"><span class="yt-expl"><img src="css/youtube logo_icon.png"/></span><i class="material-icons">&#xE0B9;</i></a>
 	<?php } ?>		
 		<a class="cmd-link tipS" class="dropdown-toggle" title="Remove"  data-toggle="dropdown" aria-expanded="false" data-animation="scale-up" role="button">
 		<i class="material-icons"> delete </i> 

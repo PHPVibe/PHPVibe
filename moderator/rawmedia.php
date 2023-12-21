@@ -1,5 +1,5 @@
 <?php $tp = ABSPATH.'/storage/'.get_option('tmp-folder','rawmedia')."/";
-$ts = site_url().get_option('tmp-folder','rawmedia')."/";
+$ts = site_url().'storage/'.get_option('tmp-folder','rawmedia')."/";
 if(isset($_POST['checkRow'])) {
 foreach ($_POST['checkRow'] as $del) {
 remove_file($tp.$del);
@@ -34,7 +34,7 @@ if($videos) {
                                   <td><input type="checkbox" name="checkRow[]" value="<?php echo str_replace($tp,"",$video);?>" class="styled" /></td>
                                   <td><?php echo str_replace($tp,"",$video);?></td>
 								  <td><a href="<?php echo str_replace($tp,$ts,$video);?>" class="btn btn-default btn-small">Download</a></td>
-							 <td><?php echo date ("F d Y H:i:s", filemtime($filename));?></td>
+							 <td><?php echo date ("F d Y H:i:s", filemtime($video));?></td>
 							 </tr>
 							  <?php } ?>
 						</tbody>  

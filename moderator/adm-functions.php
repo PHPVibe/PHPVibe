@@ -241,7 +241,7 @@ $sb = '
 					 '.apply_filters("post-importers_menu",false).'
 					  <li> <a  href="'.admin_url('add-video').'"><div class="lidot"></div> Add remote video</a></li>
             		<li>  <a  href="'.admin_url('add-by-iframe').'"><div class="lidot"></div> Add embed code</a></li>
-                    <li><a href="'.admin_url('crons').'"><div class="lidot"></div> Scheduled tasks</a></li>
+                    
       
                     </ul>
                   </li>

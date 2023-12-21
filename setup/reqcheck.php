@@ -152,12 +152,6 @@ echo '<div class="lillist">'.$passed.' Zip is enabled.</div>';
  } else {
  echo '<div class="lillist">'.$aerror.' Zip is disabled.</div>';
  }
- if(function_exists('mcrypt_encrypt')) {
- echo '<div class="lillist">'.$passed.' Mcrypt is enabled.</div>';
-} else {
-echo '<div class="lillist">'.$aerror.' Mcrypt is disabled.</div>';
-	$error++;
-}
  if(function_exists('base64_decode')) {
  echo '<div class="lillist">'.$passed.' Base64 encode/decode is enabled.</div>';
 } else {

@@ -362,12 +362,14 @@ function percent($first, $num_total, $precision = 0)
 //limit a string
 function _cut($str, $nb = 10)
 {
-    if (strlen($str) > $nb) {
-        if (extension_loaded('mbstring')) {
-            mb_internal_encoding("UTF-8");
-            $str = mb_substr($str, 0, $nb);
-        } else {
-            $str = substr($str, 0, $nb);
+    if(not_empty($str)){
+        if (strlen($str) > $nb) {
+            if (extension_loaded('mbstring')) {
+                mb_internal_encoding("UTF-8");
+                $str = mb_substr($str, 0, $nb);
+            } else {
+                $str = substr($str, 0, $nb);
+            }
         }
     }
     return $str;

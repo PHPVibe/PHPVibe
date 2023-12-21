@@ -1,4 +1,4 @@
-<?php  error_reporting(0);  /* E_ALL - for Debugging*/
+<?php  error_reporting(E_ALL); 
 
 //Vital file include
 require_once("../load.php"); 
@@ -102,7 +102,7 @@ echo  '</ul></div>
 <div class="span2 nomargin" style="padding: 20px"> 
 '.show_logo().'</div>'; 
   do_action('admin-footer-scr-s'); 
-  echo '</div></div></div>'; 
+  echo '</div></div></div>'.apply_filters("admin_custom_footerjs_links",false);
  
 ob_end_flush(); 
 

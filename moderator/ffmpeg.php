@@ -42,7 +42,7 @@ include_once('setheader.php');
 <div class="form-group form-material">
 	<label class="control-label"><i class="icon-wrench"></i>Server bin path</label>
 	<div class="controls">
-	<input type="text" name="binpath" class=" col-md-6" value="<?php echo get_option('binpath','/usr/bin/php'); ?>" /> 
+	<input type="text" name="binpath" class=" col-md-6" value="<?php echo get_option('binpath','/usr/bin/php'); ?>" />
 	<span class="help-block" id="limit-text">PHP Bin path for ffmpeg conversion tasks. Ex: <code>/usr/bin/php</code> <em>Note: Also make sure videocron.php has execute permissions (chmod : 0555)</em></span>
 	</div>
 	</div>

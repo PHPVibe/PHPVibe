@@ -24,7 +24,6 @@
 		echo '<br>Subversion: '.$aboutVibe->subversion();
 		echo '<br>Release type: '.$aboutVibe->state();
 		echo '<br>Release date: '.$aboutVibe->released();
-		echo '<br><small>'.time_ago($aboutVibe->released()).'</small>';
 		echo '</div><div class="col-md-4 col-md-offset-2 col-xs-12">  <h4> Available at PHPVibe.com </h4>';
 		
  $updater = json_decode(getpb("https://validate.phpvibe.com/api/"), true);

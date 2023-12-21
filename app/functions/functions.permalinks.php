@@ -68,6 +68,8 @@ return urlencode(strtolower($url));
 // New
 function url_translate($text)
 {
+
+    if(is_empty($text)) {return '';}
 	//	Generate a SEF URL from a given text
    $chset= "UTF-8";
    $txt= "UTF-8";
@@ -180,6 +182,7 @@ function url_translate($text)
 
 
 function brute_url_translate($string) {
+    if(is_empty($string)) {return '';}
 $specialchars = array(
 // Latin
 'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'A', 'Å' => 'A', 'Æ' => 'AE', 'Ç' => 'C',
@@ -267,6 +270,7 @@ $specialchars = array(
 'ç' => 'c', 'ə' => 'e', 'ğ' => 'g', 'ı' => 'i', 'ö' => 'o', 'ş' => 's', 'ü' => 'u',
 'Ç' => 'C', 'Ə' => 'E', 'Ğ' => 'G', 'İ' => 'I', 'Ö' => 'O', 'Ş' => 'S', 'Ü' => 'U'			
 );
+
 $url = strtr($string,$specialchars);
 
 $url = strip_punctuation(strtolower($url));

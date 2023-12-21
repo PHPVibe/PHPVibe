@@ -34,6 +34,7 @@
         var $func_call         = null;
         var $last_result = null;
         var $result = null;
+        var $insert_id = null;
         var $from_disk_cache = null;
         var $num_rows = null;
 		var $captured_errors  = array();
