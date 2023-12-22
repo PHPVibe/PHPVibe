@@ -4,6 +4,7 @@
 
 
 Website: https://phpvibe.com/
+Community: https://forums.phpvibe.com/
 
 Say hi to Marius:  https://www.linkedin.com/in/marius-iulian-patrascu-32455b240/
 
