@@ -245,7 +245,7 @@ switch ($handler) {
 					
 					alert('Have patience and don\'t close the page!');
 				  $.ajax({
-				  url: '".$base_href."install.db.php',
+				  url: '".SITE_URL."setup/install.db.php',
 				  beforeSend: function( xhr ) {
 					$('a#setuptables').html('Started...this may take a minute');
 					 $('#secod').html('<img src=\"cog-gear.gif\"/>');
@@ -463,7 +463,7 @@ switch ($handler) {
 					if(username.length > 3) {
 					//alert(username);
 						  $.ajax({
-						  url: '".$base_href."ucheck.php',
+						  url: '".SITE_URL."setup/ucheck.php',
                           type: 'post',
                           data: {username: username}
 						  })
@@ -483,7 +483,7 @@ switch ($handler) {
 				
 					if(email.length > 3) {					
 						  $.ajax({
-						  url: '".$base_href."mailcheck.php',
+						  url: '".SITE_URL."setup/mailcheck.php',
                           type: 'post',
                           data: {email: email}
 						  })

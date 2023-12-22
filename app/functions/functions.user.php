@@ -657,28 +657,22 @@ class user
         if(not_empty( $getcookie)){
             list($idg, $hpass) = explode(COOKIESPLIT,  $getcookie);
             if(not_empty($idg)){
+                $cookiehash = new Hashids(COOKIEKEY);
                 $idg = $cookiehash->decode($idg);
                 if(isset($idg[0]) && not_empty($idg[0]) && is_numeric($idg[0])) {
                     $userid = $idg[0];
                     $usergroup = $idg[1];
 
-                    $check = $db->get_var("SELECT pass as passkey FROM " . DB_PREFIX . "users WHERE id ='" . sanitize_int($userid) . "' and group_id ='" . sanitize_int($usergroup) . "'");
-
-                    if($check && $check->passkey) {
-                        if (password_verify($check->passkey, $hpass)) {
+                    $checkpasskey = $db->get_var("SELECT pass FROM " . DB_PREFIX . "users WHERE id ='" . sanitize_int($userid) . "' and group_id ='" . sanitize_int($usergroup) . "'");
+                    if($checkpasskey && not_empty($checkpasskey)) {
+                        if (password_verify($checkpasskey, $hpass)) {
                             user::LoginUser($userid);
                         } else {
-                            echo '[PassID is not valid] Something went wrong.';
+                           // echo '[PassID is not valid] Something went wrong.';
+                            return false;
                         }
                     }
 
-
-                    //Query pass
-                    if (password_verify($_SESSION['pass'], $hpass)) {
-                        echo 'Password is valid!';
-                    } else {
-                        echo 'Invalid password.';
-                    }
                 }
             }
 
