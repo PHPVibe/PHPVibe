@@ -841,7 +841,7 @@ function subscribe_box($user, $btnc = '', $counter = true)
         } else {
 //It's you
             $btnc = "btn btn-default subscriber";
-            echo '<a href="' . site_url() . 'dashboard/" class="' . $btnc . '"><i class="icon icon-cogs"></i>' . _lang('Settings') . '</a>';
+            echo '<a href="' . site_url() . 'dashboard/?sk=edit" class="' . $btnc . '"><i class="icon icon-cogs"></i>' . _lang('Settings') . '</a>';
 
         }
     }

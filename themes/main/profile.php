@@ -59,7 +59,7 @@
     </div>
   </div>
 
-
+    <?php if($myself) { ?>
 <script>
 $( document ).ready(function() {	
 	
@@ -85,7 +85,7 @@ $( document ).ready(function() {
 });
 
 </script>
-
+    <?php  } ?>
 <div class="profile-content">
 <div class="profile-hero">
       
@@ -106,6 +106,7 @@ $( document ).ready(function() {
   <ul>
     <li class="<?php echo aTab("profile");?>"><a href="<?php echo $canonical; ?>"><?php echo _lang("Channel"); ?></a></li>
 	<li class="<?php echo aTab("collections");?>"><a href="<?php echo $canonical; ?>?sk=collections"><?php echo _lang("Collections"); ?></a></li>
+      <?php if (($vd->nr > 0) || ($imgs->imgnr > 0)) { ?>
     <li class="<?php echo aTab("videos");?>"><a href="<?php echo $canonical; ?>?sk=videos"><?php echo _lang("Videos"); ?></a></li>
     <?php if(get_option('imagesmenu','1') == 1 ) { ?>
 	<li class="<?php echo aTab("images");?>"><a href="<?php echo $canonical; ?>?sk=images"><?php echo _lang("Images"); ?></a></li>
@@ -113,8 +114,9 @@ $( document ).ready(function() {
 	 <?php if(get_option('musicmenu','1') == 1 ) { ?>
 	<li class="<?php echo aTab("music");?>"><a href="<?php echo $canonical; ?>?sk=music"><?php echo _lang("Music"); ?></a></li>
    <?php } ?>
+      <?php } ?>
    
-   <?php if(($profile->hideactivity == 0) || $myself ) { ?>
+   <?php if($myself ) { ?>
    <li class="<?php echo aTab("activity");?>"><a href="<?php echo $canonical; ?>?sk=activity"><?php echo _lang("Activity"); ?></a></li>
   <?php } ?>
  </ul>
@@ -142,10 +144,14 @@ $( document ).ready(function() {
               $bp = bpp();
               break;
           case 'activity':
+              if($myself) {
               $sort =(isset($_GET['sort']) && (intval($_GET['sort']) > 0) ) ? "and type='".intval($_GET['sort'])."'" : "";
               $count = $cachedb->get_row("Select count(*) as nr from ".DB_PREFIX."activity where user='".$profile->id."' ".$sort);
               $vq = "Select * from ".DB_PREFIX."activity where user='".$profile->id."' ".$sort." ORDER BY id DESC ".this_offset(45);
-              include_once(TPL.'/profile/activity.php');	
+              include_once(TPL.'/profile/activity.php');
+              } else {
+          echo _lang('This part is private');
+          }
               break;	
           case 'videos':
               $pagestructure = $canonical.'?sk=videos&p=';
