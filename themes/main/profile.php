@@ -17,8 +17,12 @@
        @<?php echo $profile->username;?>
       </p>
       <h1 class="playlist-listing-title full">
-        <a href="#" data-pk="5" data-name="profiletitle" data-type="text" class="editable-click editable-empty" data-value="Your username" title="Edit"><?php echo _html($profile->name);  ?></a>
-      <div class="pull-right left30">
+       <?php if($myself) { ?>
+       <a href="#" data-pk="5" data-name="profiletitle" data-type="text" class="editable-click editable-empty" data-value="Your username" title="Edit"><?php echo _html($profile->name);  ?></a>
+       <?php } else { ?>
+           <?php echo _html($profile->name);  ?>
+          <?php } ?>
+          <div class="pull-right left30">
 	  <?php subscribe_box($profile->id); ?>	
 	  <?php if (!$myself) { ?>
 	  <a href="<?php echo site_url();?>msg/<?php echo $profile->id;?>/" class="tipS left30" title="<?php echo _lang("Message"). ' '._html($profile->name); ?>"><i class="material-icons">chat</i> </a>
@@ -27,8 +31,12 @@
 	  </h1>
 	   
       <div class="playlist-listing-description">
+         <?php if($myself) { ?>
         <a href="#" data-pk="5" data-name="profileabout" data-type="text" class="editable-click editable-empty" data-value="Your about." title="Edit"><?php echo _html($profile->bio);  ?></a>
-   </div>
+         <?php } else { ?>
+             <?php echo _html($profile->bio);  ?>
+          <?php } ?>
+      </div>
       <div class="playlist-listing-btns">
 	  <?php if ($vd->nr > 1) { ?>
         <a class="playlist-listing-play tipS" title="<?php echo _lang("Play all media");?>" href="<?php site_url(); ?>forward/uvs-<?php echo $profile->id; ?>/">
@@ -44,7 +52,7 @@
 		<i class="material-icons">show_chart</i><?php echo $actives;?>
         </div>
 		<div class="playlist-listing-views">
-		<i class="material-icons">location_on</i> <?php if($profile->local) { ?>  <?php echo _html($profile->local);?>, <?php } ?> <?php if($profile->country) { ?> <?php echo _html($profile->country);?> <?php } else { echo _lang("Unknown location");} ?> 
+		<i class="material-icons">location_on</i> <?php if($profile->local) { ?>  <?php echo _html($profile->local);?>, <?php } ?> <?php if($profile->country) { ?> <?php echo _html($profile->country);?> <?php } else { echo _lang("Somewhere");} ?>
 		</div>
 	
       </div>

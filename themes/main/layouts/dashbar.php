@@ -1,6 +1,6 @@
    <div id="DashSidebar" class="col-md-10 col-xs-12"> <?php   do_action('dashSide-top'); ?>
-<div class=" pull-right">   
-   <a class="btn btn-lg btn-default mbot20 dropdown-toggle"  data-toggle="dropdown" href="#" aria-expanded="false"
+<div class="pull-left">
+   <a class="btn btn-lg btn-primary mbot20 dropdown-toggle"  data-toggle="dropdown" href="#" aria-expanded="false"
 	data-animation="scale-up" role="button"><i class="material-icons">sort</i> Navigate</a>
 
 	<ul class="dropdown-menu dropdown-left">

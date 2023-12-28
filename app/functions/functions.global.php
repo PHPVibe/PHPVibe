@@ -714,7 +714,11 @@ function _count($table, $field = null, $sum = false)
     } else {
         $c = $db->get_row("SELECT count(*) as nr FROM " . DB_PREFIX . $table);
     }
+    if($c && not_empty($c->nr)) {
     return number_format($c->nr, 0);
+    } else {
+    return 0;
+    }
 }
 
 //Fb count

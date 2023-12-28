@@ -521,7 +521,7 @@ class user
     public static function generateRandomNumber($length = 9)
     {
         $random = "";
-        srand((double)microtime() * 1000000);
+        //srand((double)microtime() * 1000000);
         $data = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         $data .= "abcdefghijklmnopqrstuvwxyz";
         $data .= "0123456789";

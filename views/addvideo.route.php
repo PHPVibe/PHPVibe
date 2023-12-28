@@ -222,7 +222,7 @@ $data =  '<div id="vibe-error" class="hide msg-warning mtop20 mbot20 mleft20 mri
 	<p>'._lang("Drag and drop a video file here or").'</p>
 	</div>
 	<div class="block mtop20 mleft20 mright20">
-	 <a id="pickfiles" class="btn btn-primary btn-block" href="javascript:;">'._lang("Choose a video").'</a>
+	 <a id="pickfiles" class="btn btn-primary" href="javascript:;">'._lang("Choose a video").'</a>
 	 </div>
     <a class="hide" id="uploadfiles" href="javascript:;">[Upload files]</a>
 	</div>

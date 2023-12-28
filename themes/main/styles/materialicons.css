@@ -52,7 +52,7 @@
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   font-feature-settings: "liga";
-  animation:0.9s linear 0s materialswap;
+  animation:0.3s linear 0s materialswap;
 }
 
 .material-symbols-outlined , .material-icons {
