@@ -1,6 +1,7 @@
 # PHPVibe - FREE, OPEN SOURCE VIDEO CMS
 ## A full multimedia solution, it can be the perfect framework for your video, image, or music website, or why not? All in one!
-# Developer :: Marius Patrascu with the help of many beautiful members of the Vibe community
+# Developer :: Marius Patrascu 
+(with the help of the many beautiful members of the Vibe community!)
 
 
 Website: https://phpvibe.com/
