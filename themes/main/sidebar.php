@@ -114,10 +114,10 @@
                 <h4 class="li-heading user-profile-link-side">
                    <a href=" <?php echo profile_url(user_id(), user_name()); ?> "> <?php echo _lang('YOU '); ?> <i class="material-icons">&#xe5e1;</i></a>
                 </h4>
-
+<?php } ?>
                 <div class="sidebar-nav blc">
                     <ul>
-                        <?php
+                        <?php  if (is_user()) {
                         echo '<li><a href="' . site_url() . me . '/?sk=likes"><span class="iconed"><i class="material-icons">&#xE8DC;</i></span> ' . _lang('Likes') . '</a> </li>
 <li><a href="' . site_url() . me . '/?sk=history"><span class="iconed"><i class="material-icons">&#xE889;</i></span> ' . _lang('History') . '</a> </li>
 <li><a href="' . site_url() . me . '/?sk=later"><span class="iconed"><i class="material-icons">&#xE924;</i></span> ' . _lang('Watch Later') . '</a> </li>
