@@ -362,7 +362,7 @@ function percent($first, $num_total, $precision = 0)
 //limit a string
 function _cut($str, $nb = 10)
 {
-    if(not_empty($str)){
+    if (not_empty($str)) {
         if (strlen($str) > $nb) {
             if (extension_loaded('mbstring')) {
                 mb_internal_encoding("UTF-8");
@@ -613,7 +613,8 @@ function site_copy()
     return apply_filters('tsitecopy', get_option('site-copyright'));
 }
 
-function video_time($sec, $padHours = false) {
+function video_time($sec, $padHours = false)
+{
     $hms = "";
 // there are 3600 seconds in an hour, so if we
 // divide total seconds by 3600 and throw away
@@ -621,7 +622,7 @@ function video_time($sec, $padHours = false) {
     $hours = intval(intval($sec) / 3600);
     if ($hours > 0):
 // add to $hms, with a leading 0 if asked for
-        $hms .= ($padHours)? str_pad($hours, 2, "0", STR_PAD_LEFT). ':' : $hours. ':';
+        $hms .= ($padHours) ? str_pad($hours, 2, "0", STR_PAD_LEFT) . ':' : $hours . ':';
     endif;
 // dividing the total seconds by 60 will give us
 // the number of minutes, but we're interested in
@@ -629,7 +630,7 @@ function video_time($sec, $padHours = false) {
 // divide by 60 again and keep the remainder
     $minutes = intval(intval($sec / 60) % 60);
 // then add to $hms (with a leading 0 if needed)
-    $hms .= str_pad($minutes, 2, "0", STR_PAD_LEFT). ':';
+    $hms .= str_pad($minutes, 2, "0", STR_PAD_LEFT) . ':';
 // seconds are simple - just divide the total
 // seconds by 60 and keep the remainder
     $seconds = intval($sec % 60);
@@ -637,6 +638,7 @@ function video_time($sec, $padHours = false) {
     $hms .= str_pad($seconds, 2, "0", STR_PAD_LEFT);
     return $hms;
 }
+
 function sef_url()
 {
     $url = site_url();
@@ -714,10 +716,10 @@ function _count($table, $field = null, $sum = false)
     } else {
         $c = $db->get_row("SELECT count(*) as nr FROM " . DB_PREFIX . $table);
     }
-    if($c && not_empty($c->nr)) {
-    return number_format($c->nr, 0);
+    if ($c && not_empty($c->nr)) {
+        return number_format($c->nr, 0);
     } else {
-    return 0;
+        return 0;
     }
 }
 
@@ -1085,7 +1087,7 @@ function remove_file($filename)
             echo '<div class="msg-info">' . $filename . ' removed.</div>';
         } else {
             echo '<div class="msg-warning">' . $filename . ' was not removed. Check server permisions for "unlink" function.</div>';
-        };
+        }
     }
 }
 
@@ -1533,6 +1535,7 @@ function removeCommonWords($input)
     }
     return false;
 }
+
 function the_embed()
 {
     global $embedvideo;
@@ -1917,7 +1920,7 @@ function get_activity($done)
             case 6:
                 $video = $cachedb->get_row("SELECT title,id from " . DB_PREFIX . "videos where id='" . intval($done->object) . "'");
                 if ($video) {
-                    $did["what"] = _lang("commented on the video") . ' <a class="text-primary" href="' . video_url($video->id, $video->title) . '" title="' . _html($video->title) . '">' . _html(_cut($video->title, 268)) . '</a>';;
+                    $did["what"] = _lang("commented on the video") . ' <a class="text-primary" href="' . video_url($video->id, $video->title) . '" title="' . _html($video->title) . '">' . _html(_cut($video->title, 268)) . '</a>';
                 }
                 break;
             case 7:
@@ -1926,7 +1929,7 @@ function get_activity($done)
                     $vid = intval(str_replace('video_', '', $com->object_id));
                     $video = $db->get_row("SELECT title,id from " . DB_PREFIX . "videos where id='" . $vid . "'");
                     if ($video) {
-                        $did["what"] = _lang("liked a comment on") . ' <a class="text-primary" href="' . video_url($video->id, $video->title) . '" title="' . _html($video->title) . '">' . _html(_cut($video->title, 268)) . '</a>';;
+                        $did["what"] = _lang("liked a comment on") . ' <a class="text-primary" href="' . video_url($video->id, $video->title) . '" title="' . _html($video->title) . '">' . _html(_cut($video->title, 268)) . '</a>';
                         $did["content"] = '<div class="content-filled">' . $com->comment_text . '</div>';
                     }
                 }
