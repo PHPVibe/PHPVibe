@@ -32,10 +32,8 @@ define( 'DB_CACHE', '12' );
 /* 
 ** Site options
 */
-/** License key 
-Create it freely at PHPVibe.com **/
-/** For localhost use this key: vibe-localhost-key **/
-define( 'phpVibeKey', 'the key for this domain' );
+/** License key for commercial use (if case!)  **/
+define( 'phpVibeKey', 'vibe-localhost-key' );
 
 /** Site url (with end slash, ex: http://www.domain.com/ ) **/
 define( 'SITE_URL', 'https://yoursiteurl.com/' );
