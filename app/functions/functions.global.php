@@ -105,7 +105,7 @@ function time_ago($date, $granularity = 2)
     if (nullval($date)) {
         return '';
     }
-    $periods = array(_lang("second"), _lang("minute"), _lang("hour"), _lang("day"), _lang("week"), _lang("month"), _lang("year"), _lang("decade"));
+    $periods = array("second","minute", "hour","day", "week","month","year", "decade");
     $lengths = array("60", "60", "24", "7", "4.35", "12", "10");
     $now = time();
     $unix_date = strtotime($date);
@@ -126,9 +126,9 @@ function time_ago($date, $granularity = 2)
     }
     $difference = round($difference);
     if ($difference != 1) {
-        $periods[$j] .= _lang("s");
+        $periods[$j] .= "s";
     }
-    return $difference . ' ' . _lang($periods[$j]) . ' ' . _lang($tense);
+    return $difference . ' ' . _lang($periods[$j]) . ' ' . $tense;
 }
 
 /* extracts domain from url */
