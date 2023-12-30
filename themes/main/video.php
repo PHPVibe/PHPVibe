@@ -5,11 +5,11 @@
 <?php } ?>
     <div class="<?php if(!has_list()){ echo "col-md-8 col-xs-12";} else {echo "row block player-in-list";}?> ">
         <div id="video-content" class="<?php if(has_list()){ echo "col-md-8 col-xs-12";} else {echo "row block";}?>">
-            <div class="video-player pull-left 
+            <div class="video-player pull-left
                 <?php rExternal() ?>">
                 <?php do_action('before-videoplayer');
                       echo _ad('0','before-videoplayer');
-                      echo the_embed(); 
+                      echo the_embed();
                       echo _ad('0','after-videoplayer');
                       do_action('after-videoplayer');
                 ?>
@@ -20,13 +20,13 @@
         <?php if(has_list()){ ?>
         <div id="ListRelated" class="video-under-right nomargin pull-right col-md-4 col-xs-12">
             <?php do_action('before-listrelated'); ?>
-            <div class="video-player-sidebar pull-left">			
+            <div class="video-player-sidebar pull-left">
                 <div class="items">
-                  <?php 
+                  <?php
 				  echo fakePlace(7,'videolist').'
 					<div class="ajaxreqList" data-url="playlist/?list='._get('list').'&idowner='.$video->owner().'&videoowner&videoid='.$video->id().'&sorter='._get('sorter').'"> </div>
 					';
-                  ?>                  
+                  ?>
                </div>
 				</div>
                 <?php do_action('after-listrelated'); ?>
@@ -43,7 +43,7 @@
                 <h1>
 				<?php $listest = decList(_get('list'));
                       /* Test if list can be sorted */
-                      if(intval($listest) > 0) { 
+                      if(intval($listest) > 0) {
                           $thesort = not_empty(_get('sorter')) ? _get('sorter') : 'no' ;
                           $thesorts = array(
                           'no' => _lang("Default order"),
@@ -52,38 +52,38 @@
                           'td' => _lang("Title descending"),
                           'ta' => _lang("Title ascending"),
                           'wd' => _lang("Views descending"),
-                          'wa' => _lang("Views ascending"),				
+                          'wa' => _lang("Views ascending"),
                           );
                           if (isset($thesorts[$thesort])) {
                 ?>
-				<div class="playlist-order"> 
+				<div class="playlist-order">
 				<a class="dropdown-toggle tipS" title="<?php echo $thesorts[$thesort];  ?>" data-toggle="dropdown" href="#" aria-expanded="false" data-animation="scale-up" role="button">
-				<i class="icon icon-calendar"></i>			
+				<i class="icon icon-calendar"></i>
 				</a>
 				<ul class="dropdown-menu dropdown-left bullet" role="menu">
-				<?php 
+				<?php
                               foreach ($thesorts as $key => $value) {
                                   echo '<li><a href="'.video_url($video->id() , $video->title(), hashList($listest)).'&sorter='.$key.'">';
                                   if($key !== $thesort) {
                                       echo '<i class="icon material-icons">&#xE836;</i> ';
                                   } else {
-                                      echo '<i class="icon material-icons">&#xE837;</i> ';	
+                                      echo '<i class="icon material-icons">&#xE837;</i> ';
                                   }
-                                  echo $value.'</a></li>';	
-                                  
+                                  echo $value.'</a></li>';
+
                               }
                               echo '</ul>';
                           } ?>
 				</div>
-				<?php } ?>				
-				
+				<?php } ?>
+
                     <?php  echo _html('Now playing:'); ?>
                     <span>
                         <?php  echo _html(_cut(list_title(_get('list')),260));?>
                     </span>
-                </h1>			
-				
-		               
+                </h1>
+
+
             </div>
             <div class="next-an list-next">
                 <a class="fullit tipS" href="javascript:void(0)" title="<?php  echo _html('Resize player');?>">
@@ -102,42 +102,42 @@
     <div class="rur video-under-right oboxed <?php if(has_list()){ echo "mtop10";}?> pull-right col-md-4 col-xs-12">
         <?php do_action('before-related');  echo _ad('0','related-videos-top');?>
             <div class="related video-related top10 related-with-list">
-                
-                    <?php 					
+
+                    <?php
 					if(get_option("ajaxyRel" , 1) == 1) {
                         echo fakePlace(get_option('related-nr',12),'videolist').'
 					<div class="ajaxreqRelated" data-url="relatedvids?videoowner&videoid='.$video->id().'&videomedia='.($video->isvideo() ? '1' : '2').'&videocategory='.$video->rawcategorylist().'">
 					 </div>
 					';
-					} else {	
+					} else {
                         echo '<ul>';
-                        layout('layouts/related'); 
+                        layout('layouts/related');
                         echo '</ul>';
 					}
                     ?>
-                
+
             </div>
             <?php do_action('after-related'); ?>
         </div>
         <div class="video-under col-md-8 col-xs-12">
             <div class="oboxed odet">
                 <div class="row vibe-interactions">
-				
-                    
+
+
 					<div class="user-media-actions">
-					
-                    
+
+
 					<div class="like-views">
 					<?php do_action('before-video-title'); ?>
                     <h1>
                         <?php echo $video->title();?>
                     </h1>
                     <?php do_action('after-video-title'); ?>
-                    
+
                     </div>
                           <div class="interaction-icons">
                 <div class="likes-bar">
-						
+
                             <?php if($is_liked) { ?>
                             <div class="aaa">
                                 <a href="javascript:RemoveLike(<?php echo $video->id();?>)" id="i-like-it" class="isLiked pv_tip likes" title=" <?php echo _lang('Remove liked');?>">
@@ -148,7 +148,7 @@
                             <?php } else { ?>
                             <div class="aaa">
                                 <a href="javascript:iLikeThis(<?php echo $video->id();?>)" id="i-like-it" class="pv_tip likes" title=" <?php echo _lang('Like');?>">
-                                    <i class="material-icons">&#xE8DC;</i>									
+                                    <i class="material-icons">&#xE8DC;</i>
                                     <span><?php echo number_format($video->likes());?></span>
                                 </a>
                             </div>
@@ -160,18 +160,18 @@
                                 </a>
                             </div>
                             <div class="like-box">
-                                
+
                                 <div class="like-progress">
-                                    <div class="likes-success" style="width: 
+                                    <div class="likes-success" style="width:
                                         <?php echo $likes_percent;?>%;">
                                     </div>
-                                    <div class="likes-danger second" style="width: 
+                                    <div class="likes-danger second" style="width:
                                         <?php echo $dislikes_percent;?>%;">
                                     </div>
                                 </div>
                             </div>
-						   </div>               						  
-                           
+						   </div>
+
                             <div class="aaa">
                                 <a id="social-sharer" data-target="#sharing-it" data-toggle="modal" href="javascript:void(0)"  title=" <?php echo _lang('Share or Embed');?>">
                                    <i class="material-icons">&#xE80d;</i>
@@ -183,10 +183,10 @@
                             <?php if (is_user()) { ?>
                             <div class="aaa">
                                 <a data-toggle="dropdown" id="dLabel" data-target="#" class="pv_tip dropdown-toogle" title=" <?php echo _lang('Add To');?>">
-                                    <i class="material-icons">&#xe7e5;</i>   
+                                    <i class="material-icons">&#xe7e5;</i>
 									<span class="hidden-md hidden-lg visible-xs">
                                         <?php echo _lang('Add To');?>
-                                    </span>									
+                                    </span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="dLabel">
              <?php  $playlists=$cachedb->get_results("SELECT * from ".DB_PREFIX."playlists where owner='".user_id()."' and ptype = 1 and picture not in ('[likes]', '[history]', '[later]') limit 0,100");
@@ -228,11 +228,11 @@
 							</div>
 							<br style="clear:both">
 							</div>
-                        
+
                     </div>
                     <div class="clearfix"></div>
                 </div>
-           
+
                 <div class="user-container full top20 bottom20">
                     <div class="pull-left user-box" style="">
                         <?php echo '
@@ -245,34 +245,36 @@
                             </a> 
 							<p class="user-box-numbers">  <span class="mright20">'.number_format($video->views()).' '._lang("views").'</span> '.time_ago($video->added()).'</p>
 						</div>';?>
-						
+
                         <div class="pull-right"><?php subscribe_box($video->owner());?></div>
-                    </div>					
+                    </div>
                     <div style="clear:both"></div>
                 </div>
-            
-             
+
+
                 <?php do_action('before-description-box'); ?>
                 <div class="video-description">
                     <ul id="media-info" class="list-unstyled">
 
-							 <?php 
-							 if(not_empty($video->rawcategorylist())) {													
-                                 echo '<li class="mbot20">'.$video->categories('','achip inline mright10 mleft10').'</li>';							
-                             } 
-                             ?>
-							<?php if(is_array($video->tags()) && not_empty($video->tags())) { ?>
-							<li class="mbot20"><div class="thetags"> <?php echo $video->prettytags('right20','#','');?></div></li>
-				<?php } ?>
+
+
 						  <li>
 						  <div id ="media-description" data-small="<?php echo _lang("show more");?>" data-big=" <?php echo _lang("show less");?>">
                             <?php echo makeLn($video->description());?>
-							
-							
+
+
                             </div>
-                        </li>                      
+                        </li>
+                        <?php
+                        if(not_empty($video->rawcategorylist())) {
+                            echo '<li class="mbot20 mtop20">'.$video->categories('','achip inline mright10 mleft10').'</li>';
+                        }
+                        ?>
+                        <?php if(is_array($video->tags()) && not_empty($video->tags())) { ?>
+                            <li class="mbot20"><div class="thetags"> <?php echo $video->prettytags('right20','#','');?></div></li>
+                        <?php } ?>
                     </ul>
-                 
+
                     <?php do_action('after-description-box'); ?>
                 </div>
                 <div class="clearfix"></div>
@@ -290,8 +292,8 @@
                 <div class="oboxed ocoms mtop10">
                     <?php echo _ad('0','top-of-comments');?>
                     <?php do_action('before-comments'); ?>
-                    <?php 
-					$comsNav = '<nav id="page_nav"><a href="'.$canonical.'?p='.next_page().'"></a></nav>';					
+                    <?php
+					$comsNav = '<nav id="page_nav"><a href="'.$canonical.'?p='.next_page().'"></a></nav>';
 					echo comments();
                     ?>
                     <?php do_action('after-comments'); ?>
@@ -335,7 +337,7 @@ $(document).ready(function(){
                                 <?php  echo $_SESSION['token'];?>" />
                                 <div class="control-group" style="border-top: 1px solid #fff;">
                                     <label class="control-label">
-                                        <?php  echo _lang('Reason for reporting');?>: 
+                                        <?php  echo _lang('Reason for reporting');?>:
                                     </div>
                                     <div class="controls">
                                         <div class="checkbox-custom checkbox-primary">
@@ -409,8 +411,8 @@ $(document).ready(function(){
 			<div class="full">
             <div class="text-center text-uppercase full bottom10 top20">
 			<h4><?php  echo _lang('Let your friends enjoy it also!');?></h4>
-			</div>			
-             <div id ="jsshare" data-url="<?php echo $canonical; ?>" data-title="<?php echo _cut($video->title(), 40); ?>"></div>                            
+			</div>
+             <div id ="jsshare" data-url="<?php echo $canonical; ?>" data-title="<?php echo _cut($video->title(), 40); ?>"></div>
             </div>
 			<div class="video-share mtop10 clearfix">
 			<div class="text-center text-uppercase full bottom20 top20">
@@ -436,14 +438,14 @@ $(document).ready(function(){
                             </span>
                             <div class="form-control-wrap">
 							<div class="row">
-							
+
 							<div class="col-md-7">
 <textarea style="min-height:80px" id="share-embed-code-small" name="embed-this" class="form-control" title=" <?php echo _lang('Embed this media on your page');?>"><iframe width="853" height="480" src="<?php echo site_url().embedcode.'/'._mHash($video->id()).'/';?>" frameborder="0" allowfullscreen></iframe></textarea>
  <label class="floating-label"> <?php  echo _lang('Embed code');?></label>
      <div class="radio-custom radio-primary"><input type="radio" name="changeEmbed" class="styled" value="1"><label>1920x1080</label></div>
-	<div class="radio-custom radio-primary"><input type="radio" name="changeEmbed" class="styled" value="2"><label>1280x720</label></div>	
-	<div class="radio-custom radio-primary"><input type="radio" name="changeEmbed" class="styled" value="3"><label>854x480</label></div>	
-	<div class="radio-custom radio-primary"><input type="radio" name="changeEmbed" class="styled" value="4"><label>640x360</label></div>	
+	<div class="radio-custom radio-primary"><input type="radio" name="changeEmbed" class="styled" value="2"><label>1280x720</label></div>
+	<div class="radio-custom radio-primary"><input type="radio" name="changeEmbed" class="styled" value="3"><label>854x480</label></div>
+	<div class="radio-custom radio-primary"><input type="radio" name="changeEmbed" class="styled" value="4"><label>640x360</label></div>
 	<div class="radio-custom radio-primary"><input type="radio" name="changeEmbed" class="styled" value="5"><label>426x240</label></div>
 					  </div>
 							<div class="col-md-4 col-md-offset-1">

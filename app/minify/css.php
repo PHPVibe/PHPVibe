@@ -1,11 +1,13 @@
-<?php  error_reporting(0);
-// Root 
+<?php  error_reporting(E_ALL);
+// Security
+if (!defined('in_phpvibe'))
+	define('in_phpvibe', true);
+// Root
 if( !defined( 'ABSPATH' ) )$abs = str_replace( array('\\', '/app/minify'),array( '/',''),  dirname( __FILE__ ) );
-	define( 'ABSPATH', $abs  );
-/* $full_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; */
-$full_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-$uri_parts = explode('css.php', $full_link, 2);
-$site_link = $uri_parts[0];$site_link = str_replace('app/minify/', '', $site_link);
+define( 'ABSPATH', $abs  );
+//Include configuration
+require_once(ABSPATH . '/vibe_config.php');
+$site_link = SITE_URL;
 $themefold = isset($_GET['t']) ? $_GET['t'] : "main";
 $themefold = preg_replace('/(\.+\/)/','',$themefold);	
 $txt = '';
@@ -25,7 +27,7 @@ if(isset($_GET['sign'])){
 	// Set the correct MIME type, because Apache won't set it for us
 	header("Content-type: text/css");
 	header('Pragma: public');	
-	// Write everything out	
+	// Write everything out
 	 readfile($cachedfile);
 	
 	/* $txt = file_get_contents($cachedfile); echo $txt;	*/
@@ -59,7 +61,8 @@ if(isset($_GET['sign'])){
 	$txt = preg_replace( '/(\/\*[\w\'\s\r\n\*\+\,\"\-\.]*\*\/)/', '$2', $txt );
 	//A fix 
 	$txt = str_replace('and(', 'and (', $txt);
-	$txt = "/* PHPVibe CMS | Copyright PHPVibe.com */ ".$txt;
+	// Signature
+	$txt = "/* Powered by the PHPVibe CMS ( PHPVibe.com ) */ ".$txt;
 	
 
 	// Create cache file

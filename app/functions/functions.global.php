@@ -1544,30 +1544,6 @@ function the_embed()
     }
 }
 
-function lang_menu()
-{
-    global $cachedb;
-    $row = $cachedb->get_results("SELECT `lang_code`, `lang_name` FROM " . DB_PREFIX . "languages order by `lang_name` asc  LIMIT 0,100");
-    $menu = '';
-    $cr = '';
-    if ($row) {
-        $menu .= '<h4 class="li-heading mtop10">
-' . _lang('Site language') . '
-</h4>
-<div class="sidebar-nav blc"><ul>';
-        foreach ($row as $l) {
-            if ($l->lang_code == current_lang()) {
-                $cr = $l->lang_name;
-                $ico = '<i class="material-icons">gps_fixed</i>';
-            } else {
-                $ico = '<i class="material-icons">gps_not_fixed</i>';
-            }
-            $menu .= '<li><a rel="nofollow" href="' . canonical() . '?clang=' . $l->lang_code . '"><span class="iconed">' . $ico . '</span> ' . $l->lang_name . '</a></li>';
-        }
-        $menu .= '</ul></div>';
-    }
-    return $menu;
-}
 
 function u_k($nr)
 {

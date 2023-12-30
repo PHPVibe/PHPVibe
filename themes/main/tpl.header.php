@@ -161,10 +161,6 @@ function top_nav(){
         }
         $nav .= '<li class="my-buzz" role="presentation"><a href="'.site_url().'dashboard/"><i class="icon material-icons">&#xE031;</i> '. _lang('Media Studio').'</a> </li>
 	<li role="presentation"><a href="'.site_url().'dashboard/?sk=edit"><i class="icon material-icons">&#xE8B8;</i> '._lang("My Settings").'</a></li>
-	<li role="presentation"> <a href="'.site_url().me.'"> <i class="icon material-icons">&#xE04A;</i> '._lang("My Videos").' </a>       </li>
-	<li role="presentation"> <a href="'.site_url().me.'?sk=music"> <i class="icon material-icons">&#xE030;</i> '._lang("My Music").' </a>       </li>
-	<li role="presentation"> <a href="'.site_url().me.'?sk=images"> <i class="icon material-icons">&#xE413;</i> '._lang("My Images").' </a>       </li>
-
 	<li class="my-inbox" role="presentation"><a href="'.site_url().'conversation/0/"><i class="icon material-icons">&#xE0C9;</i> '. _lang('Messages').'</a> </li>';
         if(is_admin()){
             $nav .= '

@@ -551,7 +551,6 @@
 		/* Remove css cache */
 		$csslist = glob($css_dir."{*.css*}", GLOB_BRACE);
 		if($csslist) {
-            var_dump($csslist);
 			foreach ($csslist as $filename)  {
 				if($filename){
                  if(!is_dir($filename) && (( strpos($filename,'index.html') == false) || ( strpos($filename,'htaccess') == false) )) {					

@@ -453,7 +453,7 @@ $("#insertChat").emojioneArea({
     //Show more desc
     $('#media-description').readmore({
      speed: 75,
-	 collapsedHeight: 80,
+	 collapsedHeight: 40,
      moreLink: '<a href="#" class="readmore">'+ $('#media-description').data("small") +' <i class="material-icons">&#xE313;</i></a>',
 	 lessLink: '<a href="#" class="readmore">'+ $('#media-description').data("big") +' <i class="material-icons">&#xE316;</i></a>'
     });

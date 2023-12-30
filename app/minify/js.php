@@ -31,7 +31,7 @@ $scripts = array (
 	// Set the correct MIME type, because Apache won't set it for us
 	header("Content-Type: application/javascript");
 	// Start the css
-	echo('/* PHPVibe CMS:: Javascript */');	
+	echo('/*  Powered by the PHPVibe CMS ( PHPVibe.com ) */');
 /* Cache file */
 $cachexists= false;
 $cachedfile = $cachef.'storage/minify/js-combined.js';

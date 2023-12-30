@@ -117,7 +117,9 @@ $( document ).ready(function() {
       <?php } ?>
    
    <?php if($myself ) { ?>
-   <li class="<?php echo aTab("activity");?>"><a href="<?php echo $canonical; ?>?sk=activity"><?php echo _lang("Activity"); ?></a></li>
+       <li class="<?php echo aTab("activity");?>"><a href="<?php echo $canonical; ?>?sk=activity"><?php echo _lang("Activity"); ?></a></li>
+       <li class="<?php echo aTab("activity");?>"><a href="<?php echo $canonical; ?>?sk=subscribed"><?php echo _lang("Following"); ?></a></li>
+       <li class="<?php echo aTab("activity");?>"><a href="<?php echo $canonical; ?>?sk=subscribers"><?php echo _lang("Followers"); ?></a></li>
   <?php } ?>
  </ul>
 </nav>
