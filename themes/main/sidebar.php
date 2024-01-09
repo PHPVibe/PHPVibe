@@ -109,20 +109,21 @@
                 ?>
                 <?php
                 if (is_user()) {
-                              ?>
+                    ?>
 
-                <h4 class="li-heading user-profile-link-side">
-                   <a href=" <?php echo profile_url(user_id(), user_name()); ?> "> <?php echo _lang('YOU '); ?> <i class="material-icons">&#xe5e1;</i></a>
-                </h4>
-<?php } ?>
+                    <h4 class="li-heading user-profile-link-side">
+                        <a href=" <?php echo profile_url(user_id(), user_name()); ?> "> <?php echo _lang('YOU '); ?> <i
+                                    class="material-icons">&#xe5e1;</i></a>
+                    </h4>
+                <?php } ?>
                 <div class="sidebar-nav blc">
                     <ul>
-                        <?php  if (is_user()) {
-                        echo '<li><a href="' . site_url() . me . '/?sk=likes"><span class="iconed"><i class="material-icons">&#xE8DC;</i></span> ' . _lang('Likes') . '</a> </li>
+                        <?php if (is_user()) {
+                            echo '<li><a href="' . site_url() . me . '/?sk=likes"><span class="iconed"><i class="material-icons">&#xE8DC;</i></span> ' . _lang('Likes') . '</a> </li>
 <li><a href="' . site_url() . me . '/?sk=history"><span class="iconed"><i class="material-icons">&#xE889;</i></span> ' . _lang('History') . '</a> </li>
 <li><a href="' . site_url() . me . '/?sk=later"><span class="iconed"><i class="material-icons">&#xE924;</i></span> ' . _lang('Watch later') . '</a> </li>
  
- <li><a  href="'.site_url().'activity?myfeed=1"  title="'._("View all").'"><i class="material-icons">&#xE064;</i> '._lang("My subscriptions").'</a></li>
+ <li><a  href="' . site_url() . 'activity?myfeed=1"  title="' . _("View all") . '"><i class="material-icons">&#xE064;</i> ' . _lang("My subscriptions") . '</a></li>
 </ul>
 </div>
  <h4 class="li-heading"><i class="material-icons">&#xe5d3;</i></span></h4>
@@ -131,14 +132,14 @@
 ';
 
 
-                                /* end subscriptions */
-                                do_action('user-sidebar-end');
-                                } else {
-                                    do_action('guest-sidebar');
-                                }
+                            /* end subscriptions */
+                            do_action('user-sidebar-end');
+                        } else {
+                            do_action('guest-sidebar');
+                        }
 
                         echo '<li class="lihead">
-                                <a class="top-link uav dropdown-toggle"  data-toggle="dropdown" href="#" aria-expanded="false">
+                                <a class="dropdown-toggle"  data-toggle="dropdown" href="#" aria-expanded="false">
                                 <span class="iconed"><i class="material-icons">&#xe8e2;</i></span>' . _lang('Site language') . '</a>';
                         $rowlang = $cachedb->get_results("SELECT `lang_code`, `lang_name` FROM " . DB_PREFIX . "languages order by `lang_name` asc  LIMIT 0,100");
                         $cr = '';
@@ -159,17 +160,18 @@
                         echo '</li>';
 
                         if (get_option('showusers', 1) == 1) {
-                                    echo '<li class="lihead"><a href="' . site_url() . members . '/"><span class="iconed"><i class="material-icons">&#xe7fd;</i></span>' . _lang('Channels') . '</a></li>';
-                                }
-                                if (get_option('showplaylists', 1) == 1) {
-                                    echo '<li class="lihead"><a href="' . site_url() . playlists . '/"><span class="iconed"><i class="material-icons">&#xE431;</i></span>' . _lang('Collections') . '</a></li>';
-                                }
-                                if (get_option('showblog', 1) == 1) {
-                                    echo '<li class="lihead"><a href="' . site_url() . blog . '/"><span class="iconed"><i class="material-icons">&#xE8CD;</i></span>' . _lang('Blog') . '</a></li>';
-                                }
+                            echo '<li class="lihead"><a href="' . site_url() . members . '/"><span class="iconed"><i class="material-icons">&#xe7fd;</i></span>' . _lang('Channels') . '</a></li>';
+                        }
+                        if (get_option('showplaylists', 1) == 1) {
+                            echo '<li class="lihead"><a href="' . site_url() . playlists . '/"><span class="iconed"><i class="material-icons">&#xE431;</i></span>' . _lang('Collections') . '</a></li>';
+                        }
+                        if (get_option('showblog', 1) == 1) {
+                            echo '<li class="lihead"><a href="' . site_url() . blog . '/"><span class="iconed"><i class="material-icons">&#xE8CD;</i></span>' . _lang('Blog') . '</a></li>';
+                        }
 
-                                do_action('sidebar-end');
+                        do_action('sidebar-end');
 
+<<<<<<< HEAD
                                 echo _ad('0', 'sidebar-end');
                 $posts = $cachedb->get_results("select title,pid from " . DB_PREFIX . "pages where menu = 1 ORDER BY m_order, title ASC limit 0,10");
                                 if ($posts) {
@@ -184,3 +186,19 @@
                                 <div class="blc" style="height:400px">&nbsp;</div>
                         </div>
                 </div>
+=======
+                        echo _ad('0', 'sidebar-end');
+                        $posts = $cachedb->get_results("select title,pid from " . DB_PREFIX . "pages where menu = 1 ORDER BY m_order, title ASC limit 0,10");
+                        if ($posts) {
+                            foreach ($posts as $px) {
+                                echo '<li><a href="' . page_url($px->pid, $px->title) . '" title="' . _html($px->title) . '"> <span class="iconed"><i class="material-icons">&#xef6d;</i></span>' . _cut(_html($px->title), 22) . '</a></li>';
+                            }
+                        }
+                        ?>
+                    </ul>
+                </div>
+                <?php ?>
+                <div class="blc" style="height:400px">&nbsp;</div>
+        </div>
+    </div>
+>>>>>>> 4b7354b551af7a2225f62fd5355c9d9adc822097
