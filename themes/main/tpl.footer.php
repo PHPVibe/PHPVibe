@@ -191,7 +191,7 @@ $lg = '<!-- Start Login Modal -->
 </div>
 <button type="submit" class="btn btn-primary btn-block mtop20">'._lang("Sign In").'</button>
 </form>
-<p class="mtop10">'._lang("Still no account? Please go to").' <a data-target="#register-now" data-toggle="modal" href="javascript:void(0)">'._lang("Sign up").'</a></p>
+<p class="mtop10">'._lang("Still no account? Please go to").' <a href="'.site_url().'register">'._lang("Sign up").'</a></p>
 </div>
 </div>
 </div>
@@ -235,49 +235,7 @@ $lg = '<!-- Start Login Modal -->
 </div>
 </div>
 <!-- End Recover Modal -->
-<!-- Start Register Modal -->
-<div class="modal fade" id="register-now" aria-hidden="true" aria-labelledby="register-now" role="dialog" tabindex="-1">
-<div class="modal-dialog modal-sidebar modal-sm">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">×</span>
-</button>
-<h4 class="modal-title">'._lang('Create an account').'</h4>
-</div>
-<div class="modal-body">
-<div class="panel">
-<div class="row">'.$socials;
-if(get_option('allowlocalreg') == 1 ) {
-$lg .= '
-<form method="post" action="'.site_url().'register" class="mtop10 modal-form">
-<div class="form-group form-material floating">
-<input type="name" class="form-control" name="name" required/>
-<label class="floating-label">'._lang("Your name").'</label>
-</div>
-<div class="form-group form-material floating">
-<input type="email" class="form-control" name="email" required/>
-<label class="floating-label">'._lang("Email").'</label>
-</div>
 
-<div class="form-group form-material floating">
-<input type="password" id="password1" class="form-control" name="password" required/>
-<label class="floating-label">'._lang("Password").'</label>
-</div>
-<div class="form-group form-material floating">
-<input type="password" class="form-control" name="password2" data-match="#password1" data-match-error="'._lang("Passwords do not match").'" required/>
-<label class="floating-label">'._lang("Repeat password").'</label>
-<div class="help-block with-errors"></div>
-</div>';
-if(!nullval(get_option("recaptcha-sk", null))) {
-$lg .= '<div class="g-recaptcha" data-sitekey="'.get_option("recaptcha-sk").'" style="margin-left:-17px"></div>';
-$lg .= '<button type="submit" class="btn btn-primary btn-block mtop20">'._lang("Create account").'</button>';
-} else {
-$lg .= '<button class="btn btn-primary disabled btn-block mtop20" disabled>'._lang("Registration disabled: Missing ReCaptcha Key").'</button>';
-}
-$lg .= '</form>';
-}
-$lg .= '
 </div>
 </div>
 </div>
@@ -288,8 +246,6 @@ $lg .= '
 </div>
 </div>
 <!-- End Register Modal -->';
-
-$lg .= "<script src='https://www.google.com/recaptcha/api.js'></script>";
 
 
 return $lg;

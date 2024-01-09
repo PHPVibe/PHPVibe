@@ -120,7 +120,7 @@
                         <?php  if (is_user()) {
                         echo '<li><a href="' . site_url() . me . '/?sk=likes"><span class="iconed"><i class="material-icons">&#xE8DC;</i></span> ' . _lang('Likes') . '</a> </li>
 <li><a href="' . site_url() . me . '/?sk=history"><span class="iconed"><i class="material-icons">&#xE889;</i></span> ' . _lang('History') . '</a> </li>
-<li><a href="' . site_url() . me . '/?sk=later"><span class="iconed"><i class="material-icons">&#xE924;</i></span> ' . _lang('Watch Later') . '</a> </li>
+<li><a href="' . site_url() . me . '/?sk=later"><span class="iconed"><i class="material-icons">&#xE924;</i></span> ' . _lang('Watch later') . '</a> </li>
  
  <li><a  href="'.site_url().'activity?myfeed=1"  title="'._("View all").'"><i class="material-icons">&#xE064;</i> '._lang("My subscriptions").'</a></li>
 </ul>
