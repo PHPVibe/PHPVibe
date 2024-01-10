@@ -4,7 +4,6 @@ if(!is_home()) {
 }
 
 /* register_style('roboto'); */
-$_SESSION['darkmode'] = 0;
 if(_get('darkmode')) {
     $_SESSION['darkmode'] = _get_int('darkmode');
 }
