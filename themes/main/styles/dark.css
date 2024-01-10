@@ -1,0 +1,81 @@
+/* DarkMode */
+body, html,
+.fixed-top, #sidebar, .video-thumb,
+.dropdown-menu > .drop-head, .dropdown-menu > .drop-footer, .video-player-sidebar li.playingNow, .backtotop ,
+.user-timeline:before{
+    background-color: #202425 !important
+}
+
+.sidebar-nav a, .video h4 a, .video-description a, .comments li .message .body, body,
+.video-under h1, .user-box h3, .video-related .data .title a,
+#SearchResults .video h4 a, .video h4 a, #profile-body .video h4 a,
+.video-player-sidebar .data .usermeta a, .video-player-sidebar .data .title a,
+#show-sidebar i, .song h4 {
+    color: #a1a1a1 !important
+}
+
+.owl-carousel, .user-media-actions, #media-info,
+.emoj, .emoj.form-control,
+.dropdown-menu > li > a, .red-nav li, .red-nav, .img-owner {
+
+    border-color: #202425 !important
+}
+
+
+#media-description {
+    color: #939393
+}
+
+.likes-bar, .achip, .video-description, .btn-default, .btn-default:focus, .btn-default:hover, .searchWidget .form-control,
+#ChannelResults .video-inner, .dropdown-menu, .isBoxed, .panel, .playlistvibe, .video-player-sidebar, .player-in-list {
+    background-color: #1C1F20 !important
+}
+
+.likes-bar, .achip, .btn-default, .btn-default:focus, .btn-default:hover {
+    border: 1px solid #111 !important
+}
+
+.video-related > ul > li:first-child, .black-slider,
+.body-channels #ChannelResults .video, .vTrends {
+    border-color: #1C1F20 !important
+
+}
+
+.user-media-actions a:hover, .user-media-actions a:hover i,
+.searchWidget .search-target #switch-search > i {
+    color: #fff !important
+
+}
+
+.backtotop i {
+    color: #fff;
+    font-size: 48px;
+}
+
+.searchWidget .search-button button {
+    background-color: #1C1F20 !important;
+    color: #fff !important
+
+}
+
+#SearchResults .video {
+
+    max-height: 180px
+}
+
+.btn-default.focus, .btn-default:focus, .btn-default:hover {
+
+    color: #fff !important
+}
+
+.form-material .form-control, .form-material .form-control.focus, .form-material .form-control:focus {
+    border-bottom: 2px solid #111 !important;
+    background-color: #3b3b3b !important
+}
+.owl-carousel .owl-nav div {
+    background-color: #202425!important;
+    color: #fff!important;
+}
+.user-timeline .user-timeline-icon:after, .user-timeline .t-item:before {
+    background:none!important
+}

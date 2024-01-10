@@ -236,16 +236,7 @@ $lg = '<!-- Start Login Modal -->
 </div>
 <!-- End Recover Modal -->
 
-</div>
-</div>
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-default btn-block" data-dismiss="modal">'._lang("Close").'</button>
-</div>
-</div>
-</div>
-</div>
-<!-- End Register Modal -->';
+';
 
 
 return $lg;

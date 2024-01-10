@@ -2313,7 +2313,11 @@ a.top-link {
   margin: 0 15px 0 0;
   vertical-align: middle;
 }
-
+.top-link svg , .w-4.h-4{
+  width:25px;
+  height:25px;
+  vertical-align: middle;
+}
 .user-quick .top-separator {
   width: 12px;
   display: inline-block;
