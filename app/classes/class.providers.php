@@ -100,6 +100,11 @@ class Vibe_Providers
 
     public function getEmbedCode($videoLink, $width = null, $height = null)
     {
+	$provider = $this->decideVideoProvider();
+        // Plugins need this
+        $VibeProvider = $provider;
+        $VibeLink =$this->link; 
+	// End plugins    
         $this->setDimensions($width, $height);
         if ($videoLink != "") {
             if (!is_numeric(strpos($videoLink, "http://")) && !is_numeric(strpos($videoLink, "https://"))) {
