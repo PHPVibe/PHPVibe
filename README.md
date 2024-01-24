@@ -21,10 +21,8 @@ Introducing PHPVibe, the ultimate video-sharing CMS that goes beyond videos, off
 Handle every aspect of video management effortlessly. From video uploads to multiple qualities, ffmpeg commands for video conversion, video processing, management, and thumbnail generation - no coding required! Our CMS includes a video uploader that effortlessly sends chosen ffmpeg commands to the server for smooth video processing. After upload, the videos are automatically converted to the selected quality options as defined in the admin panel.
 
 ### YouTube Support and Import:
-When it comes to content building, speed is crucial. That's why PHPVibe integrates seamlessly with YouTube. Our CMS features a powerful multi-video YouTube importer, allowing you to import videos by search, playlist, or channel and assign them to specific owners and categories.
-
-### Automated YouTube Imports:
-Keep your content fresh with minimal effort. Our admin panel includes a convenient cron section for automated tasks. This means your website can continuously import new videos at any time, without manual intervention. It's a hassle-free way to keep your site up to date!
+When it comes to content building, speed is crucial. That's why PHPVibe integrates seamlessly with YouTube. Our CMS has removed the importer and replaced it with a standalone plugin called Youtube Video Importer
+ ( https://phpvibe.com/youtube-video-importer/L0/  ) which is, as the name suggests, a powerful multi-video YouTube importer, allowing you to import videos by search, playlist, or channel and assign them to specific owners and categories.
 
 ### Image Sharing:
 Tap into the immense popularity of picture sharing. With the rise of platforms like Instagram, WeHeartIt, and Pinterest, the demand for image sharing has skyrocketed. PHPVibe allows users to easily upload pictures, satisfying their desire to share visual content.
