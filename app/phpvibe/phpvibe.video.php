@@ -1,10 +1,12 @@
-<?php namespace PHPVibe\Video;
+<?php 
+namespace PHPVibe\Video;
 class SingleVideo {
-	private $id;
     var $error  = null;
     var $errorlog  = null;
     var $db  = null;
 var $videodetails = null;
+	private $id;
+
     public function __construct($id)     { 
 	global $db;
 	$this->error = false; //Let's be optimistic
@@ -21,19 +23,27 @@ var $videodetails = null;
 	if(jc_exists($mediaid)) {
 		//send video from cache
 			$this->videodetails = jc_get($mediaid);
+        if(!$this->videodetails || empty($this->videodetails)){
+            $this->errorlog = "This video may have been deleted (id: ".$id."). ";
+            $this->error = true; // No longer optimistic
+            layout('404');
+            return false;
+        }
 	} else {   	
 		//Queries
 		//Video & desc.
 			$this->videodetails  = $this->db->get_row("SELECT ".DB_PREFIX."videos.*, ".DB_PREFIX."description.description FROM ".DB_PREFIX."videos 
 			LEFT JOIN ".DB_PREFIX."description ON ".DB_PREFIX."videos.id =".DB_PREFIX."description.vid WHERE ".DB_PREFIX."videos.`id` = '".$this->id."'");
 				// Handle missing video
-				if(!$this->videodetails) {
+				if(!$this->videodetails || empty($this->videodetails)) {
 					$this->errorlog = "The single video with id ".$id." is not found. ";
-					$this->error = true; // No longer optimistic					
-					return false;
-				}
-			
-			
+					$this->error = true; // No longer optimistic
+            $this->errorlog = "This video may have been deleted (id: ".$id."). ";
+            $this->error = true; // No longer optimistic
+            layout('404');
+            return false;
+            //die();
+        }
 		//Tags
 			$this->videodetails->tagdetails = $this->db->get_results("SELECT id, tag_name FROM ".DB_PREFIX."tag_names where id in (SELECT tag_id FROM ".DB_PREFIX."tag_rel where media_id = '".intval($this->id)."')");
 		//Categories
@@ -60,29 +70,45 @@ var $videodetails = null;
 	public function id() {
 		return $this->id;	
 	}
-	public function token() {
-		return $this->videodetails->token;		
-	}
+
 	public function rawtitle() {
 		return $this->videodetails->title;		
 	}
+
 	public function title() {
 		return _html($this->videodetails->title);		
 	}
+
 	public function rawdescription() {
 		return $this->videodetails->description;
 		
 	}
+
 	public function description() {
 		return _html($this->videodetails->description);	
 		
 	}
+
 	public function rawthumb() {
 		return $this->videodetails->thumb;		
 	}
+
 	public function thumb() {
 		return thumb_fix($this->videodetails->thumb);		
 	}
+
+	public function thumbnails() {
+			$thumbs = $this->rawthumbnails();
+			$fullthumbs = array();
+			$i = 0;
+			foreach($thumbs as $thumb) {
+				$fullthumbs[$i] = thumb_fix($thumb);
+				$i++;
+			}
+		
+		return $fullthumbs;
+	}
+
 	public function rawthumbnails() {
 			$thumbs = array();
 			if($this->isyoutube()){
@@ -110,33 +136,27 @@ var $videodetails = null;
 		}
 		return $thumbs;
 	}
-	public function thumbnails() {
-			$thumbs = $this->rawthumbnails();
-			$fullthumbs = array();
-			$i = 0;
-			foreach($thumbs as $thumb) {
-				$fullthumbs[$i] = thumb_fix($thumb);
-				$i++;
-			}
-		
-		return $fullthumbs;
+
+	public function isyoutube() {
+		return ( _contains($this->source(), 'youtube') || _contains($this->source(), 'youtu.be'));	
 	}
+
+	public function source() {
+		return ($this->videodetails->source);
+	}
+
+	public function islink() {
+		return (filter_var($this->videodetails->source, FILTER_VALIDATE_URL));	
+	}
+
+	public function token() {
+		return $this->videodetails->token;		
+	}
+
 	public function rawcategorylist() {
 		return $this->videodetails->category;		
 	}
-	public function rawcategories() {
-		$cats = array();
-		$i= 0;
-		if(is_array($this->videodetails->channels)) {
-			foreach($this->videodetails->channels as $channel) {
-				$cats[$i]['id'] = $channel->cat_id;
-				$cats[$i]['name'] = $channel->cat_name;
-				$i++;
-			}
-		}
-		return $cats;		
-				
-	}
+
 	public function categories($glue = '', $class ='categorylink', $li = false, $liclass='categorylinks') {
 			$list= '';
 			$cats = $this->categorylinks($class,$li,$liclass);
@@ -146,6 +166,7 @@ var $videodetails = null;
 		return $list;
 		
 	}
+
 	public function categorylinks($class ='categorylink', $li = false, $liclass='categorylinks') {
 		$links = array();
 		$i= 0;		
@@ -162,6 +183,35 @@ var $videodetails = null;
 		
 		return $links;
 	}
+
+	public function rawcategories() {
+		$cats = array();
+		$i= 0;
+		if(is_array($this->videodetails->channels)) {
+			foreach($this->videodetails->channels as $channel) {
+				$cats[$i]['id'] = $channel->cat_id;
+				$cats[$i]['name'] = $channel->cat_name;
+				$i++;
+			}
+		}
+		return $cats;		
+				
+	}
+
+	public function prettytags($class='tagslink', $pre='', $post = '') {
+		$tags =$this->tags();
+		$taglinks = array();
+		$i = 0;
+			if($tags) {
+				foreach($tags as $tag) {				
+					$taglinks[$i] = $tag['name'];				
+					$i++;
+				}			
+			}
+			$links = implode(',', $taglinks);
+		return pretty_tags($links, $class, $pre, $post);
+	}
+
 	public function tags() {
 		$tags = array();
 		$tagdetails = $this->videodetails->tagdetails;
@@ -178,103 +228,107 @@ var $videodetails = null;
 			}
 		return $tags;
 	}
-	public function prettytags($class='tagslink', $pre='', $post = '') {
-		$tags =$this->tags();
-		$taglinks = array();
-		$i = 0;
-			if($tags) {
-				foreach($tags as $tag) {				
-					$taglinks[$i] = $tag['name'];				
-					$i++;
-				}			
-			}
-			$links = implode(',', $taglinks);
-		return pretty_tags($links, $class, $pre, $post);
-	}
+
 	public function seconds() {
 		return $this->videodetails->duration;
 	}	
+
 	public function duration() {
 		return	video_time($this->videodetails->duration);
 	}
+
 	public function views() {
 		return	$this->videodetails->views;
 	}
+
 	public function likes() {
 		return	$this->videodetails->liked;
 	}
+
 	public function dislikes() {
 		return	$this->videodetails->disliked;
 	}
+
 	public function published() {
 		return ($this->videodetails->pub == 1);
 	}
+
 	public function owner() {
 		return $this->videodetails->user_id;
 	}
+
 	public function rawauthor() {
 		return $this->videodetails->author->name;
 	}
+
 	public function author() {
 		return _html($this->videodetails->author->name);
 	}
+
 	public function authorgroup() {
 		return $this->videodetails->author->group_id;
 	}
+
 	public function rawavatar() {
 		return $this->videodetails->author->avatar;
 	}
+
 	public function avatar() {
 		return thumb_fix($this->videodetails->author->avatar);
 	}
+
 	public function authorlink() {
 		return profile_url($this->videodetails->user_id, $this->videodetails->author->name);
 	}
+
 	public function isvideo() {
 		return ($this->videodetails->media < 2);
 	}
+
 	public function ismusic() {
 		return ($this->videodetails->media > 1);
 	}
+
 	public function ispremium() {
 		return ($this->videodetails->ispremium == 1);
 	}
+
 	public function ispublished() {
 		return ($this->videodetails->pub == 1);
 	}
+
 	public function isfeatured() {
 		return ($this->videodetails->featured == 1);
 	}
+
 	public function ispublic() {
 		return ($this->videodetails->stayprivate == 0);
 	}
+
 	public function isprivate() {
 		return ($this->videodetails->stayprivate == 1);
 	}
+
 	public function isremote() {
 		return (not_empty($this->videodetails->remote));
 	}
+
 	public function remote() {
 		return	$this->videodetails->remote;
 	}
+
 	public function isembed() {
 		return (not_empty($this->videodetails->embed));
 	}
+
 	public function embed() {
 		return	$this->videodetails->embed;
 	}
+
 	public function hassource() {
 		return (not_empty($this->videodetails->source));
 	}
-	public function source() {
-		return ($this->videodetails->source);
-	}
-	public function islink() {
-		return (filter_var($this->videodetails->source, FILTER_VALIDATE_URL));	
-	}
-	public function isyoutube() {
-		return ( _contains($this->source(), 'youtube') || _contains($this->source(), 'youtu.be'));	
-	}
+
 	public function isupload() {
 		return ( ($this->source() == 'up') || _contains($this->source(), 'localfile'));	
 	}
@@ -330,35 +384,7 @@ class VideoUpdate {
 	public function error() {
 		return $this->errorlog;	
 	}
-	private function defaults() {
 
-		$video = new SingleVideo($this->id);
-		//Main video data
-		$fields['data'] =  array(
-		  'ispremium' => ($video->ispremium() ? '1' : '0'),
-		  'pub' =>  ($video->ispublished() ? '1' : '0'),
-		  'date' => $video->added(),
-		  'featured' => ($video->isfeatured() ? '1' : '0'),
-		  'stayprivate' => ($video->isprivate() ? '1' : '0'),
-		  'source' => $video->source(),
-		  'title' => $video->rawtitle(),
-		  'thumb' => $video->rawthumb(),
-		  'duration' => $video->seconds(),
-		  'category' => $video->rawcategorylist(),
-		  'views' => $video->views(),
-		  'liked' =>$video->likes(),
-		  'disliked' => $video->dislikes(),
-		  'nsfw' => ($video->nsfw() ? '1' : '0'),
-		  'embed' =>  $video->embed(),
-		  'remote' => $video->remote(),
-		  'description' => $video->rawdescription(),
-		  'srt' => $video->srt());
-		  //Separate tags
-		  $fields['tags'] = array();
-		  $fields['tags'] = $video->tags() ;
-		 
-		  return $fields;
-	}  
 	public function doupdate() {
 		$defaults = $this->defaults();
 		$changes = $tagchanges = array();
@@ -435,6 +461,37 @@ class VideoUpdate {
 			}
 	 return $send;
 	}
+
+	private function defaults() {
+
+		$video = new SingleVideo($this->id);
+		//Main video data
+		$fields['data'] =  array(
+		  'ispremium' => ($video->ispremium() ? '1' : '0'),
+		  'pub' =>  ($video->ispublished() ? '1' : '0'),
+		  'date' => $video->added(),
+		  'featured' => ($video->isfeatured() ? '1' : '0'),
+		  'stayprivate' => ($video->isprivate() ? '1' : '0'),
+		  'source' => $video->source(),
+		  'title' => $video->rawtitle(),
+		  'thumb' => $video->rawthumb(),
+		  'duration' => $video->seconds(),
+		  'category' => $video->rawcategorylist(),
+		  'views' => $video->views(),
+		  'liked' =>$video->likes(),
+		  'disliked' => $video->dislikes(),
+		  'nsfw' => ($video->nsfw() ? '1' : '0'),
+		  'embed' =>  $video->embed(),
+		  'remote' => $video->remote(),
+		  'description' => $video->rawdescription(),
+		  'srt' => $video->srt());
+		  //Separate tags
+		  $fields['tags'] = array();
+		  $fields['tags'] = $video->tags() ;
+		 
+		  return $fields;
+	}  
+
 	private function updatedescription($text) {
 		$this->db->query("UPDATE ".DB_PREFIX."description SET description='".toDb($text)."' WHERE vid = '".$this->id."'");
 		//$this->db->debug();
