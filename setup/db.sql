@@ -557,6 +557,6 @@ ALTER TABLE `#dbprefix#videos_tmp`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
-ALTER TABLE `#dbprefix#description `
+ALTER TABLE `#dbprefix#description`
   ADD FULLTEXT INDEX `FullTextDesc` (`description`);
 COMMIT;
