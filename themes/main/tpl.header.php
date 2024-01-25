@@ -33,7 +33,7 @@ if((typeof jQuery == "undefined") || !window.jQuery )
 {
    var script = document.createElement("script");
    script.type = "text/javascript";
-   script.src = "'.tpl().'styles/js/jquery.js";
+   script.src = "'.tpl().'scripts/jquery.min.js";
    document.getElementsByTagName(\'head\')[0].appendChild(script);
 }
 var acanceltext = "'._lang("Cancel").'";
