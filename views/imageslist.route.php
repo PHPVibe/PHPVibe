@@ -1,5 +1,5 @@
 <?php  //Global query options
-$options = DB_PREFIX."images.id,".DB_PREFIX."images.nsfw,".DB_PREFIX."images.title,".DB_PREFIX."images.date,".DB_PREFIX."images.user_id,".DB_PREFIX."images.source";
+$options = DB_PREFIX."images.id,".DB_PREFIX."images.source,".DB_PREFIX."images.nsfw,".DB_PREFIX."images.title,".DB_PREFIX."images.date,".DB_PREFIX."images.user_id,".DB_PREFIX."images.source";
 /* Define list to load */
 $interval = '';
 if(_get('sort'))
@@ -28,7 +28,7 @@ case mostliked:
 case mostcom:
 		$heading = ('Most commented images');	
         $heading_plus = _lang('Images with most comments');
-	    $vq = "select ".DB_PREFIX."images.id,".DB_PREFIX."images.title,".DB_PREFIX."images.user_id,".DB_PREFIX."images.source,".DB_PREFIX."images.views,".DB_PREFIX."images.liked,".DB_PREFIX."images.nsfw, ".DB_PREFIX."users.name as owner, ".DB_PREFIX."users.avatar , count(a.object_id) as cnt FROM ".DB_PREFIX."em_comments a LEFT JOIN ".DB_PREFIX."images ON a.object_id LIKE CONCAT('img-', ".DB_PREFIX."images.id) LEFT JOIN ".DB_PREFIX."users ON ".DB_PREFIX."images.user_id = ".DB_PREFIX."users.id WHERE ".DB_PREFIX."images.liked > 0 and ".DB_PREFIX."images.date < now() and pub > 0 group by a.object_id order by cnt desc ".this_limit();
+	    $vq = "select ".DB_PREFIX."images.id, ".DB_PREFIX."images.source, ".DB_PREFIX."images.title,".DB_PREFIX."images.user_id,".DB_PREFIX."images.source,".DB_PREFIX."images.views,".DB_PREFIX."images.liked,".DB_PREFIX."images.nsfw, ".DB_PREFIX."users.name as owner, ".DB_PREFIX."users.avatar , count(a.object_id) as cnt FROM ".DB_PREFIX."em_comments a LEFT JOIN ".DB_PREFIX."images ON a.object_id LIKE CONCAT('img-', ".DB_PREFIX."images.id) LEFT JOIN ".DB_PREFIX."users ON ".DB_PREFIX."images.user_id = ".DB_PREFIX."users.id WHERE ".DB_PREFIX."images.liked > 0 and ".DB_PREFIX."images.date < now() and pub > 0 group by a.object_id order by cnt desc ".this_limit();
 		
 		$active = mostcom;
 		break;		

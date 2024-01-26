@@ -71,7 +71,7 @@ and ".DB_PREFIX."videos.pub > 0 and ".DB_PREFIX."videos.date < now() ORDER BY ".
         }
     } else {
         /* Images */
-        $options = DB_PREFIX."images.id,".DB_PREFIX."images.date,".DB_PREFIX."images.title,".DB_PREFIX."images.user_id,".DB_PREFIX."images.views";
+        $options = DB_PREFIX."images.id, ".DB_PREFIX."images.source, ".DB_PREFIX."images.date,".DB_PREFIX."images.title,".DB_PREFIX."images.user_id,".DB_PREFIX."images.views";
         $vq = "select ".$options.", ".DB_PREFIX."users.avatar, ".DB_PREFIX."users.name as owner FROM ".DB_PREFIX."images LEFT JOIN ".DB_PREFIX."users ON ".DB_PREFIX."images.user_id = ".DB_PREFIX."users.id
 WHERE ".DB_PREFIX."images.category in (SELECT cat_id from ".DB_PREFIX."channels where cat_id = '".$channel->cat_id."' or cat_id in  (select  cat_id
 from    (select * from ".DB_PREFIX."channels

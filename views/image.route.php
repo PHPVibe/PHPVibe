@@ -65,7 +65,7 @@ LEFT JOIN " . DB_PREFIX . "users ON " . DB_PREFIX . "images.user_id = " . DB_PRE
         function lbox()
         {
             $lightbox = '
-<script type="text/javascript" src="' . tpl() . 'styles/js/jquery.fluidbox.min.js"></script>
+<script type="text/javascript" src="' . tpl() . 'scripts/jquery.fluidbox.min.js"></script>
 <script type="text/javascript">
 $(function () {
 	var
