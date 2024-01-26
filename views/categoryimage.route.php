@@ -1,1 +1,1 @@
-<?php include_once('_category.php');?>
+<?php include_once('category.route.php');?>
