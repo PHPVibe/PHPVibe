@@ -12,8 +12,8 @@ if ($images) {
 echo $blockextra.'<div class="row text-center"><div class="col-md-12 col-xs-12 gfluid '.$blockclass.'">';
 foreach ($images as $image) {
 	if(isset($image->id) && not_empty($image->id)) {
-		$source = str_replace('localimage', 'storage/'.get_option('mediafolder') ,$image->source);
-		$image->thumb = site_url().$source;
+	    
+		$image->thumb = site_url().'storage/'.get_option('mediafolder').'/'. $image->source;
 	if(isset($image->nsfw) && ($image->nsfw > 0) ) { $image->thumb = tpl().'images/nsfw.jpg';}
 			$title = _html(_cut($image->title, 370));
 			$full_title = _html(str_replace("\"", "",$image->title));
@@ -22,11 +22,12 @@ foreach ($images as $image) {
 		<div class="image-item item">
         <div class="image-content">
 		<a class="clip-link" data-id="'.$image->id.'" title="'.$full_title.'" href="'.$url.'">
-		<img data-name="'.$image->title.'" src="'.$image->thumb.'"/>
+		<img data-name="'.$image->title.'" src="'.thumb_fix($image->thumb).'"/>
         </a>
         </div>
 	    <div class="image-footer text-left">
-		<a href="'.profile_url($image->user_id, $image->owner).'" class="text-left owner-avatar"><img class="owner-avatar" data-name="'.$image->owner.'" src="'.thumb_fix($image->avatar, true, 56, 56).'"/>
+		<a href="'.profile_url($image->user_id, $image->owner).'" class="text-left owner-avatar">
+		<img class="owner-avatar" data-name="'.$image->owner.'" src="'.thumb_fix($image->avatar, true, 56, 56).'"/>
 		<span class="owner-name">@'._html($image->owner).'</span>
 		</a>
 		</div>
