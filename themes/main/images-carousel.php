@@ -10,8 +10,7 @@ if ($images) {
 
 echo $blockextra.'<div class="row text-center"><div class="loop-content owl-carousel '.$blockclass.'">';
 foreach ($images as $image) {
-	$source = str_replace('localimage', 'storage/'.get_option('mediafolder') ,$image->source);
-		$image->thumb = site_url().$source;
+		$image->thumb = site_url().'storage/'.get_option('mediafolder').'/'. $image->source;
 	if(isset($image->nsfw) && ($image->nsfw > 0) ) { $image->thumb = tpl().'images/nsfw.jpg';}
 			$title = _html(_cut($image->title, 370));
 			$full_title = _html(str_replace("\"", "",$image->title));
