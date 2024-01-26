@@ -12,7 +12,8 @@ if ($images) {
 echo $blockextra.'<div class="row text-center"><div class="col-md-12 col-xs-12 gfluid '.$blockclass.'">';
 foreach ($images as $image) {
 	if(isset($image->id) && not_empty($image->id)) {
-		$image->thumb = site_url().'storage/'.get_option('mediafolder').'/pictures/thumbs/'. $image->source;
+		$source = str_replace('localimage', 'storage/'.get_option('mediafolder') ,$image->source);
+		$image->thumb = site_url().$source;
 	if(isset($image->nsfw) && ($image->nsfw > 0) ) { $image->thumb = tpl().'images/nsfw.jpg';}
 			$title = _html(_cut($image->title, 370));
 			$full_title = _html(str_replace("\"", "",$image->title));
