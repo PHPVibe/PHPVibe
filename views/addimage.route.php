@@ -1,4 +1,7 @@
-<?php if (!is_user()) {
+<?php  include_once(CNC . '/ImageResize.php');
+use \Gumlet\ImageResize;
+
+if (!is_user()) {
     redirect(site_url() . 'login/');
 }
 $error = '';
@@ -19,6 +22,15 @@ if (isset($_POST['pic-title'])) {
                 $thumb = $savePath . $saveName . '.' . $ext;
                 $thumb = str_replace(ABSPATH . '/', '', $thumb);
                 $source = str_replace('storage/' . get_option('mediafolder'), '', $thumb);
+                $source  = ltrim( $source , '/');
+                //Thumnails generator
+
+                $thumbfile = $savePath .'thumb_' .$source ;
+                $original = $savePath . $saveName . '.' . $ext;
+                $resizer = new ImageResize($original);
+                $resizer->quality_jpg = 95;
+                $resizer->resizeToWidth(460);
+                $resizer->save($thumbfile);
 //Do the sql insert
                 $db->query("INSERT INTO " . DB_PREFIX . "images (`privacy`,`media`,`category`, `pub`,`source`, `user_id`, `date`,  `title`, `tags` , `views` , `liked` , `description`, `nsfw`) VALUES 
 ('" . intval(_post('priv')) . "','3','" . intval(_post('categ')) . "','" . intval(get_option('videos-initial')) . "','" . $source . "', '" . user_id() . "', now() , '" . toDb(_post('pic-title')) . "',  '" . toDb(_post('tags')) . "', '0', '0','" . toDb(_post('pic-desc')) . "','" . toDb(_post('nsfw')) . "')");
