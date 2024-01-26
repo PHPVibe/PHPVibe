@@ -18,7 +18,7 @@ if (isset($_POST['pic-title'])) {
             if (move_uploaded_file($_FILES['play-img']['tmp_name'], $savePath . $saveName . '.' . $ext)) {
                 $thumb = $savePath . $saveName . '.' . $ext;
                 $thumb = str_replace(ABSPATH . '/', '', $thumb);
-                $source = str_replace('storage/' . get_option('mediafolder'), 'localimage', $thumb);
+                $source = str_replace('storage/' . get_option('mediafolder'), '', $thumb);
 //Do the sql insert
                 $db->query("INSERT INTO " . DB_PREFIX . "images (`privacy`,`media`,`category`, `pub`,`source`, `user_id`, `date`,  `title`, `tags` , `views` , `liked` , `description`, `nsfw`) VALUES 
 ('" . intval(_post('priv')) . "','3','" . intval(_post('categ')) . "','" . intval(get_option('videos-initial')) . "','" . $source . "', '" . user_id() . "', now() , '" . toDb(_post('pic-title')) . "',  '" . toDb(_post('tags')) . "', '0', '0','" . toDb(_post('pic-desc')) . "','" . toDb(_post('nsfw')) . "')");
