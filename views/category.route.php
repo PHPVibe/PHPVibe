@@ -12,7 +12,12 @@ if(isset($channel->type) && ($channel->type > 1) ) {$typeofC =$channel->type; }
 // SEO Filters
 function modify_title( $text ) {
 global $channel;
-    return strip_tags(stripslashes(get_option('seo-channel-pre','').$channel->cat_name.get_option('seo-channel-post','')));
+  if ($channel->type <> 3) {
+        return strip_tags(stripslashes(get_option('seo-channel-pre', '') . $channel->cat_name . get_option('seo-channel-post', '')));
+    } else {
+        return strip_tags(stripslashes(get_option('seo-image-channel-pre', '') . $channel->cat_name . get_option('seo-image-channel-post', '')));
+
+    }
 }
 function modify_desc( $text ) {
 global $channel;
