@@ -580,8 +580,12 @@ function right_sidebar()
 
 function vibe_headers()
 {
+	if(function_exists('meta_add')) {
     echo apply_filters('vibe_meta_filter', meta_add());
+	}
+	if(function_exists('header_add')) {
     echo apply_filters('vibe_header_filter', header_add());
+	}
 }
 
 function vibe_footers()
@@ -1030,15 +1034,17 @@ function delete_image($id)
         if ($image) {
 //try to delete file to
 //Remove thumb
-            $thumb = $image->thumb;
-            if ($thumb && ($thumb != "storage/storage/uploads/noimage.png") && ($thumb != "storage/media/thumbs/xmp3.jpg")) {
-                $vurl = parse_url(trim($thumb, '/'));
-                if (!isset($vurl['scheme']) || $vurl['scheme'] !== 'http') {
-                    $thumb = ABSPATH . '/' . $thumb;
-//remove thumb
-                    remove_file($thumb);
-                }
-            }
+	if(isset($image->thumb) && not_empty($image->thumb)) {
+				$thumb = $image->thumb;
+				if ($thumb && ($thumb != "storage/storage/uploads/noimage.png") && ($thumb != "storage/media/thumbs/xmp3.jpg")) {
+					$vurl = parse_url(trim($thumb, '/'));
+					if (!isset($vurl['scheme']) || $vurl['scheme'] !== 'http') {
+						$thumb = ABSPATH . '/' . $thumb;
+						//remove thumb
+						remove_file($thumb);
+					}
+				}
+	}
         }
         $db->query("DELETE from " . DB_PREFIX . "images where id='" . intval($id) . "'");
         $db->query("DELETE from " . DB_PREFIX . "playlist_data where video_id='" . intval($id) . "' and playlist in (SELECT id from " . DB_PREFIX . "playlists where ptype = '2')");
