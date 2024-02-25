@@ -1648,34 +1648,36 @@ function isJson($string)
 }
 
 /* Function to extract video data */
-function _get_va($video, $ffmpeg)
-{
-    $time = 0;
-    $hours = 0;
-    $mins = 0;
-    $secs = 0;
-    $size = 0;
-    $command = $ffmpeg . " -i '" . $video . "' 2>&1 | grep Duration | cut -d ' ' -f 4 | sed s/,//";
-    $time = exec($command);
-    $regs = explode(":", $time);
-    if (isset($regs) && is_array($regs)) {
-        $hours = $regs [0] ? $regs [0] : null;
+function _get_va($video, $ffmpeg) {	
+	
+		$time = 0; $hours = 0; $mins = 0; $secs = 0;
+		$size = 0;
+    $command = $ffmpeg." -i '" . $video . "' 2>&1 | grep Duration | cut -d ' ' -f 4 | sed s/,//";    	
+    $time = exec($command);    
+	$regs = explode(":", $time);
+		if(isset($regs) && is_array($regs)) {
+		$hours = $regs [0] ? $regs [0] : null;
         $mins = $regs [1] ? $regs [1] : null;
         $secs = $regs [2] ? $regs [2] : null;
         $secs = round($secs);
-        $timesec = $hours * 3600 + $mins * 60 + $secs;
-    }
-
-    $wcommand = $ffmpeg . " -i '" . $video . "' 2>&1 | grep Video: | grep -Po '\d{3,5}x\d{3,5}' | cut -d'x' -f1";
-    $size = exec($wcommand);
-
-    return array(
-        'duration' => $timesec,
-        'durationreadable' => $time,
-        'height' => $size,
-        'hours' => $hours,
-        'mins' => $mins,
-        'secs' => $secs
+		$timesec = $hours *  3600 + 	$mins * 60 + $secs;
+		} 
+	
+	$ffcommand = "ffprobe -v error -show_entries stream=width,height -of default=noprint_wrappers=1:nokey=1 " . $video ;	
+	$size = (int)exec($ffcommand); 
+	//* Fallback to ffmpeg raw */	
+	if(is_empty($size) || ($size < 1))	 {
+	$wcommand = $ffmpeg." -i '" . $video . "' 2>&1 | grep Video: | grep -Po '\d{3,5}x\d{3,5}' | cut -d'x' -f1";	
+	$size = exec($wcommand);  
+	}
+	
+    return array (            
+            'duration' => $timesec,
+			'durationreadable' => $time,
+            'height' => $size,
+			'hours' => $hours,
+            'mins' => $mins,
+            'secs' => $secs			
     );
 
 }
