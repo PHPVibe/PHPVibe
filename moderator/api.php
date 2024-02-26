@@ -24,21 +24,20 @@ update_option('site-offline', '0');
 }
 //Language export
 if(_get('action') == "exportlang") {
-if(_get('id')) {
-$tid = _get('id');	
-$lang = $db->get_row("SELECT * from ".DB_PREFIX."languages where term_id = $tid");	
-if($lang) {
-$lang_file = INC.'/langs/'.$lang->lang_code.'.json';
-//echo $lang_file;
-if (file_exists($lang_file)) {
-$row = file_get_contents($lang_file);
-header('Content-Type: application/json');
-header('Content-Description: File Transfer');
-header('Content-Disposition: attachment; filename="lang-'.$lang->lang_code.'-'.date('Y-m-d').'.json"');
-echo json_encode($row, true);
-}
+
+$jsonfile = ABSPATH.'/storage/langs/'.escape(_get('id')).'.json';
+if(file_exists($jsonfile)) {
+$lang_file = $jsonfile;
+echo $lang_file;
+		if (file_exists($lang_file)) {
+			$row = file_get_contents($lang_file);
+			header('Content-Type: application/json');
+			header('Content-Description: File Transfer');
+			header('Content-Disposition: attachment; filename="lang-'.$lang->lang_code.'-'.date('Y-m-d').'.json"');
+			echo json_encode($row, true);
+		}
 }	
-}
+
 //end export
 }
 
