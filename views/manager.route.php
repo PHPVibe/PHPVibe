@@ -42,7 +42,7 @@ $db->query("UPDATE  ".DB_PREFIX."videos SET thumb='".toDb($_POST['remote-thumb']
 if(!isset($category) && isset($_POST['categ'])) {
 $category = implode(',',$_POST['categ']);
 }
-$db->query("UPDATE  ".DB_PREFIX."videos SET title='".toDb(_post('title'))."',private='".toDb(_post('priv'))."', duration='".intval(_post('duration') )."', category='".toDb($category)."',  nsfw='".intval(_post('nsfw') )."'  WHERE user_id= '".user_id()."' and id = '".intval($_POST['edited-video'])."'");
+$db->query("UPDATE  ".DB_PREFIX."videos SET title='".toDb(_post('title'))."', stayprivate='".toDb(_post('priv'))."', duration='".intval(_post('duration') )."', category='".toDb($category)."',  nsfw='".intval(_post('nsfw') )."'  WHERE user_id= '".user_id()."' and id = '".intval($_POST['edited-video'])."'");
 $db->query("UPDATE  ".DB_PREFIX."description SET description='".toDb(_post('description') )."' where vid = '".intval($_POST['edited-video'])."'");
 //add tags
 if(_post('tags')){
