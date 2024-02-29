@@ -354,6 +354,10 @@ var $videodetails = null;
 }
 /* Video updater */
 class VideoUpdate {
+    var $error  = null;
+    var $errorlog  = null;
+    var $db  = null;
+
 	private $id;
 	private $items;
     public function __construct($id)     { 
