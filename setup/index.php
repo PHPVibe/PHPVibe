@@ -186,7 +186,7 @@ switch ($handler) {
 			}
 			
 		if($error > 0) {
-        echo '<p class="full pad20 text-center">You may be looking for the <a target="_blank" href="https://old.phpvibe.com/installing-phpvibe/">configuration file</a>.</p>';
+        echo '<p class="full pad20 text-center">You may be looking for the <a target="_blank" href="https://forums.phpvibe.com/how-tos/install-tutorial-installing-phpvibe/">configuration file</a>.</p>';
 		echo '	<div class="row text-center">
 		<div class="col-12 top30 text-center">
 		<a class="button outline dark" href="index.php?step=3">Continue</a><br>

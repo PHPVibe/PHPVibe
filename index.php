@@ -3,20 +3,23 @@
 $sttime = microtime(true);
 // Security
 if (!defined('in_phpvibe'))
-    define('in_phpvibe', true);
+define('in_phpvibe', true);
 // Root
 if (!defined('ABSPATH'))
     define('ABSPATH', str_replace('\\', '/', dirname(__FILE__)));
-//Check if installed
-if (!is_readable('vibe_config.php') || is_readable('hold')) {
-    echo '<div style="padding:10% 20%; display:block; color:#fff; background:#ff604f"><h1>Hold on!</h1>';
-    echo '<h3> The configuration file needs editing OR/AND the "hold" file exists on your server! </h3><br />';
-    echo '<a href="setup/index.php"><h2>RUN PHPVibe\'s SETUP</h2></a></strong>';
-    echo '</div>';
-    die();
-}
 //Include configuration
 require_once(ABSPATH . '/vibe_config.php');
+//Check if installed
+if (
+    !is_readable('vibe_config.php') 
+	|| is_readable('hold.json')
+    || (DB_USER == 'database username')
+	|| (SITE_URL == 'https://yoursiteurl.com/')
+) {
+	include_once(ABSPATH . '/app/phpvibe/dosetup.php');
+   
+}
+
 //Check session start
 if (!isset($_SESSION)) {
     session_start();

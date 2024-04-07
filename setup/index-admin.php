@@ -104,12 +104,12 @@ echo "<div class=\"msg-info\">You have ".$checked." administrators so far</div>"
 }	
 if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['pass1']) && isset($_POST['pass2'])){
 if($_POST['pass1'] == $_POST['pass2']) {
-$msg = '<div class="msg-win">All done. Remember to remove the file called "hold" in root.</div>';
+$msg = '<div class="msg-win">All done. Remember to remove the file called "hold.json" in root.</div>';
 $sql = "INSERT INTO ".DB_PREFIX."users (name,email,type,lastlogin,date_registered,group_id,password,avatar)"
  . " VALUES ('" . $db->escape($_POST['name']) . "','" . $db->escape($_POST['email']) . "','core', now(), now(), '1', '".sha1($_POST['pass1'])."', 'storage/uploads/def-avatar.jpg')";
 $db->query($sql);
 $checked++; 
-do_remove_file_now(ABSPATH.'/hold'); 
+do_remove_file_now(ABSPATH.'/hold.json'); 
 } else {
 $msg = '<div class="msg-warning">Passwords do not match</div>';
 }
@@ -159,16 +159,16 @@ $msg = '<div class="msg-warning">Passwords do not match</div>';
 <?php
 if($checked > 0) { 
 echo '<div class="msg-hint">Seems there is already an admin user in the database, so you are pretty much done.</div>';
-if(is_readable(ABSPATH.'/hold')){
+if(is_readable(ABSPATH.'/hold.json')){
 echo '<section class="panel panel-danger">
 <span class="label label-danger">One last thing</span>
-<div style="padding:25px 15px;"> Remove the file called "hold" in the root for your website to be online.</div></section>';
+<div style="padding:25px 15px;"> Remove the file called "hold.json" in the root for your website to be online.</div></section>';
 }
 }
 if($checked > 0) {
 echo '<section id="done" class="panel panel-blue">
 <span class="label label-primary">Setup is done</span>
-<div style="padding:25px 15px;">Head to <a href="'.str_replace("setup",ADMINCP,$base_href).'">/'.ADMINCP.'</a> for the admin panel. <br> Thank you for choosing PHPVibe!';
+<div style="padding:25px 15px;">Head to <a href="'.str_replace("setup", ADMINCP, $base_href).'">/'.ADMINCP.'</a> for the admin panel. <br> Thank you for choosing PHPVibe!';
 echo '<div class="form-group form-material floating">
 <a class="btn btn-large btn-primary pull-right" href="'.$site_url.ADMINCP.'" target="_blank">Setup is complete. Continue</a>
 </div></div></section>';

@@ -128,13 +128,13 @@ $passed =  '<div class="oksign">
 	</span>
 	</div>';	
 	
-echo '<h4>Basics</h4>';	
+echo '<h4>Basic requirements</h4>';	
 
 if (phpversion() < 7.3) {
 echo '<div class="lillist">'.$aerror.' PHPVibe needs PHP version 8 or at least a 7.3 (your version is '.phpversion().' )</div>';
 $error++;
 }  else {
- echo '<div class="lillist">'.$passed.' PHP ('.phpversion().') is enabled. PHP 7.3+ is needed, 8 is recommended.</div>';
+ echo '<div class="lillist">'.$passed.' PHP ('.phpversion().') is ok. (PHP 7.3-8.2 tested)</div>';
 }
  if(function_exists('mysqli_connect')) {
  echo '<div class="lillist">'.$passed.' MySqli is enabled.</div>';

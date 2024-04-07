@@ -17,7 +17,7 @@ if( !defined( 'in_phpvibe' ) )
 	define( 'in_phpvibe', true);
 // Configs
 require_once( ABSPATH.'/vibe_config.php' );
-require_once( ABSPATH.'/vibe_setts.php' );
+
 // Sql db classes
 require_once( CNC.'/ez_sql_core.php' );require_once( CNC.'/ez_sql_mysqli.php' );
 	  /* Define live db for MySql Improved */
