@@ -4,7 +4,7 @@ $spot = (isset($_POST['ad_spot']) && !nullval($_POST['ad_spot'])) ? $_POST['ad_s
 $db->query("INSERT INTO ".DB_PREFIX."ads (`ad_spot`, `ad_type`, `ad_content`, `ad_title`) VALUES
 ('".$spot."', '".intval($_POST['type'])."', '".addslashes($_POST['content'])."', '".$db->escape($_POST['name'])."')
 ");
-echo '<div class="msg-info">Ad '.$_POST['name'].' created</div>';
+echo '<div class="msg-info">Ad '.filter_var($_POST['name'], FILTER_SANITIZE_SPECIAL_CHARS).' created</div>';
  $db->clean_cache();
 }
 ?>

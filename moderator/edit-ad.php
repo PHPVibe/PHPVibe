@@ -7,7 +7,7 @@ $db->query("UPDATE ".DB_PREFIX."ads set
 `ad_content` = '".addslashes($_POST['content'])."',
 `ad_title` = '".$db->escape($_POST['name'])."'
 WHERE ad_id = $id");
-echo '<div class="msg-info">Ad '.$_POST['name'].' updated</div>';
+echo '<div class="msg-info">Ad '.filter_var($_POST['name'], FILTER_SANITIZE_SPECIAL_CHARS).' updated</div>';
 }
 $ad = $db->get_row("select * from ".DB_PREFIX."ads WHERE ".DB_PREFIX."ads.ad_id =$id");
 
