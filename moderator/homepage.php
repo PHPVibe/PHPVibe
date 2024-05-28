@@ -2,7 +2,7 @@
 if(isset($_GET['delete']))
 {
  $db->query("DELETE from " . DB_PREFIX . "homepage WHERE id = '" . intval($_GET['delete']) . "'");
- echo '<div class="msg-info">You deleted the home box with id : ' . $_GET['delete'] . '</div>';
+ echo '<div class="msg-info">You deleted the home box with id : ' . filter_var($_GET['delete'], FILTER_SANITIZE_SPECIAL_CHARS) . '</div>';
 }
 if(isset($_POST['channels-list'])) {
 $insertvideo = $db->query("INSERT INTO " . DB_PREFIX . "homepage (`title`, `type`, `ident`,`total`, `ord`, `querystring` ,`car`) VALUES ('" . $db->escape($_POST['title']) . "', '6', '" . $db->escape($_POST['thequeries']) . "', '" . $db->escape($_POST['number']) . "', '1', '" . $db->escape($_POST['thequeries']) . "', '" . $db->escape($_POST['car']) . "')");

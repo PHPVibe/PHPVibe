@@ -41,8 +41,8 @@ if (is_admin()) {  admin_header();
    if(_get('sk')) {  /* security */$file = ADM.'/'.str_replace(array("/",":","http","www"),array("","","",""),_get("sk")).'.php'; 
    if(is_readable( $file )) {  require_once($file); 
     } else if(has_action('adm-'._get('sk'))){  do_action('adm-'._get('sk')); 
-  	 }else {  echo 'No page <strong>'._get("sk").'.php</strong> found<br />'; 
-  echo 'No action <strong>adm-'._get("sk").'</strong> found<br />'; 
+  	 }else {  echo 'No page <strong>'.filter_var(_get("sk"), FILTER_SANITIZE_SPECIAL_CHARS).'.php</strong> found<br />'; 
+  echo 'No action <strong>adm-'.filter_var(_get("sk"), FILTER_SANITIZE_SPECIAL_CHARS).'</strong> found<br />'; 
    } } else {  require_once( ADM.'/dashboard.php' ); 
    }echo '</div></div>'; 
   echo '</div></div>'; 
@@ -90,7 +90,7 @@ echo  '<li class="inline inline-block">
 		</li> ';
 
 if(isset($_GET['sk'])) {
-	$curent = trim($_GET['sk']);
+	$curent = filter_var(trim($_GET['sk']), FILTER_SANITIZE_SPECIAL_CHARS);
 	if(isset($descrie[$curent])){ $curent = $descrie[$curent];  }
 echo  ' <li class="inline inline-block"> 
  '.ucfirst($curent).'  </li> ';		

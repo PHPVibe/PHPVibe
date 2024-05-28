@@ -1,7 +1,7 @@
 <?php 
 if(isset($_GET['delete'])) {
 $db->query( "DELETE FROM  ".DB_PREFIX."reports WHERE r_id = '".$_GET['delete']."'" );
-echo '<div class="msg-info">Report #'.$_GET['delete'].' removed.</div>';
+echo '<div class="msg-info">Report #'.filter_var($_GET['delete'], FILTER_SANITIZE_SPECIAL_CHARS).' removed.</div>';
 } 
 if(isset($_GET['unvid'])) {
 unpublish_video(intval($_GET['unvid']));
