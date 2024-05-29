@@ -18,28 +18,32 @@ $thumbz  = str_replace(ABSPATH.'/' ,'',$thumb);
 $thumbz = toDb($_POST['remote-img']);
 }
 $thumb = empty($thumbz)? 'storage/uploads/noimage.png' : $thumbz ;
-
+$token = uniqid();
 //Insert video
 if(_post('type') < 2) {
+	
 //if it's web link
-$db->query("INSERT INTO ".DB_PREFIX."videos (`stayprivate`,`pub`,`source`, `user_id`, `date`, `thumb`, `title`, `duration` ,  `liked` , `category`, `nsfw`, `views`, `featured`) VALUES 
-('".intval(_post('priv'))."','".intval(_post('pub'))."','"._post('file')."', '"._post('owner')."', now() , '".$thumb."', '".toDb(_post('title')) ."', '".$sec."',  '0','".toDb(_post('categ'))."','".toDb(_post('nsfw'))."','".intval(_post('views'))."','".intval(_post('featured'))."')");	
+$db->query("INSERT INTO ".DB_PREFIX."videos (`token`,`stayprivate`,`pub`,`source`, `user_id`, `date`, `thumb`, `title`, `duration` ,  `liked` , `category`, `nsfw`, `views`, `featured`) VALUES 
+('".$token."','".intval(_post('priv'))."','".intval(_post('pub'))."','"._post('file')."', '"._post('owner')."', now() , '".$thumb."', '".toDb(_post('title')) ."', '".$sec."',  '0','".toDb(_post('categ'))."','".intval(_post('nsfw'))."','".intval(_post('views'))."','".intval(_post('featured'))."')");	
 } else {
 //if it's remote file
-$db->query("INSERT INTO ".DB_PREFIX."videos (`stayprivate`,`pub`,`remote`, `user_id`, `date`, `thumb`, `title`, `duration`, `liked` , `category`, `nsfw`, `views`, `featured`) VALUES 
-('".intval(_post('priv'))."','".intval(_post('pub'))."','"._post('file')."', '"._post('owner')."', now() , '".$thumb."', '".toDb(_post('title')) ."', '".$sec."', '0','".toDb(_post('categ'))."','".toDb(_post('nsfw'))."','".intval(_post('views'))."','".intval(_post('featured'))."')");	
+$db->query("INSERT INTO ".DB_PREFIX."videos (`token`,`stayprivate`,`pub`,`remote`, `user_id`, `date`, `thumb`, `title`, `duration`, `liked` , `category`, `nsfw`, `views`, `featured`) VALUES 
+('".$token."','".intval(_post('priv'))."','".intval(_post('pub'))."','"._post('file')."', '"._post('owner')."', now() , '".$thumb."', '".toDb(_post('title')) ."', '".$sec."', '0','".toDb(_post('categ'))."','".intval(_post('nsfw'))."','".intval(_post('views'))."','".intval(_post('featured'))."')");	
 }
-$doit = $db->get_row("SELECT id from ".DB_PREFIX."videos where user_id = '".user_id()."' order by id DESC limit 0,1");
-add_activity('4', $doit->id);
+//$doit = $db->get_row("SELECT id from ".DB_PREFIX."videos where user_id = '".user_id()."' order by id DESC limit 0,1");
+$doit = getVideobyToken($token);
+if($doit) {	
+	add_activity('4', $doit);
 //add tags
-if(_post('tags')){
-	foreach (explode(',',_post('tags')) as $tagul){
-		save_tag($tagul,$doit->id);
+	if(_post('tags')){
+		foreach (explode(',',_post('tags')) as $tagul){
+			save_tag($tagul,$doit);
+		}
 	}
-}
 //add description
-save_description($doit->id,_post('description'));
-add_activity('4', $doit->id);
+	save_description($doit,_post('description'));
+	add_activity('4', $doit);
+}
 echo '<div class="msg-info">'._post('title').' '._lang("created successfully.").' <a href="'.admin_url("videos").'">'._lang("Manage videos.").'</a></div>';
 }elseif(_post('vfile') || _post('vremote')) { 
 if(_post('vfile')){
