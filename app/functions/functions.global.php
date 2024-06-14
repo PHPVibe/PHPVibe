@@ -1526,7 +1526,7 @@ function get_soundcloud($url)
 function is_insecure_file($file)
 {
     $fa = explode(".", $file);
-    $bad = array("php", "php1", "php2", "php3", "php4", "php5", "phtml", "exe", "php6", "php7", "php8", "pl");
+    $bad = array("php", "php1", "php2", "php3", "php4", "php5", "phtml", "exe", "php6", "php7", "php8", "pl", "phar");
     $fa = array_map('strtolower', $fa);
     $a1_flipped = array_flip($fa);
     $a2_flipped = array_flip($bad);
