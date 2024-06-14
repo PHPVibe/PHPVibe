@@ -43,7 +43,7 @@ include_once('setheader.php');
 				<div class="form-group">
 				<label class="control-label">Website Name</label>
 					<div class="controls">
-						<input type="text" name="site-logo-text" class="col-md-12" value="<?php echo get_option('site-logo-text'); ?>" /> 	
+						<input type="text" name="site-logo-text" class="col-md-12" value="<?php echo filter_var(get_option('site-logo-text'), FILTER_SANITIZE_SPECIAL_CHARS); ?>" /> 	
 									
 							<span class="help-block" id="limit-text">Global site name.</span>
 							
