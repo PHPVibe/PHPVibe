@@ -8,7 +8,7 @@ Website: https://phpvibe.com/
 
 Community: https://forums.phpvibe.com/
 
-Say hi to Marius:  https://www.linkedin.com/in/marius-iulian-patrascu-32455b240/
+Say hi to Marius:  [https://www.linkedin.com/in/marius-dev/](https://www.linkedin.com/in/marius-dev/)
 
 
 # Video & Multimedia CMS: Unleash the Power of PHPVibe
