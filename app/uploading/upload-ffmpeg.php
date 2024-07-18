@@ -7,7 +7,7 @@ $ip = ABSPATH.'/storage/'.get_option('mediafolder').'/thumbs/';	;
 
 $allowedExts = array();
 $maxFileSize = 0;
-$token = toDb($_GET['token']);
+$token = toDb(TokenCleaner($_GET['token']));
 $new_name = $token;
 
 
