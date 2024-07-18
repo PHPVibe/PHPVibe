@@ -3,7 +3,7 @@ if(is_user()) {
 $target_path = ABSPATH.'/storage/'.get_option('mediafolder')."/";
 $allowedExts = array();
 $maxFileSize = 0;
-$token = toDb($_GET['token']);
+$token = toDb(TokenCleaner($_GET['token']));
 $new_name = $token;
 
 
