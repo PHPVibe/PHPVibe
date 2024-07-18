@@ -2212,5 +2212,14 @@ function get_album_img($pl)
         return false;
     }
 }
+function TokenCleaner($inputString) {
+    // Step 1: Remove non-alphanumeric characters except spaces
+    $cleanedString = preg_replace('/[^A-Za-z0-9\s]/', '', $inputString);
 
+    // Step 2: Remove specific words
+    $unwantedWords = ["php", "htaccess"];
+   $resultString =  str_replace($unwantedWords, array('',''), $cleanedString);
+
+    return $resultString;
+}
 ?>
