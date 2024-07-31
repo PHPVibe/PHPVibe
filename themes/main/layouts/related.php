@@ -1,12 +1,13 @@
 <?php $seenvids = array();
 $hs = uHistory();
 if (not_empty($hs)) {
-    $seenvids = @explode(',', uHistory());
+    $seenvids = explode(',', $hs);
+    $seened = $video->id . ',' . $hs;
+    $noseen = "AND " . DB_PREFIX . "videos.id NOT IN (" . $seened . ")";
+} else {
+    $noseen = "AND " . DB_PREFIX . "videos.id <> " . intval($video->id);
+    $seenvids[1] = $video->id;
 }
-$seened = $video->id;
-
-$seened = rtrim($seened, ",");
-$noseen = "AND " . DB_PREFIX . "videos.id not in (" . $seened . ")";
 if (get_option('RelatedSource', '0') == 1) {
     if (isset($video->category) && not_empty($video->category)) {
         $result = $cachedb->get_results("SELECT " . DB_PREFIX . "videos.title," . DB_PREFIX . "videos.id as vid," . DB_PREFIX . "videos.thumb, " . DB_PREFIX . "videos.views," . DB_PREFIX . "videos.duration," . DB_PREFIX . "users.name, " . DB_PREFIX . "users.id as owner, " . DB_PREFIX . "users.group_id  FROM " . DB_PREFIX . "videos LEFT JOIN " . DB_PREFIX . "users ON " . DB_PREFIX . "videos.user_id = " . DB_PREFIX . "users.id where " . DB_PREFIX . "videos.category in (" . toDb($video->category) . ") and " . DB_PREFIX . "videos.pub > 0 " . $noseen . " and " . DB_PREFIX . "videos.media = '" . $video->media . "'  ORDER BY " . DB_PREFIX . "videos.id DESC limit 0," . get_option('related-nr'));
