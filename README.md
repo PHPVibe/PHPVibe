@@ -2,7 +2,7 @@
 > PHPVibe used to be a big deal, but the world has moved away from video platforms.
 
 > [!CAUTION]
-> PHPVibe has now limited development and no support, use it at your own risk.
+> PHPVibe has now no development and no support, use it at your own risk. The premium plugins are now shared here, at GitHub.
 
 # PHPVibe - FREE, OPEN SOURCE VIDEO CMS
 ## A full multimedia solution, it can be the perfect framework for your video, image, or music website, or why not? All in one!
