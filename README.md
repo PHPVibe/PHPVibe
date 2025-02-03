@@ -1,5 +1,5 @@
 > [!NOTE] 
-> PHPVibe used to be a big deal, but the world has moved away from video platforms.
+> PHPVibe used to be a big deal, but the world has moved away from classic video sharing platforms.
 
 > [!CAUTION]
 > PHPVibe has now no development and no support, use it at your own risk. The premium plugins are now shared here, at GitHub.
